@@ -6,9 +6,9 @@ function($scope){
 }]);
 
 $scope.posts = [
-  'post 1',
-  'post 2',
-  'post 3',
-  'post 4',
-  'post 5'
+  {title: 'post1', upvotes: 5},
+  {title: 'post2', upvotes: 2}
+  {title: 'post3', upvotes: 15}
+  {title: 'post4', upvotes: 9}
+  {title: 'post5', upvotes: 4}
 ];
