@@ -6,6 +6,7 @@
   </head>
   <body ng-app="flapperNews" ng-controller="MainCtrl">
     <div ng-repeat="post in posts | orderBy: '-upvotes'">
+      <span ng-click="incrementUpvotes(post)">^</span>
       {{post.title}} - upvotes: {{post.upvotes}}
     </div>
     <form ng-submit="addPost()">
