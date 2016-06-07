@@ -50,6 +50,12 @@ function($scope, posts){
   $scope.incrementUpvotes = function(post) {
     post.upvotes += 1;
   };
+}])
+
+.controller('PostsCtrl', [
+'$scope',
+'$stateParams',
+'posts',
+function($scope, $stateParams, posts){
+
 }]);
-
-
