@@ -31,7 +31,11 @@
           <span ng-hide="post.link">
             {{post.title}}
           </span>
+          <span>
+          <a href="#/posts/{{$index}}">Comments</a>
+          </span>
         </span>
+
       </div>
 
       <form ng-submit="addPost()"
