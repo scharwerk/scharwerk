@@ -9,7 +9,7 @@ function($stateProvider, $urlRouterProvider) {
       url: '/home',
       templateUrl: '/home.html',
       controller: 'MainCtrl'
-    });
+    })
 
     .state('posts', {
       url: '/posts/{id}',
@@ -52,11 +52,4 @@ function($scope, posts){
   };
 }]);
 
-.controller('PostsCtrl', [
-'$scope',
-'$stateParams',
-'posts',
-function($scope, $stateParams, posts) {
-
-}]);
 
