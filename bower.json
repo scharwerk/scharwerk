@@ -1,0 +1,19 @@
+{
+  "name": "scharwerk",
+  "homepage": "https://github.com/chmen/scharwerk",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.6"
+  }
+}
