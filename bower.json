@@ -12,8 +12,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.5.6",
-    "angular-ui-router": "^0.3.1",
-    "bootstrap": "^3.3.6"
+    "foundation-apps": "~1.2.0"
   }
 }

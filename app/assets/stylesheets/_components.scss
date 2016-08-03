@@ -1,0 +1,46 @@
+#sidebar {
+	background: #607D8B;
+
+	h1 {
+		color: #FFFFFF;
+	}
+	p {
+		font-size: 120%;
+		color: #CFD8DC;
+	}
+}
+#top,
+#bottom {
+	height: 50%;
+	background: #455A64;
+	padding: 1em;
+}
+
+.edit-content {
+	padding: 4%;
+}
+.textarea-page {
+	background: #FFFFFF;
+	padding: 5% 7%;
+
+	textarea {
+		line-height: 150%;
+
+		height: 80em;
+	}
+}
+
+@mixin font-scale()
+{
+  $i: 1;
+  @while $i <= 10
+  {
+    @media all and (min-width: rem-calc(980) + rem-calc(100) * $i) {
+    	.textarea-page textarea {
+    		font-size: 1em + 0.1em * $i; 
+    	}
+    }
+    $i: $i + 1;
+  }
+}
+@include font-scale();
