@@ -7,7 +7,7 @@ angular.module('flapperNews')
 }])
 
 o.getAll = function() {
-	return $http.get('/posts.json').success(function(data){
-		angular.copy(data, o.posts);
-	});
+  return $http.get('/posts.json').success(function(data){
+    angular.copy(data, o.posts);
+  });
 };
