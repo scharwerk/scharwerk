@@ -12,7 +12,6 @@
     "tests"
   ],
   "dependencies": {
-    "foundation-apps": "~1.2.0",
-    "angular-component.js": "^0.1.2"
+    "angular": "^1.5.8"
   }
 }

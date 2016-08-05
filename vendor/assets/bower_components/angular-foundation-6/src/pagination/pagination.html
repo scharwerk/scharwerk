@@ -1,0 +1,12 @@
+<ul class="pagination" role="navigation" aria-label="Pagination">
+  <li ng-repeat="page in pages"
+    ng-class="{
+        'pagination-previous': $first,
+        'pagination-next': $last,
+        current: page.active,
+        unavailable: page.disabled
+        }">
+    <a ng-if="!page.active" ng-click="selectPage(page.number)">{{page.text}}</a>
+    <span ng-if="page.active">{{page.text}}</span>
+  </li>
+</ul>

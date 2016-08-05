@@ -1,0 +1,58 @@
+<div ng-controller="DropdownCtrl">
+
+  <dropdown-toggle>
+    <toggle><p><a>Click me for a dropdown-toggle, yo!</a></p></toggle>
+    <pane>
+      <ul class="menu vertical">
+        <li ng-repeat="choice in items">
+          <a>{{choice}}</a>
+        </li>
+      </ul>
+    </pane>
+  </dropdown-toggle>
+
+  <dropdown-toggle pane-align="right">
+    <toggle>
+      <a class="dropdown button large">dropdown-toggles can also have links!</a>
+    </toggle>
+    <pane>
+      <ul class="menu vertical">
+        <li ng-repeat="(label, url) in linkItems">
+          <a href="{{url}}" target="_blank">{{label}}</a>
+        </li>
+      </ul>
+    </pane>
+  </dropdown-toggle>
+
+  <div class="button-group">
+    <a class="button">Primary Action</a>
+    <dropdown-toggle close-on-click="true" pane-align="center">
+      <toggle>
+        <a class="dropdown button arrow-only">
+          <span class="show-for-sr">Show menu</span>
+        </a>
+      </toggle>
+      <pane>
+        <ul class="menu vertical">
+          <li ng-repeat="choice in items">
+            <a>{{choice}}</a>
+          </li>
+        </ul>
+      </pane>
+    </dropdown-toggle>
+  </div>
+
+  <dropdown-toggle toggle-on-hover="true">
+    <toggle>
+      <a class="dropdown button large">Hover over me!</a>
+    </toggle>
+    <pane>
+        <ul class="menu vertical">
+          <li ng-repeat="choice in items">
+            <a>{{choice}}</a>
+          </li>
+        </ul>
+    </pane>
+  </dropdown-toggle>
+
+</div>

@@ -1,0 +1,90 @@
+<div ng-controller="AbideDemoCtrl">
+  <div ng-if="valid == false" class="alert callout" style="display: none;">
+      <p><i class="fi-alert"></i> There are some errors in your form.</p>
+  </div>
+  <div ng-if="valid == true" class="success callout" style="display: none;">
+      <p><i class="fi-alert"></i> There are no errors in your form! Yay!</p>
+  </div>
+  <form name="form" ng-submit="submit()" novalidate>
+    <div class="row">
+      <div abide-wrap class="small-12 columns">
+        <label>Number Required
+          <input abide-input name="number-req" ng-model="number" type="text" placeholder="1234" aria-describedby="exampleHelpText" required pattern="number">
+          <span class="form-error">
+            Yo, you had better fill this out, it's required.
+          </span>
+        </label>
+        <p abide-msg="required">Here's how you use this input field!</p>
+      </div>
+      <div abide-wrap class="small-12 columns">
+        <label>Password Required
+          <input abide-input name="qpass-req" ng-model="password" type="password" placeholder="yeti4preZ" aria-describedby="exampleHelpText" required>
+          <span class="form-error">
+            I'm required!
+          </span>
+        </label>
+        <p abide-msg="required">Enter a password please.</p>
+      </div>
+<!--       <div abide-wrap class="small-12 columns">
+        <label>Re-enter Password
+          <input  abide-input name="re-pass-req" type="password" placeholder="yeti4preZ" aria-describedby="exampleHelpText2" required pattern="alpha_numeric">
+          <span class="form-error">
+            Hey, passwords are supposed to match!
+          </span>
+        </label>
+        <p class="help-text">This field is using the `data-equalto="password"` attribute, causing it to match the password field above.</p>
+        <span abide-msg="required">Please select one</span>
+      </div> -->
+    </div>
+    <div class="row">
+      <div abide-wrap class="medium-6 columns">
+        <label>URL Pattern, not required, but throws error if it doesn't match the Regular Expression for a valid URL.
+          <input abide-input name="url"  ng-model="url" type="text" placeholder="http://foundation.zurb.com" pattern="url">
+        </label>
+        <p abide-msg="url">Please select one</p>
+      </div>
+      <div abide-wrap class="medium-6 columns">
+        <label>European Cars, Choose One, it can't be the blank option.
+          <select abide-input ng-model="cars" name="cars" required>
+            <option value=""></option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
+        </label>
+        <p abide-msg="required">Please select one</p>
+      </div>
+    </div>
+    <div class="row">
+      <fieldset abide-wrap class="large-6 columns">
+        <legend>Choose Your Favorite, and this is required, so you have to pick one.</legend>
+        <input abide-input ng-model="fav" type="radio" name="pokemon" value="Red"><label for="pokemonRed">Red</label>
+        <input abide-input type="radio" ng-model="fav" name="pokemon" value="Blue" required><label for="pokemonBlue">Blue</label>
+        <input abide-input type="radio" ng-model="fav" name="pokemon" value="Yellow"><label for="pokemonYellow">Yellow</label>
+        <p abide-msg="required">Please select one</p>
+      </fieldset>
+<!--       <fieldset abide-wrap class="large-6 columns">
+        <legend>Choose Your Favorite - not required, you can leave this one blank.</legend>
+        <input abide-input type="radio" name="pockets" value="Red"><label for="pocketsRed">Red</label>
+        <input type="radio" name="pockets" value="Blue"><label for="pocketsBlue">Blue</label>
+        <input type="radio" name="pockets" value="Yellow"><label for="pocketsYellow">Yellow</label>
+        <span abide-msg="required">Please select one</span>
+      </fieldset> -->
+<!--       <fieldset class="large-6 columns">
+        <legend>Check these out</legend>
+        <input abide-input name="check" type="checkbox"><label for="checkbox1">Checkbox 1</label>
+        <input type="checkbox" required><label for="checkbox2">Checkbox 2</label>
+        <input type="checkbox"><label for="checkbox3">Checkbox 3</label>
+      </fieldset> -->
+    </div>
+    <div class="row">
+      <fieldset class="large-6 columns">
+        <button class="button" type="submit" value="Submit">Submit</button>
+      </fieldset>
+      <fieldset class="large-6 columns">
+        <button class="button" type="reset" value="Reset">Reset</button>
+      </fieldset>
+    </div>
+  </form>
+</div>

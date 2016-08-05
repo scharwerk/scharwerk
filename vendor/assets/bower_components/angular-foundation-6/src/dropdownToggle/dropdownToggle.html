@@ -1,0 +1,17 @@
+<span
+    ng-click="!$ctrl.toggleOnHover && $ctrl.toggle()"
+    ng-mouseover="$ctrl.toggleOnHover && $ctrl.mouseover()"
+    ng-mouseleave="$ctrl.toggleOnHover && $ctrl.mouseleave($event)"
+    ng-transclude="toggle">
+    Toggle Dropdown
+</span>
+<div
+    ng-transclude="pane"
+    ng-style="$ctrl.css"
+    ng-class="{'is-open': $ctrl.active}"
+    ng-attr-aria-hidden="$ctrl.active"
+    ng-mouseover="$ctrl.toggleOnHover && $ctrl.mouseover()"
+    ng-mouseleave="$ctrl.toggleOnHover && $ctrl.mouseleave($event)"
+    class="dropdown-pane{{$ctrl.paneAlign && ' dropdown-pane-' + $ctrl.paneAlign}}">
+  Just some junk that needs to be said. Or not. Your choice.
+</div>
