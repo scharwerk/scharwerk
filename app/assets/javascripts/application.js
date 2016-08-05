@@ -1,5 +1,5 @@
 //= require angular
 //= require angular-rails-templates
 //= require angular-ui-router
-//= require angular-component.js/src/angular-component.js
+//= require angular-foundation-6/dist/angular-foundation
 //= require_tree .

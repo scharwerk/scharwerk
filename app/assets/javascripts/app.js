@@ -1,4 +1,10 @@
-angular.module('flapperNews', ['ui.router', 'templates'])
+angular.module('flapperNews', 
+  [
+    'ui.router',
+    'templates',
+    'mm.foundation'
+  ]
+)
 .config([
 '$stateProvider',
 '$urlRouterProvider',
