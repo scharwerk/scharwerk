@@ -1,6 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700&subset=latin,cyrillic);
-
-@import "settings";
 @import "app_settings";
-@import "foundation-apps/scss/foundation";
+@import "foundation-sites/scss/foundation";
+@include foundation-everything;
 @import "components";

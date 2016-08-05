@@ -1,5 +1,17 @@
+@mixin scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.frame {
+	height: 100vh;
+	overflow: hidden;
+	background: #455A64;
+}
 #sidebar {
+	height: 100%;
 	background: #607D8B;
+	@include scroll;
 
 	h1 {
 		color: #FFFFFF;
@@ -9,11 +21,16 @@
 		color: #CFD8DC;
 	}
 }
+#main {
+	overflow-y: auto;
+	height: 100%;
+}
 #top,
 #bottom {
 	height: 50%;
-	background: #455A64;
+	
 	padding: 1em;
+	@include scroll;
 }
 
 .edit-content {
@@ -22,7 +39,6 @@
 .textarea-page {
 	background: #FFFFFF;
 	padding: 5% 7%;
-
 	textarea {
 		line-height: 150%;
 
