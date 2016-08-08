@@ -8,9 +8,8 @@ function KeyboardCtrl(keyboardConfig) {
 	
     var scrollPos = element.scrollTop;
     var strPos = element.selectionStart;
-    var value = element.value;
 
-    element.value = value.slice(0, strPos) + text + value.slice(strPos);
+    ctrl.value = ctrl.value.slice(0, strPos) + text + ctrl.value.slice(strPos);
     strPos = strPos + text.length;
     
     element.selectionStart = strPos;
@@ -30,6 +29,7 @@ angular.module('flapperNews')
   templateUrl: 'keyboard/_keyboard.html',
   controller: KeyboardCtrl,
   bindings: {
-    targetId: '@'
+    targetId: '@',
+    value: '='
   }
 });
