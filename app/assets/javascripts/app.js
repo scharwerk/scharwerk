@@ -2,13 +2,15 @@ angular.module('flapperNews',
   [
     'ui.router',
     'templates',
-    'mm.foundation'
+    'mm.foundation',
+    'ezfb'
   ]
 )
 .config([
 '$stateProvider',
 '$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+'ezfbProvider',
+function($stateProvider, $urlRouterProvider, ezfbProvider) {
 
   $stateProvider
     .state('home', {
@@ -30,4 +32,10 @@ function($stateProvider, $urlRouterProvider) {
     });
 
   $urlRouterProvider.otherwise('home');
+
+  ezfbProvider.setLocale('uk_UA');
+  ezfbProvider.setInitParams({
+    appId: '599480133566803',
+    version: 'v2.6'
+  });  
 }])
