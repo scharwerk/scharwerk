@@ -3,7 +3,6 @@ angular.module('flapperNews')
   var o = {
     posts: []
   };
-  return o;
 
   o.get = function(id) {
     return $http.get('/posts/' + id + '.json').then(function(res){
@@ -29,6 +28,8 @@ angular.module('flapperNews')
         post.upvotes += 1;
       });
   };
+
+  return o;
 }])
 
 
