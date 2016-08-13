@@ -16,4 +16,8 @@ function($scope, posts, post){
     });
     $scope.body = '';
   };
+
+  $scope.incrementUpvotes = function(comment){
+    posts.upvoteComment(post, comment);
+  };
 }]);
