@@ -25,7 +25,7 @@ function($stateProvider, $urlRouterProvider) {
           return posts.get($stateParams.id);
         }]
       }
-    });
+    })
 
     .state('login', {
       url: '/login',
