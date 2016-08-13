@@ -3,5 +3,6 @@ angular.module('flapperNews')
 '$scope',
 'Auth',
 function($scope, Auth){
-
+  $scope.signedIn = Auth.isAuthenticated;
+  $scope.logout = Auth.logout;
 }]);
