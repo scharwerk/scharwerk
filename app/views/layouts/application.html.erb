@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
-  <title>Scharwerk</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Шарварок</title>
+  <%= stylesheet_link_tag    'application' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="flapperNews">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div ng-include="'nav/_nav.html'"></div>
-      <ui-view></ui-view>
-    </div>
-  </div>
-
+  <ui-view></ui-view>
 </body>
 </html>

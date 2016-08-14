@@ -1,0 +1,560 @@
+// html.is-reveal-open,
+//   html.is-reveal-open body {
+//   height: 100%;
+//   overflow: hidden;
+//   user-select: none;
+// }
+// body {
+//   opacity: 1;
+//   transition: opacity 1s ease;
+//   background-color: #E1E9F1;
+//   font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
+// }
+
+// .columns.small-centered {
+//   background-color: white;
+//   padding: 50px;
+// }
+
+// .container { padding-bottom: 50px;}
+
+// header {
+//   background-color: #E1E9F1;
+// }
+
+// header .columns, .columns.border  {
+//           background-color: #fff;
+//           border: 2px solid #B7C3D0;
+//           border-radius: 8px;
+//             }
+
+
+// header .container > :last-child { margin-bottom: 0 !important; }
+// header .container > :first-child { margin-top: 0 !important; }
+// header > .columns { background-color: #FFF; }
+
+// .title-area .name h1 {
+// }
+
+// figure {margin-top: 0 }
+
+img.logo {
+  margin: 50px auto 50px auto;
+  width: 275px;
+}
+
+// /* Some Foundation color overrides */
+
+// .top-bar {
+//   box-shadow: 0 1px #266784, 0 4px #A9C2D0
+// }
+
+// .top-bar, .top-bar-section li a:not(.button) {
+//   background-color: #5592BB;
+// }
+
+// .top-bar-section li a:not(.button):hover {
+// background-color: #4783A9;
+// }
+
+// .top-bar-section ul li:hover>a {
+//   background-color: #5592BB;
+// }
+
+// .top-bar-section li:not(.has-form) a:not(.button){
+//   background-color: #5592BB!important;
+// }
+
+// .top-bar-section li.has-dropdown.not-click>a:not(.button){
+//   background-color: #4783A9;
+// }
+
+// .top-bar-section li:not(.has-form) a:not(.button):hover {
+//   background-color: #4783A9!important;
+// }
+
+// .top-bar-section ul li>a {
+//   font-size: 16px;
+//   font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;;
+// }
+
+// .top-bar-section ul {
+//   background: #5592BB;
+// }
+
+// .top-bar-section ul li:hover:not(.has-form)>a {
+//   background: #5592BB;
+// }
+
+// .top-bar-section {
+//   padding-top: 0 !important;
+// }
+
+// .off-canvas-wrap section {
+//   padding-top: 0 !important;
+// }
+
+// .top-bar.expanded .title-area {
+//   background: #4783A9;
+// }
+
+// .top-bar.expanded .toggle-topbar a {
+//   color: #FFF;
+// }
+
+// .top-bar.expanded .toggle-topbar a::after {
+//   box-shadow: 0 10px 0 1px #FFF,0 16px 0 1px #FFF,0 22px 0 1px #FFF;
+// }
+
+// .ng-cloak {
+//   opacity: 0;
+// }
+
+// .ng-invalid {
+//   border: 1px solid red !important;
+// }
+
+div[role=main] section.demo {
+  padding-top: 30px;
+}
+
+// .page-header h1, .page-header h1 > small > a {
+//   color: #266784;
+// }
+// .page-header h1 > small > a:hover {
+//   text-decoration: none;
+// }
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+}
+
+// }
+
+// .nav, .pagination, .carousel, .panel-title a {
+//   cursor: pointer;
+// }
+
+
+// @media (max-width: 767px) {
+
+//   .visible-xs.collapse.in {
+//     display: block!important;
+//   }
+//   .visible-xs.collapse {
+//     display: none!important;
+//   }
+
+// }
+
+// .navbar .collapse {
+//   border-top: 1px solid #e7e7e7;
+//   margin-left: -15px;
+//   margin-right: -15px;
+//   padding-right: 15px;
+//   padding-left: 15px;
+// }
+
+// .show-grid {
+//   margin-bottom: 15px;
+// }
+
+// /*
+//  * Container
+//  *
+//  * Tweak to width of container.
+//  */
+
+// /*@media (min-width: 1200px) {
+//   .container{
+//     max-width: 970px;
+//   }
+// }*/
+
+// /*
+//  * Tabs
+//  *
+//  * Tweaks to the Tabs.
+//  */
+
+
+.code pre, .code code {
+  border: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.tabs dd.active a {
+  background-color: #FFF;
+}
+
+.code .tabs-content>.content {
+  padding: 0;
+  width: 100%;
+}
+
+// /*
+//  * Buttons
+// */
+
+// .button, button{
+//   background-color: #4882AC;
+//   font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
+// }
+
+// /* tabs */
+
+
+
+//  /*
+//  * Buttons in the masthead.
+//  */
+
+// .btn-outline-inverse {
+//   color: #fff;
+//   background-color: transparent;
+//   border-color: #cdbfe3;
+//   margin: 10px;
+// }
+
+// @media (min-width: 768px) {
+
+//   .btn-outline-inverse {
+//     width: auto;
+//     margin: 20px 5px 20px 0;
+//     padding: 18px 24px;
+//     font-size: 21px;
+//   }
+
+// }
+
+// .btn-outline-inverse:hover, .btn-outline-inverse:focus, .btn-outline-inverse:active {
+//   color: #563d7c;
+//   text-shadow: none;
+//   background-color: #fff;
+//   border-color: #fff;
+// }
+
+
+// /* Not enough room on mobile for markup tab, js tab, and plunk btn.
+// And no one cares about plunk button on a phone anyway */
+@media only screen and (max-device-width: 480px) {
+  #plunk-btn {
+    display: none;
+  }
+}
+
+
+
+// .navbar-nav .dropdown .navbar-brand {
+//   max-width: 100%;
+//   margin-right: inherit;
+//   margin-left: inherit;
+// }
+
+// .header-placeholder {
+//   height: 45px;
+// }
+
+// @media screen and (min-width: 768px) {
+
+//   .dropdown.open > .navbar-brand + .dropdown-menu {
+//     left: 10px;
+//   }
+
+//   .header-placeholder {
+//     height: 45px;
+//   }
+
+//   .navbar-nav .dropdown .navbar-brand {
+//     max-width: 200px;
+//     margin-right: 5px;
+//     margin-left: 10px;
+//   }
+
+// }
+
+// #tabs div[ng-controller=TabsDemoCtrl] .tabs:not(.vertical) dd>a {
+//   padding: 0.5em 1em;
+// }
+
+// #tabs div[ng-controller=TabsDemoCtrl] .tabs.vertical {
+//   width: 30%;
+// }
+
+// .reveal {
+//   outline: 0;
+// }
+
+/**
+ * Animations
+ */
+// .fade {
+//   opacity: 1;
+//   transition: opacity .15s linear;
+// }
+// .fade.enter {
+//   opacity: 0;
+// }
+
+// .reveal.fade {
+//   transition: transform .3s ease-out;
+//   transform: translate(0, -25%);
+// }
+// .reveal.enter {
+//   transform: translate(0, 0);
+// }
+
+// .reveal-overlay.fade {
+//   filter: alpha(opacity=1);
+//   opacity: 1;
+// }
+// .reveal-overlay.ng-enter {
+//   filter: alpha(opacity=50);
+//   opacity: .5;
+// }
+
+$motion-ui-classes: (
+  chain: true,
+  prefix: 'ng-',
+  active: '-active',
+);
+
+@import 'motion-ui';
+@import 'foundation';
+
+.tooltip {
+    @include mui-fade(
+      $state: in,
+      $duration: 0.25s,
+      $delay: 0s
+    );
+    @include mui-fade(
+        $state: out,
+        $from: 1,
+        $to: 0,
+        $duration: 0.25s,
+        $delay: 0s
+    );
+}
+
+// .tooltip {
+//     @include mui-fade(
+//         $state: out,
+//         $from: 1,
+//         $to: 0,
+//         $duration: 0.25s,
+//         $delay: 0s
+//     );
+// }
+
+// .reveal-overlay {
+//     @include mui-fade($state: in);
+// }
+
+.reveal-overlay {
+    @include mui-fade($state: in);
+    @include mui-fade(
+        $state: out,
+        $from: 1,
+        $to: 0
+    );
+}
+
+.reveal {
+    @include mui-slide(
+        $state: in, // Specify in or out
+        $direction: down, // Can be top, right, bottom, or left
+        $fade: true, // If true, the element fades simultaneously
+        $duration: 0.25s,
+        $timing: cubic-bezier,
+        $delay: 0s
+    );
+
+    @include mui-zoom(
+        $state: out,
+        $from: 1,
+        $to: 0,
+        $duration: 0.25s
+    );
+}
+
+// .reveal {
+//     // @include mui-hinge(
+//     //     $state: out,
+//     //     $duration: 0.5s
+//     // );
+//     @include mui-zoom(
+//         $state: out,
+//         $from: 1,
+//         $to: 0,
+//         $duration: 0.25s
+//     );
+// }
+
+// .reveal {
+//   @include mui-slide(
+//     $state: out, // Specify in or out
+//     $direction: down, // Can be up, right, down, or left
+//     $fade: true, // If true, the element fades simultaneously
+//     $duration: 0.25s,
+//     $timing: cubic-bezier,
+//     $delay: 0s
+//   );
+// }
+
+
+// .is-dropdown-submenu{
+//   @include mui-slide(
+//         $state: in, // Specify in or out
+//         $direction: down, // Can be top, right, bottom, or left
+//         $fade: true, // If true, the element fades simultaneously
+//         $duration: 0.25s,
+//         $timing: cubic-bezier,
+//         $delay: 0s
+//     );
+// }
+
+.alert-box {
+  background-color: #5592BB;
+}
+
+
+
+// ABIDE
+
+.ng-submitted .ng-invalid, .ng-touched.ng-invalid {
+  @include form-input-error();
+}
+
+
+
+// stolen from foundation docs
+$topbar-background: #121212;
+$topbar-hover-color: darken($topbar-background, 20%);
+
+.marketing-topbar {
+  background: $topbar-background;
+  font-size: rem-calc(13);
+  font-weight: bold;
+  z-index: 2;
+  position: relative;
+
+  @include clearfix;
+
+  ul:first-child { float: left; }
+  ul:last-child  { float: right; }
+
+  .topbar-title > a {
+    font-size: rem-calc(16);
+    opacity: 0.9;
+
+    > img {
+      position: relative;
+      top: -1px;
+    }
+  }
+
+  .menu a {
+    height: 45px;
+    line-height: 45px !important;
+    color: $light-gray;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    &:hover:not(.button),
+    &:focus {
+      background: darken($topbar-background, 20%);
+    }
+
+    &.button {
+      border-radius: 0;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+
+  .title {
+    color: $dark-gray;
+    padding: 10px;
+    padding-left: 15px;
+    font-size: 0.8em;
+    background: lighten($topbar-background, 10%);
+  }
+
+  .is-active a {
+    background: darken($topbar-background, 20%);
+  }
+
+  // ZURB logo
+  .menu img {
+    position: relative;
+    top: -2px;
+  }
+
+  .menu:last-child {
+    border-left: 1px solid #4e4e4e;
+  }
+
+  .menu {
+    li:not(:last-child) {
+      border-right: 1px solid #4e4e4e;
+    }
+  }
+
+  .dropdown.menu .submenu {
+    border: 0;
+  }
+
+  .opens-right a {
+    padding-right: 1rem !important;
+  }
+
+  .opens-right a::after {
+    display: none !important;
+  }
+}
+
+.mobile-ofc {
+  background: $topbar-background;
+  font-size: rem-calc(13);
+  font-weight: bold;
+
+  .menu a {
+    height: 45px;
+    line-height: 45px;
+    color: $light-gray;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &:hover:not(.button),
+    &:focus {
+      background: darken($topbar-background, 20%);
+    }
+
+    &.button {
+      border-radius: 0;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+
+  .title {
+    color: $dark-gray;
+    padding: 10px;
+    padding-left: 15px;
+    font-size: 0.8em;
+    background: lighten($topbar-background, 10%);
+  }
+}
+
+.off-canvas {
+  a.close-button {
+    color: $light-gray;
+  }
+  .close-button:hover, .close-button:focus {
+    color: $light-gray;
+  }
+}

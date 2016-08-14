@@ -1,0 +1,4 @@
+<div ng-transclude></div>
+<div ng-show="show()">
+    <p class="form-error" ng-if="$index === 0" ng-show="msgs[k]" ng-repeat="k in errors" class="{{msgs[k].class}}">{{msgs[k].msg}}</p>
+</div>

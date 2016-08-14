@@ -1,8 +1,17 @@
-angular.module('flapperNews', ['ui.router', 'templates', 'Devise'])
+angular.module('flapperNews', 
+  [
+    'ui.router',
+    'templates',
+    'Devise',
+    'mm.foundation',
+    'ezfb'
+  ]
+)
 .config([
 '$stateProvider',
 '$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+'ezfbProvider',
+function($stateProvider, $urlRouterProvider, ezfbProvider) {
 
   $stateProvider
     .state('home', {
@@ -14,6 +23,12 @@ function($stateProvider, $urlRouterProvider) {
           return posts.getAll();
         }]
       }
+    })
+
+    .state('proof', {
+      url: '/proof',
+      templateUrl: 'proof/_proof.html',
+      controller: 'ProofCtrl'
     })
 
     .state('posts', {
@@ -49,4 +64,10 @@ function($stateProvider, $urlRouterProvider) {
     });
 
   $urlRouterProvider.otherwise('home');
+
+  ezfbProvider.setLocale('uk_UA');
+  ezfbProvider.setInitParams({
+    appId: '599480133566803',
+    version: 'v2.6'
+  });  
 }])

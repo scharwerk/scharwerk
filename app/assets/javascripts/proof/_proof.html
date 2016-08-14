@@ -1,0 +1,38 @@
+<div class="row frame">
+  <div id="sidebar" class="column small-3">
+    <h1>Марксів шарварок</h1>
+    <h3>Поточний прогрес</h3>
+    <div class="progress" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0" aria-valuetext="50 percent" aria-valuemax="100">
+      <div class="progress-meter" style="width: 50%"></div>
+    </div>
+    <h3>Спеціальні символи</h3>
+    <keyboard target-id="main-text" value="text"></keyboard>
+    <h3>Підтримка</h3>
+    <chat></chat>
+  </div>
+  <div id="main" class="column small-9">
+    <div id="top" class="column row">
+      <div class="grid-content edit-content">
+        <img ng-src="{{ image }}">
+      </div>
+    </div>
+    <div id="bottom" class="column row">
+      <div class="grid-content edit-content">
+        <div class="textarea-page">
+        <textarea id="main-text" ng-model="text">
+        </textarea>
+        <div class="row collapse">
+          <div class="small-5 columns">
+          </div>
+          <div class="small-3 columns">
+            <a href="#" class="float-right">Зберегти</a>
+          </div>
+          <div class="small-4 columns">
+            <a class="button large expanded" ng-click="saveAndContinue()">Зберегти та продовжити</a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
