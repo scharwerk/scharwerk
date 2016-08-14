@@ -34,7 +34,7 @@ angular.module('flapperNews')
   };
 
   o.upvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post.id + '/comments' + comment.id + '/upvote.json')
+    return $http.put('/posts/' + post.id + '/comments/' + comment.id + '/upvote.json')
       .success(function(data){
         comment.upvotes += 1;
       });
