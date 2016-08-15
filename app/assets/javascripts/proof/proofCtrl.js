@@ -1,4 +1,4 @@
-angular.module('flapperNews')
+angular.module('scharwerk')
 .controller('ProofCtrl', [
 '$scope',
 function($scope){

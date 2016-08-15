@@ -1,4 +1,4 @@
-angular.module('flapperNews')
+angular.module('scharwerk')
 .component('chat', {
   templateUrl: 'chat/_chat.html',
   controller: angular.noop,
