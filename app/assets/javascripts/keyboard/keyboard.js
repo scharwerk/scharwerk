@@ -20,7 +20,7 @@ function KeyboardCtrl(keyboardConfig) {
   }
 }
 
-angular.module('flapperNews')
+angular.module('scharwerk')
 .constant('keyboardConfig', {
   'Α…Ω': ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ'],
   'α…ω': ['α', 'β', 'γ', 'δ', 'ε', 'ζ']
