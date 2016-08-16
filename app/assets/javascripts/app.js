@@ -37,6 +37,12 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
       controller: angular.noop
     })
 
+    .state('index_login', {
+      url: '/index_login',
+      templateUrl: 'index/_index_login.html',
+      controller: angular.noop
+    })
+
     .state('posts', {
       url: '/posts/{id}',
       templateUrl: 'posts/_posts.html',
