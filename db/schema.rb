@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813165400) do
+ActiveRecord::Schema.define(version: 20160816140524) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "body"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20160813165400) do
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "pages", force: :cascade do |t|
+    t.string   "path"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pages", ["path"], name: "index_pages_on_path", unique: true
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"

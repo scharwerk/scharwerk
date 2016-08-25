@@ -22,6 +22,8 @@ gem 'angular_rails_csrf'
 
 gem 'devise', '~> 3.4.0'
 
+gem 'git', '~> 1.3.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
