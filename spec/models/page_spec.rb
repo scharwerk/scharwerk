@@ -29,4 +29,11 @@ RSpec.describe Page, type: :model do
   	Page.load_from_file("1/4.txt")
   	expect(Page.where(path: "1/4.txt").first.text).to eq("book 1 page 4")  	
   end
+
+  it "commits files" do
+    g = Git.init(Rails.configuration.x.data.text_path.to_s)
+    File.write(path_join("1/4.txt"), "book 1 page 4")
+    Page.add_and_commit([path_join("1/4.txt")])
+    expect(g.log[0].message).to eq("added files")   
+  end
 end
