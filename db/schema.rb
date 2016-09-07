@@ -54,13 +54,11 @@ ActiveRecord::Schema.define(version: 20160901143621) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "username"
     t.string   "name"
     t.string   "facebook_id"
     t.text     "facebook_data"
   end
 
   add_index "users", ["facebook_id"], name: "index_users_on_facebook_id", unique: true
-  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end
