@@ -37,12 +37,6 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
       controller: 'IndexCtrl'
     })
 
-    .state('index_login', {
-      url: '/index_login',
-      templateUrl: 'index/_index_login.html',
-      controller: angular.noop
-    })
-
     .state('posts', {
       url: '/posts/{id}',
       templateUrl: 'posts/_posts.html',
@@ -83,3 +77,9 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
     version: 'v2.6'
   });  
 }])
+.run(['Auth', function (Auth) {
+  Auth.currentUser().then(function(user) {
+    console.log(user);
+    console.log(Auth._currentUser);
+  });
+}]);
