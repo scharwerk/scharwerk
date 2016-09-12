@@ -69,7 +69,7 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
       }] 
     });
 
-  $urlRouterProvider.otherwise('home');
+  $urlRouterProvider.otherwise('index');
 
   ezfbProvider.setLocale('uk_UA');
   ezfbProvider.setInitParams({
