@@ -26,6 +26,10 @@ gem 'git', '~> 1.3.0'
 
 gem 'fb_graph2'
 
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
