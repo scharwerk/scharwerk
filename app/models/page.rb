@@ -1,5 +1,18 @@
+# == Schema Information
+#
+# Table name: pages
+#
+#  id         :integer          not null, primary key
+#  path       :string
+#  text       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  task_id    :integer
+#
+
 class Page < ActiveRecord::Base
-  
+  belongs_to :task
+
   def self.path_join(path)
   	File.join(Rails.configuration.x.data.text_path, path)
   end
