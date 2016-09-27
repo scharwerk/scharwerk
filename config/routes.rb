@@ -14,6 +14,12 @@ Rails.application.routes.draw do
       put '/upvote' => 'posts#upvote'
     end
   end
+  
+  resources :tasks do
+    member do
+      get '/stats' => 'tasks#stats'
+    end
+  end
 
   post 'login' => 'users#login'
 

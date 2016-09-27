@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901143621) do
+ActiveRecord::Schema.define(version: 20160921082830) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "body"
@@ -30,9 +30,11 @@ ActiveRecord::Schema.define(version: 20160901143621) do
     t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "task_id"
   end
 
   add_index "pages", ["path"], name: "index_pages_on_path", unique: true
+  add_index "pages", ["task_id"], name: "index_pages_on_task_id"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -44,6 +46,17 @@ ActiveRecord::Schema.define(version: 20160901143621) do
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "status"
+    t.integer  "stage"
+    t.integer  "part"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.datetime "remember_created_at"
