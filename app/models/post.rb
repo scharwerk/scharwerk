@@ -11,6 +11,7 @@
 #  user_id    :integer
 #
 
+# add top level class documentation
 class Post < ActiveRecord::Base
   belongs_to :user
   has_many :comments

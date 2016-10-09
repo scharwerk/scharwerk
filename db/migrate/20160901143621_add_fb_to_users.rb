@@ -1,3 +1,4 @@
+# add here top class documentation
 class AddFbToUsers < ActiveRecord::Migration
   def change
     ## Database authenticatable
@@ -8,7 +9,7 @@ class AddFbToUsers < ActiveRecord::Migration
     remove_column :users, :reset_password_token
     remove_column :users, :reset_password_sent_at
 
-    remove_index(:users, :name => 'index_users_on_username')
+    remove_index(:users, name: 'index_users_on_username')
     remove_column :users, :username
 
     add_column :users, :name, :string

@@ -11,6 +11,7 @@
 #  updated_at :datetime         not null
 #
 
+# add top level class documentation
 class Task < ActiveRecord::Base
   belongs_to :user
 

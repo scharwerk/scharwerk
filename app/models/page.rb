@@ -10,6 +10,7 @@
 #  task_id    :integer
 #
 
+# add top level class comment
 class Page < ActiveRecord::Base
   belongs_to :task
 
@@ -25,7 +26,7 @@ class Page < ActiveRecord::Base
 
   def self.load_from_file(path)
     page = where(path: path).first_or_create
-    page.text = File.read(self.path_join(path))
+    page.text = File.read(path_join(path))
     page.save
   end
 

@@ -1,3 +1,4 @@
+# add top class documentation
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
