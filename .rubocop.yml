@@ -1,0 +1,4 @@
+AllCops:
+  Excludes:
+    - db/schema.rb
+    - db/**
