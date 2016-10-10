@@ -16,6 +16,7 @@
 #  facebook_data       :text
 #
 
+# add top level class documentation
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :validatable and :omniauthable
