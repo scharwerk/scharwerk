@@ -1,3 +1,4 @@
+# add top-level class documentation
 class PostsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :upvote]
 
@@ -21,6 +22,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def post_params
     params.require(:post).permit(:link, :title)
   end
