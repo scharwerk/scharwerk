@@ -1,15 +1,17 @@
-== How to start
+# Scharwerk
 
-* Install rails http://railsapps.github.io/installing-rails.html
-* Install deps 
-	
-	bundler install
+## How to start
 
-* Run and go to http://localhost:3000/
+1. Install rails http://railsapps.github.io/installing-rails.html
+2. Install deps
+        
+        bundler install
 
-	rails s
+3. Run and go to http://localhost:3000/
 
-== Deployment instructions
+        rails s
+
+## Codestyle
 
 Please, before push to github run in console, in your project folder:
 
