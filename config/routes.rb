@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   end
 
   resources :tasks do
-    member do
-      get '/stats' => 'tasks#stats'
+    collection do
+      get 'stats' => 'tasks#stats'
     end
   end
 
