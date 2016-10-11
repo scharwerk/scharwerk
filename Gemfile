@@ -29,8 +29,6 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
-gem 'rubocop', require: false
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -50,6 +48,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop
   # execution and get a debugger console
   gem 'byebug'
+  gem 'rubocop', require: false
 end
 
 group :development do
