@@ -1,13 +1,8 @@
-require 'pp'
-require 'json'
-
 # add top-level class documentation
 class UsersController < ApplicationController
   def find_or_create_user(fb_user)
     user = User.find_by(facebook_id: fb_user.id)
-    if user
-      return :ok, user
-    end
+    return [:ok, user] if user
 
     user = User.new
     user.facebook_id = fb_user.id
@@ -20,6 +15,7 @@ class UsersController < ApplicationController
 
   def login
     access_token = params['accessToken']
+    print(access_token)
     fb_user = FbGraph2::User.me(access_token).fetch(fields: 'id,
       name,
       age_range,
