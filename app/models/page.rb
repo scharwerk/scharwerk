@@ -32,8 +32,9 @@ class Page < ActiveRecord::Base
 
   # should be moved somewhere else
   def self.add_and_commit(pathes)
-    g = Git.open(Rails.configuration.x.data.text_path)
-    g.add(pathes)
-    g.commit('added files')
+    GitWorker.perform_async(pathes)
+    # g = Git.open(Rails.configuration.x.data.text_path)
+    # g.add(pathes)
+    # g.commit('added files')
   end
 end
