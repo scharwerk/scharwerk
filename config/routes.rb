@@ -14,13 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tasks do
-    collection do
-      get 'stats' => 'tasks#stats'
-    end
-  end
-
   post 'login' => 'users#login'
+  get 'stats/tasks'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
