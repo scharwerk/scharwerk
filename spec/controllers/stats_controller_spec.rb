@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe StatsController, type: :controller do
-
-  describe "GET #tasks" do
-    it "returns stats" do
+  describe 'GET #tasks' do
+    it 'returns stats' do
       Task.create(stage: :first_proof, status: :not_started)
       Task.create(stage: :first_proof, status: :in_progress)
       get :tasks, stage: 'first_proof', format: :json
@@ -12,5 +11,4 @@ RSpec.describe StatsController, type: :controller do
       expect(parsed_body['1']).to eq(1)
     end
   end
-
 end

@@ -1,3 +1,4 @@
+# add top level class documentation
 class StatsController < ApplicationController
   def tasks
     stage = params['stage']
