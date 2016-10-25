@@ -19,6 +19,3 @@ Please, before push to github run in console, in your project folder:
 
 ## Todo
 
-- Assing task
-- Release task
-
