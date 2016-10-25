@@ -15,7 +15,6 @@ class UsersController < ApplicationController
 
   def login
     access_token = params['accessToken']
-    print(access_token)
     fb_user = FbGraph2::User.me(access_token).fetch(fields: 'id,
       name,
       age_range,
