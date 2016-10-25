@@ -9,6 +9,14 @@ RSpec.describe TasksController, type: :controller do
       post :create, stage: :test, format: :json
       expect(user.active_task).to eq(task)
     end
+
+    it 'denies two tasks assigment' do
+      user = User.create
+      sign_in user
+      Task.create(stage: :test, status: :active, user: user)
+      post :create, stage: :test, format: :json
+      expect(response).to have_http_status(:bad_request)
+    end
   end
 
   describe 'DELETE #tasks' do
