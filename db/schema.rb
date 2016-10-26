@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921082830) do
+ActiveRecord::Schema.define(version: 20161026133857) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "body"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160921082830) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "task_id"
+    t.integer  "status"
   end
 
   add_index "pages", ["path"], name: "index_pages_on_path", unique: true
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20160921082830) do
     t.string   "name"
     t.string   "facebook_id"
     t.text     "facebook_data"
+    t.integer  "status"
   end
 
   add_index "users", ["facebook_id"], name: "index_users_on_facebook_id", unique: true

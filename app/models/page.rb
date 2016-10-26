@@ -14,6 +14,8 @@
 class Page < ActiveRecord::Base
   belongs_to :task
 
+  enum status: { free: 0, done: 1 }
+
   def self.path_join(path)
     File.join(Rails.configuration.x.data.text_path, path)
   end

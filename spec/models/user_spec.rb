@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'shows one active task' do
+    user = User.create
+    task = Task.create(status: :active, user: user)
+    expect(user.active_task).to eq(task)
+  end
 end

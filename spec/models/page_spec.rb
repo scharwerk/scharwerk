@@ -5,10 +5,13 @@ RSpec.describe Page, type: :model do
     File.join(Rails.configuration.x.data.text_path, path)
   end
 
+  before(:all) do
+    FileUtils.mkdir_p(path_join('1/'))
+  end
+
   after(:all) do
-    Dir[path_join('**/*.txt')].each do |file|
-      File.delete(file)
-    end
+    FileUtils.rm_rf(Dir.glob(path_join('*')))
+    FileUtils.rm_r(path_join('.git/'))
   end
 
   it 'saves text to file' do
