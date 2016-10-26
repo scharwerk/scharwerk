@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :task
+  resource :task do
+    resources :pages
+  end
 
   post 'login' => 'users#login'
   get 'stats/tasks'

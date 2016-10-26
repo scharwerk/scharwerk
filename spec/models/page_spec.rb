@@ -38,6 +38,5 @@ RSpec.describe Page, type: :model do
     File.write(path_join('1/4.txt'), 'book 1 page 4')
     Page.add_and_commit([path_join('1/4.txt')])
     expect(g.log[0].message).to eq('added files')
-
   end
 end
