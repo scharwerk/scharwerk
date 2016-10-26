@@ -17,5 +17,8 @@ Please, before push to github run in console, in your project folder:
 
     rubocop
 
-## Todo
+## migration
 
+    rake db:migrate RAILS_ENV=test
+
+## Todo
