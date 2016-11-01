@@ -1,5 +1,4 @@
-namespace sharwerk: do
-  
+namespace :sharwerk do
   desc "The task do something important"
   task :good_task, [:argument] => :environment do |t, args|
     puts args[:argument]
