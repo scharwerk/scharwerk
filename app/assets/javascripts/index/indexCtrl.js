@@ -27,4 +27,10 @@ function($scope, ezfb, $http, Auth){
   $scope.$on('devise:login', function(event, currentUser) {
     $scope.isAuthenticated = true;
   });
+
+  $scope.options = {thickness: 30, mode: 'gauge', total: 100};
+  $scope.data  = [
+    {label: "Завершено", value: 75, suffix: '%', colorComplement: '#cacaca', color: '#607D8B'}
+  ];
+  
 }]);
