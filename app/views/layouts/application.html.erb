@@ -4,11 +4,18 @@
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Шарварок</title>
+  
+  <!-- FB sharing info -->
+  <meta property="og:image" content='<%= image_path("fb.png") %>' />
+  <meta property="og:title" content="Марксів шарварок" />
+  <meta property="og:description" content="проект спільної підготовки видання Марксового «Капіталу»" />
+  
+  <title>Марксів шарварок</title>
   <%= stylesheet_link_tag    'application' %>
   <%= favicon_link_tag 'favicon.png' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
 </head>
 <body ng-app="scharwerk">
   <ui-view></ui-view>
