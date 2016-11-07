@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20161026133857) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
     t.string   "body"
     t.integer  "upvotes"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 20161026133857) do
     t.integer  "user_id"
   end
 
-  add_index "comments", ["post_id"], name: "index_comments_on_post_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "path"
@@ -34,8 +37,8 @@ ActiveRecord::Schema.define(version: 20161026133857) do
     t.integer  "status"
   end
 
-  add_index "pages", ["path"], name: "index_pages_on_path", unique: true
-  add_index "pages", ["task_id"], name: "index_pages_on_task_id"
+  add_index "pages", ["path"], name: "index_pages_on_path", unique: true, using: :btree
+  add_index "pages", ["task_id"], name: "index_pages_on_task_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -46,7 +49,7 @@ ActiveRecord::Schema.define(version: 20161026133857) do
     t.integer  "user_id"
   end
 
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "status"
@@ -57,7 +60,7 @@ ActiveRecord::Schema.define(version: 20161026133857) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "remember_created_at"
@@ -71,9 +74,13 @@ ActiveRecord::Schema.define(version: 20161026133857) do
     t.string   "name"
     t.string   "facebook_id"
     t.text     "facebook_data"
-    t.integer  "status"
   end
 
-  add_index "users", ["facebook_id"], name: "index_users_on_facebook_id", unique: true
+  add_index "users", ["facebook_id"], name: "index_users_on_facebook_id", unique: true, using: :btree
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "pages", "tasks"
+  add_foreign_key "posts", "users"
+  add_foreign_key "tasks", "users"
 end
