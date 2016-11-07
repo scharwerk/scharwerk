@@ -18,6 +18,8 @@ development:
 test:
   <<: *default
   database: scharwerk_test
+  username: rails
+  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
 
 production:
   <<: *default
