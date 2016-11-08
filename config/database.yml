@@ -1,3 +1,4 @@
+
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -18,11 +19,10 @@ development:
 test:
   <<: *default
   database: scharwerk_test
-  username: rails
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
 
 production:
   <<: *default
   database: scharwerk_production
   username: rails
   password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+
