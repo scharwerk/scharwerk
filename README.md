@@ -24,21 +24,26 @@ Please, before push to github run in console, in your project folder:
 ## Deployment
     
 Connect via ssh:
+
     ssh root@46.101.228.108
 
 Go to the project folder:
+
     cd ..
     cd home/rails/scharwerk
 
 Get new version:
+
     git pull
 
 Update project:
+
     bundle
     . /etc/default/unicorn
     RAILS_ENV=production rake db:migrate
 
 If styling changed:
+
     RAILS_ENV=production rake assets:precompile
     service unicorn restart
     service nginx reload
