@@ -51,4 +51,11 @@ class Task < ActiveRecord::Base
       include: [pages: { only: [:id, :status] }]
     ))
   end
+
+  def commit_all
+    tasks = Task.find_by(status: :done)
+    tasks.each do |task|
+      task.status = :commited
+    end
+  end
 end
