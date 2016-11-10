@@ -52,10 +52,12 @@ class Task < ActiveRecord::Base
     ))
   end
 
-  def commit_all
-    tasks = Task.find_by(status: :done)
+  def self.commit_all
+    tasks = []
+    tasks = Task.where(status: 2)
     tasks.each do |task|
-      task.status = :commited
+      task.status = 3
+      task.save
     end
   end
 end
