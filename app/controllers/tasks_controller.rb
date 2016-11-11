@@ -32,6 +32,10 @@ class TasksController < ApplicationController
     render text: 'released', status: :ok
   end
 
+  def commit
+    Task.commit_all
+  end
+
   private
 
   def task_missing
