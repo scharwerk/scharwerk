@@ -1,4 +1,6 @@
-# Scharwerk
+# Das Scharwerk
+
+Das Scharwerk is distributed publishing system.
 
 ## How to start local
 
