@@ -1,4 +1,46 @@
-<div class="row">
+
+<div class="hero-row">
+  <div class="arrow-column">
+    <div class="arrow-tip">
+    </div>
+    <div class="arrow-text">
+      <h1>Марксів шарварок</h1>
+      <p>спільна підготовка видання Марксового «Капіталу»</p>
+    </div>
+  </div>
+
+  <div class="right-column" ng-if="!isAuthenticated">
+    <h2>Виконати завдання</h2>
+    <p>Щоби поветрнутися до поточного завдання завдання або отримати нове завдання війдіть через фейсбук</p>
+    <a ng-click="login();" class="button large primary expand">війти через facebook</a>
+    <p><small>Якась примытка, що ми не будемо нычогысынько постити</small></p>
+  </div>
+
+</div>
+
+<div class="text-row">
+  <div class="left-column" style="background: #F00;">&nbsp;</div>
+  <div class="right-column" style="background: #00F;">&nbsp;</div>
+</div>
+
+<div class="text-row">
+
+
+
+
+  <div class="columns small-4" ng-if="isAuthenticated">
+    <h2>Вытаэмо, денис</h2>
+    <p>Ваші успіхи</p>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="row text">
+
+
+
+  </div>
+</div>
     <div class="columns small-12">
       <p class="quote">
        — Я стидав би ся, — каже він, — сидіти, згорнувши руки,<br />
@@ -6,20 +48,6 @@
        <span class="cite">Олесь Гончар</span>
       </p>
     </div>
-</div>
-<div class="hero">
-  <div class="row text">
-    <div class="columns small-6">
-      <h1>Марксів шарварок<br>
-      <small>проект спільної підготовки видання Марксового «Капіталу»</small>
-      </h1> 
-
-    </div>
-
-
-  </div>
-</div>
-
 <div class="row">
   <div class="columns small-6">
     <h2>Як це працює?</h2>
@@ -34,20 +62,7 @@
 </div>
 
 <div class="hero">
-  <div class="row text">
-    <div class="columns small-6">
-    <div class="columns small-4 small-offset-2" ng-if="!isAuthenticated">
-      <h2>Login</h2>
-      <p>Війдіть будьласка, щоб продовжити або отримати нове завданн</p>
-      <a ng-click="login();"  class="button large">війти через facebook</a>
-    </div>
 
-    <div class="columns small-4" ng-if="isAuthenticated">
-      <h2>Login</h2>
-      <p>Ваші успіхи</p>
-    </div>
-    </div>
-  </div>
 </div>
 
 
@@ -55,18 +70,39 @@
 <div class="row">
   <div class="columns small-12 text-center">
     <h2>Поточний прогрес</h2>
-    <a href="#/proof" class="button large success">Oтримати завдання</a>
-    <h3>1. Перша коректура</h3>
-    <h3>2. Друга коректура</h3>
-    <pie-chart data='data' options='options'></pie-chart>
-    <h3>3. Верстка</h3>
-    <h3>4. Фінальнна коректура</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-6">
+    <h3>1. Перша коректура
+    <br><small>завершено</small></h3>
+    <p>
+      На першорму етапы корректуэться текст прямо з ОЦР
+    </p>
+  </div>
+  <div class="columns small-3">
+    <pie-chart data='dataDone' options='optionsDone'></pie-chart>
   </div>
 
 </div>
-<div class="row">
 
+<div class="row">
+  <div class="columns small-6">
+    <h3>2. Друга коректура</h3>
+    <a href="#/proof" class="button large success">Oтримати завдання</a>
+  </div>    
+  <div class="columns small-3">
+    <pie-chart data='data' options='options'></pie-chart>
+  </div>   
+    <h3>3. Верстка</h3>
+    <h3>4. Фінальнна коректура</h3>
+  </div>
 </div>
+
+
+
+
 <div class="hero">
 <div class="row">
   <div class="columns small-12 text-center">

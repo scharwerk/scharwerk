@@ -1,3 +1,67 @@
+$index-page-width: rem-calc(1024px);
+$index-colum-width: rem-calc(100px); //magic
+
+.text-row {
+	padding-top: $index-colum-width;
+
+	@include grid-row();
+	
+	.left-column {
+		@include grid-column(5);
+  	}
+  	
+  	.right-column {
+	    @include grid-column(5);
+	    @include grid-column-offset(2);
+	    @include grid-column-end;
+	}
+
+	p {
+		font-size: rem-calc(18px);
+	}
+}
+
+$arrow-width: rem-calc(125px);
+
+.hero-row {
+	@include grid-row($columns: 2, $width: 100%);
+	
+	.arrow-column {
+		@include grid-column(1);
+		background: $main-color;
+		height: $arrow-width * 2;
+		position: relative;
+		padding-right: 0 !important;
+
+		.arrow-text {
+			@include grid-column(100%);
+
+		  	position: absolute;
+	  		top: 50%;
+	  		width: $index-colum-width * 6 - $arrow-width;
+	  		right: $arrow-width;
+	  		transform: translateY(-50%);
+		}
+
+		.arrow-tip {
+			height: 0;
+			width: 0;
+			float: right;
+			border-top: $arrow-width solid white;
+			border-left: $arrow-width solid transparent;
+	  		border-bottom: $arrow-width solid white;
+		}
+	}
+
+	.right-column {
+		@include grid-column(1);
+		@include grid-column-end;
+
+		margin-left: $index-colum-width * 1;
+		width: $index-colum-width * 5;
+	}
+}
+
 .hero {
 	background: $main-color;
 	padding: 4rem 0;
@@ -23,4 +87,8 @@ p.quote {
 	.cite {
 
 	}
+}
+
+row-two-column {
+	
 }

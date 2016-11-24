@@ -33,4 +33,9 @@ function($scope, ezfb, $http, Auth){
     {label: "Завершено", value: 75, suffix: '%', colorComplement: '#cacaca', color: '#607D8B'}
   ];
   
+  $scope.optionsDone = {thickness: 30, mode: 'gauge', total: 100};
+  $scope.dataDone  = [
+    {label: "Завершено", value: 100, suffix: '%', color: '#cacaca'}
+  ];
+
 }]);
