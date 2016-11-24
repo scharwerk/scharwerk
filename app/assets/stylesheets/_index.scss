@@ -1,46 +1,45 @@
 $index-page-width: rem-calc(1024px);
-$index-colum-width: rem-calc(100px); //magic
+$index-colum-width: $index-page-width / 12; 
 
-.text-row {
+@mixin vertical-align {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.hero-row {
 	padding-top: $index-colum-width;
-
-	@include grid-row();
-	
-	.left-column {
-		@include grid-column(5);
-  	}
-  	
-  	.right-column {
-	    @include grid-column(5);
-	    @include grid-column-offset(2);
-	    @include grid-column-end;
-	}
 
 	p {
 		font-size: rem-calc(18px);
 	}
-}
 
-$arrow-width: rem-calc(125px);
-
-.hero-row {
 	@include grid-row($columns: 2, $width: 100%);
 	
 	.arrow-column {
+		$arrow-width: rem-calc(135px);
+
 		@include grid-column(1);
 		background: $main-color;
 		height: $arrow-width * 2;
 		position: relative;
 		padding-right: 0 !important;
 
+		p, h1 {
+			color: $primary-color-text;
+		}
+
+		h1 {
+			font-size: 2.7rem;
+			white-space: nowrap;
+		}
+
 		.arrow-text {
 			@include grid-column(100%);
+			@include vertical-align;
 
-		  	position: absolute;
-	  		top: 50%;
 	  		width: $index-colum-width * 6 - $arrow-width;
 	  		right: $arrow-width;
-	  		transform: translateY(-50%);
 		}
 
 		.arrow-tip {
@@ -53,42 +52,84 @@ $arrow-width: rem-calc(125px);
 		}
 	}
 
+	.quote-column {
+		@include grid-column(1);
+		@include grid-column-end;
+		background-color: $accent-color;
+		color: $primary-color-text;
+
+		.quote-text {
+			width: $index-colum-width * 5;
+			margin-left: $index-colum-width;
+			margin-top: rem-calc(16px); //magic
+		}
+	}
+
+	.left-column {
+		@include grid-column(1);
+		position: relative;
+		height: rem-calc(120px);
+		
+		.left-column-text {
+			width: $index-colum-width * 5;
+			@include vertical-align;
+
+	  		right: $index-colum-width;
+		}
+	}
+
 	.right-column {
 		@include grid-column(1);
 		@include grid-column-end;
 
-		margin-left: $index-colum-width * 1;
+		margin-left: $index-colum-width;
 		width: $index-colum-width * 5;
 	}
 }
 
-.hero {
-	background: $main-color;
-	padding: 4rem 0;
-	margin: 4rem 0;
-	h1, h2, p {
-		color: white;
-	}
 
-	h1 {
-		font-size: 4rem;
-		text-align: center;
-		line-height: 0.7em;
-		small {
-			font-size: 2rem;
-		}
+.text-row {
+	padding-top: $index-colum-width;
 
-	}
-}
-p.quote {
-	text-align: right;
-	font-size: 1.2rem;
-
-	.cite {
-
-	}
-}
-
-row-two-column {
+	@include grid-row($columns: 12, $width: $index-page-width);
 	
+	.left-column {
+		@include grid-column(5);
+  	}
+  	
+  	.right-column {
+	    @include grid-column(5);
+	    @include grid-column-offset(2);
+	}
+}
+
+.stage-done {
+	.chart {
+		width: rem-calc(120px);
+		height: rem-calc(120px);
+		margin: auto;
+	}
+}
+
+.stage-active {
+	margin-top: $index-colum-width;
+
+	.text-row:first-child {
+		padding-top: 0;
+	}
+
+	h3, p {
+		color: $primary-color-text;
+	}
+
+	background-color: $main-color;
+	.chart {
+		width: rem-calc(165px);
+		height: rem-calc(165px);
+		margin: auto;
+	}		
+
+	text, path {
+		fill-opacity: 1 !important; // hack
+	}
 }

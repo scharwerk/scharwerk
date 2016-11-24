@@ -15,10 +15,12 @@ $divider-color:        #BDBDBD;
 
 $foundation-palette: (
   primary: $primary-color,
-  secondary: #777,
-  success: #3adb76,
+  secondary: $secondary-text-color,
+  success: $accent-color,
   warning: #ffae00,
   alert: #ec5840,
 );
 
+
+$black: $primary-text-color;
 $main-color: $primary-color;

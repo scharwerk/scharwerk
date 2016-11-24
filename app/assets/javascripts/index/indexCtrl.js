@@ -28,14 +28,16 @@ function($scope, ezfb, $http, Auth){
     $scope.isAuthenticated = true;
   });
 
-  $scope.options = {thickness: 30, mode: 'gauge', total: 100};
+  $scope.options = {thickness: 16.5, mode: 'gauge', total: 100};
   $scope.data  = [
-    {label: "Завершено", value: 75, suffix: '%', colorComplement: '#cacaca', color: '#607D8B'}
+    {label: "Завершено", value: 75, suffix: '%', colorComplement: '#FFFFFF', color: '#FFC107'}
   ];
   
-  $scope.optionsDone = {thickness: 30, mode: 'gauge', total: 100};
+  $scope.optionsSmall = {thickness: 12, mode: 'gauge', total: 100};
   $scope.dataDone  = [
-    {label: "Завершено", value: 100, suffix: '%', color: '#cacaca'}
+    {label: "Завершено", value: 100, suffix: '%', color: '#4CAF50'}
   ];
-
+  $scope.dataNone  = [
+    {label: "Завершено", value: 0, suffix: '%', color: '#212121', colorComplement: '#212121'}
+  ];
 }]);
