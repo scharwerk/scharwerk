@@ -17,6 +17,7 @@
     "AngularDevise": "angular-devise#^1.3.0",
     "angular-easyfb": "^1.5.1",
     "foundation-sites": "^6.2.3",
-    "angular-foundation-6": "^0.10.7"
+    "angular-foundation-6": "^0.10.7",
+    "pie-chart": "master"
   }
 }

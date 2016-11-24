@@ -4,4 +4,6 @@
 //= require angular-ui-router
 //= require angular-foundation-6/dist/angular-foundation
 //= require angular-easyfb/build/angular-easyfb.js
+//= require d3/d3.js
+//= require pie-chart/dist/pie-chart.js
 //= require_tree .

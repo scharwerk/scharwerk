@@ -4,7 +4,8 @@ angular.module('scharwerk',
     'templates',
     'Devise',
     'mm.foundation',
-    'ezfb'
+    'ezfb',
+    'n3-pie-chart'
   ]
 )
 .config([
