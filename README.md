@@ -25,14 +25,17 @@ Please, before push to github run in console, in your project folder:
 
 ## Deployment
     
+Before deployment. If assets changed:
+
+    RAILS_ENV=production rake assets:precompile
+
 Connect via ssh:
 
     ssh root@46.101.228.108
 
 Go to the project folder:
 
-    cd ..
-    cd home/rails/scharwerk
+    cd /home/rails/scharwerk
 
 Get new version:
 
@@ -45,8 +48,7 @@ Update project:
     RAILS_ENV=production rake db:migrate
 
 If styling changed:
-
-    RAILS_ENV=production rake assets:precompile
+    
     service unicorn restart
     service nginx reload
 
