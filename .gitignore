@@ -18,3 +18,7 @@
 
 #Ignore redis DB dump
 /dump.rdb
+
+#Ignore photos and texts
+/scharwerk_data
+/public/scharwerk_data
