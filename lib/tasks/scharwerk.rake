@@ -5,12 +5,13 @@ namespace :sharwerk do
   end
 
   desc "Create page from scan and page"
-  task :create_page => :environment do 
+  task :create_page, [:scan_path, :text_path] => :environment do |t, args| 
     page = Page.new
-    page.path = 'public/scharwerk_data/scans/3.2/10.jpg'
-    # page.text = File.read('public/scharwerk_data/texts/3.2/10.txt', 'r')
+    page.path = args[:scan_path]
+    # 'public/scharwerk_data/scans/3.2/8.jpg'
     page.text = '' 
-    File.open('public/scharwerk_data/scans/3.2/1.jpg', 'r') do |f|
+    File.open(args[:text_path], 'r') do |f|
+      # 'public/scharwerk_data/texts/3.2/8.txt'
       f.each_line {|line| page.text += line.gsub("\u0000", '')} 
     end
     page.save
