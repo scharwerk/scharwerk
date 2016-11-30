@@ -18,10 +18,21 @@ namespace :sharwerk do
   end
 
   desc "Create all pages from scans and texts"
-  task :create_pages => :environment do
-    Dir.foreach('public/scharwerk_data/scans/3.2') do |item|
+  task :create_pages, [:scans_folder_path, :texts_folder_path] => :environment do |t, args|
+    Dir.foreach(args[:scans_folder_path]) do |item|
+      # 'public/scharwerk_data/scans/3.2'
       next if item == '.' || item == '..'
-      puts item
+      page = Page.new
+      page.path = item
+      number = item.delete('.jpg')
+      page.text = '' 
+
+      File.open(args[:texts_folder_path] + "/#{number}.txt", 'r') do |f|
+        # public/scharwerk_data/texts/3.2
+        f.each_line {|line| page.text += line.gsub("\u0000", '')}
+      end
+      
+      page.save
     end
   end
 end
