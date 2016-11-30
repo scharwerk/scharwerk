@@ -4,7 +4,7 @@ namespace :sharwerk do
     puts args[:argument]
   end
 
-  desc "Create page from scan and page"
+  desc "Create page from scan and text"
   task :create_page, [:scan_path, :text_path] => :environment do |t, args| 
     page = Page.new
     page.path = args[:scan_path]
@@ -15,6 +15,14 @@ namespace :sharwerk do
       f.each_line {|line| page.text += line.gsub("\u0000", '')} 
     end
     page.save
+  end
+
+  desc "Create all pages from scans and texts"
+  task :create_pages => :environment do
+    Dir.foreach('public/scharwerk_data/scans/3.2') do |item|
+      next if item == '.' || item == '..'
+      puts item
+    end
   end
 end
 
