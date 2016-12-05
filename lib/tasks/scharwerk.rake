@@ -59,6 +59,17 @@ namespace :sharwerk do
     until n > part_pages.size do
         task = Task.new
         task.stage = args[:stage]
+        part_string = args[:scans_folder_path].split('/').last
+        case part_string
+        when '3.2'
+          task.part = 'book_3_2'
+        when '3.1'
+          task.part = 'book_3_1'
+        when '2'
+          task.part = 'book_2'
+        when '1'
+          task.part = 'book_1'
+        end
         task.save
         #parse part number here
         20.times do |i|
