@@ -55,16 +55,21 @@ namespace :sharwerk do
       part_pages.push(page)
     end
     #create one task from pages
-    task = Task.new
-    task.stage = args[:stage]
-    task.save
-    #parse part number here
-    20.times do |i|
-      part_pages[i].update(task_id: task.id)
+    n = 0
+    until n > part_pages.size do
+        task = Task.new
+        task.stage = args[:stage]
+        task.save
+        #parse part number here
+        20.times do |i|
+          next if part_pages[n + i] == nil
+          part_pages[n + i].update(task_id: task.id)
+        end
+        n += 20
+      end
     end
-  end
-end
 
-# call this task in console
-# rake sharwer:good_task[<the_argument_value>]
-# more information http://railscasts.com/episodes/66-custom-rake-tasks
+    # call this task in console
+    # rake sharwer:good_task[<the_argument_value>]
+    # more information http://railscasts.com/episodes/66-custom-rake-tasks
+  end
