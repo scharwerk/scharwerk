@@ -11,22 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026133857) do
+ActiveRecord::Schema.define(version: 20161206112045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "comments", force: :cascade do |t|
-    t.string   "body"
-    t.integer  "upvotes"
-    t.integer  "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-  end
-
-  add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "path"
@@ -39,17 +27,6 @@ ActiveRecord::Schema.define(version: 20161026133857) do
 
   add_index "pages", ["path"], name: "index_pages_on_path", unique: true, using: :btree
   add_index "pages", ["task_id"], name: "index_pages_on_task_id", using: :btree
-
-  create_table "posts", force: :cascade do |t|
-    t.string   "title"
-    t.string   "link"
-    t.integer  "upvotes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-  end
-
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "status"
@@ -78,9 +55,6 @@ ActiveRecord::Schema.define(version: 20161026133857) do
 
   add_index "users", ["facebook_id"], name: "index_users_on_facebook_id", unique: true, using: :btree
 
-  add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "users"
   add_foreign_key "pages", "tasks"
-  add_foreign_key "posts", "users"
   add_foreign_key "tasks", "users"
 end
