@@ -39,4 +39,21 @@ RSpec.describe Page, type: :model do
     Page.add_and_commit([path_join('1/4.txt')])
     expect(g.log[0].message).to eq('added files')
   end
+
+  describe '.create_pages' do
+    it 'return array of new pages' do
+      expect(Page.create_pages('public/scharwerk_data/scans/3.2',
+        'public/scharwerk_data/texts/3.2').class).to eq Array
+    end
+    it 'return array of object with class page' do
+      expect(Page.create_pages('public/scharwerk_data/scans/3.2',
+        'public/scharwerk_data/texts/3.2')[0].class). to eq Page
+    end
+    it 'save new pages' do
+      page_count = Page.count
+      Page.create_pages('public/scharwerk_data/scans/3.2',
+        'public/scharwerk_data/texts/3.2')
+      expect(Page.count).to be > page_count
+    end
+  end
 end
