@@ -38,22 +38,8 @@ namespace :sharwerk do
   desc "Create all tasks and pages from texts"
   task :create_tasks, [:scans_folder_path, :texts_folder_path, :stage] => :environment do |t, args|
     # create all pages from scans in dir
-    part_pages = []
-    Dir.foreach(args[:scans_folder_path]) do |item|
-      # 'public/scharwerk_data/scans/3.2'
-      next if item == '.' || item == '..'
-      page = Page.new
-      page.path = item
-      number = item.delete('.jpg')
-      page.text = ''
 
-      File.open(args[:texts_folder_path] + "/#{number}.txt", 'r') do |f|
-        # public/scharwerk_data/texts/3.2
-        f.each_line {|line| page.text += line.gsub("\u0000", '')}
-      end
-      page.save
-      part_pages.push(page)
-    end
+    part_pages = Page.create_pages(args[:scans_folder_path], args[:texts_folder_path])
     #create one task from pages
     n = 0
     until n > part_pages.size do

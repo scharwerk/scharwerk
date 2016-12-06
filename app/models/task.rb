@@ -47,8 +47,23 @@ class Task < ActiveRecord::Base
 
   def as_json(options = {})
     super(options.merge(
-      methods: [:description, :progress, :current_page],
-      include: [pages: { only: [:id, :status] }]
+            methods: [:description, :progress, :current_page],
+            include: [pages: { only: [:id, :status] }]
     ))
   end
+
+  def parse_part(part_name)
+    part_string = part_name.split('/').last
+    case part_string
+    when '3.2'
+      'book_3_2'
+    when '3.1'
+      'book_3_1'
+    when '2'
+      'book_2'
+    when '1'
+      'book_1'
+    end
+  end
+
 end
