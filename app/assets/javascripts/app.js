@@ -72,13 +72,18 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
 
   $urlRouterProvider.otherwise('index');
 
+  // This is hack to use test app on localhost
+  isLocal = (window.location.hostname == 'localhost');
   ezfbProvider.setLocale('uk_UA');
   ezfbProvider.setInitParams({
-    appId: '599480133566803',
+    appId: isLocal ? '1844624322448931' : '599480133566803',
     version: 'v2.6'
   });  
+
 }])
-.run(['Auth', function (Auth) {
+.run([
+'Auth',
+function (Auth) {
   Auth.currentUser().then(function(user) {
     console.log(user);
     console.log(Auth._currentUser);
