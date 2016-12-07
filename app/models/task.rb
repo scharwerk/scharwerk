@@ -52,7 +52,7 @@ class Task < ActiveRecord::Base
     ))
   end
 
-  def parse_part(part_name)
+  def self.parse_part(part_name)
     part_string = part_name.split('/').last
     case part_string
     when '3.2'
@@ -63,6 +63,21 @@ class Task < ActiveRecord::Base
       'book_2'
     when '1'
       'book_1'
+    end
+  end
+
+  def self.generate_tasks(part_pages, part, stage)
+    n = 0
+    until n > part_pages.size do
+      task = Task.new
+      task.stage = stage
+      task.part = part
+      task.save
+      20.times do |i|
+        next if part_pages[n + i] == nil
+        part_pages[n + i].update(task_id: task.id)
+      end
+      n += 20
     end
   end
 
