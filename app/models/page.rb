@@ -48,12 +48,8 @@ class Page < ActiveRecord::Base
       page = Page.new
       page.path = item
       number = item.delete('.jpg')
-      page.text = ''
+      page.text = File.read(texts_path + "/#{number}.txt")
 
-      File.open(texts_path + "/#{number}.txt", 'r') do |f|
-        # public/scharwerk_data/texts/3.2
-        f.each_line {|line| page.text += line.gsub("\u0000", '')}
-      end
       page.save
       part_pages.push(page)
     end
