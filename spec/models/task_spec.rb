@@ -21,4 +21,24 @@ RSpec.describe Task, type: :model do
     current = task.pages.create(status: :free)
     expect(task.current_page).to eq(current)
   end
+
+  describe ".parse_part" do
+    it 'return part name' do
+      expect(Task.parse_part('public/scharwerk_data/scans/3.2')).to eq 'book_3_2'
+    end
+  end
+  describe ".generate_tasks" do
+    it 'generate tasks' do
+      task_count = Task.count
+      part_pages = []
+      21.times do |i|
+        page = Page.new
+        part_pages.push(page)
+      end
+      part = 'book_3_2'
+      stage = 'first_proof'
+      Task.generate_tasks(part_pages, part, stage)
+      expect(Task.count).to eq task_count + 2  
+    end
+  end
 end

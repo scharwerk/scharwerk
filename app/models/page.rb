@@ -39,4 +39,20 @@ class Page < ActiveRecord::Base
     # g.add(pathes)
     # g.commit('added files')
   end
+
+  def self.create_pages(scans_path, texts_path)
+    part_pages = []
+    Dir.foreach(scans_path) do |item|
+      # 'public/scharwerk_data/scans/3.2'
+      next if item == '.' || item == '..'
+      page = Page.new
+      page.path = item
+      number = item.delete('.jpg')
+      page.text = File.read(texts_path + "/#{number}.txt")
+
+      page.save
+      part_pages.push(page)
+    end
+    part_pages
+  end
 end
