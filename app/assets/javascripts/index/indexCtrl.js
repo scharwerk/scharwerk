@@ -5,7 +5,8 @@ angular.module('scharwerk')
 '$http',
 'Auth',
 function($scope, ezfb, $http, Auth){
-	function fbLogin(response) {
+	
+  function fbLogin(response) {
     $http.post('/login', response.authResponse).then(function successCallback(response) {
       Auth._currentUser = response.data;
       $scope.$broadcast('devise:login', response.data);
@@ -13,7 +14,7 @@ function($scope, ezfb, $http, Auth){
       // called asynchronously if an error occurs
       // or server returns response with an error status.
     });
-	}
+	};
 	$scope.login = function() {
 		ezfb.getLoginStatus(function (response) {
 			if (response.status !== 'connected') {
@@ -23,9 +24,16 @@ function($scope, ezfb, $http, Auth){
           	fbLogin(response)
   		});
 	};
-  $scope.isAuthenticated = Auth.isAuthenticated();
-  $scope.$on('devise:login', function(event, currentUser) {
-    $scope.isAuthenticated = true;
+  $scope.logout = Auth.logout;
+  $scope.isAuthenticated = Auth.isAuthenticated;
+  Auth.currentUser().then(function (user){
+    $scope.user = user;
+  });
+  $scope.$on('devise:login', function (e, user){
+    $scope.user = user;
+  });
+  $scope.$on('devise:logout', function (e, user){
+    $scope.user = {};
   });
 
   $scope.options = {thickness: 16.5, mode: 'gauge', total: 100};
