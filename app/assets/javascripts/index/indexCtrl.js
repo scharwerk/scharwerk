@@ -2,9 +2,10 @@ angular.module('scharwerk')
 .controller('IndexCtrl', [
 '$scope',
 'ezfb',
+'stages',
 '$http',
 'Auth',
-function($scope, ezfb, $http, Auth){
+function($scope, ezfb, stages, $http, Auth){
 	
   function fbLogin(response) {
     $http.post('/login', response.authResponse).then(function successCallback(response) {
@@ -26,15 +27,11 @@ function($scope, ezfb, $http, Auth){
 	};
   $scope.logout = Auth.logout;
   $scope.isAuthenticated = Auth.isAuthenticated;
-  Auth.currentUser().then(function (user){
-    $scope.user = user;
-  });
-  $scope.$on('devise:login', function (e, user){
-    $scope.user = user;
-  });
-  $scope.$on('devise:logout', function (e, user){
-    $scope.user = {};
-  });
+  Auth.currentUser().then(function (user){ $scope.user = user; });
+  $scope.$on('devise:login', function (e, user){ $scope.user = user; });
+  $scope.$on('devise:logout', function (e, user){ $scope.user = {}; });
+
+  $scope.graphs = stages.graphs;
 
   $scope.options = {thickness: 16.5, mode: 'gauge', total: 100};
   $scope.optionsSmall = {thickness: 12, mode: 'gauge', total: 100};
