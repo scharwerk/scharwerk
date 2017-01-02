@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    is_task_missing && return
+    task_missing && return
     respond_with current_user.active_task
   end
 

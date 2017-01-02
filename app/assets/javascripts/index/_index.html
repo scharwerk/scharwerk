@@ -9,11 +9,23 @@
     </div>
   </div>
 
-  <div class="right-column" ng-if="!isAuthenticated">
-    <h2>Виконати завдання</h2>
+  <div class="right-column" ng-show="!isAuthenticated()">
+    <h2>Повернутися до завдання</h2>
     <p>Щоби поветрнутися до поточного завдання завдання або отримати нове завдання війдіть через фейсбук</p>
     <a ng-click="login();" class="button large primary expand">війти через facebook</a>
     <p><small>Якась примытка, що ми не будемо нычогысынько постити</small></p>
+  </div>
+
+  <div class="right-column" ng-show="isAuthenticated()">
+    <h2>Вітаємо, {{ user.name }}!</h2>
+    <p ng-show="!task">
+      Ви зараз не працюэте над завдання. Щось оберыть.
+    </p>
+    <p ng-show="task">
+      Ви зараз працюэте над «<strong>{{ task.description }}</strong>»
+      <a href="#/proof" class="button large primary expand">перейти до завдання</a>
+    </p>
+    <a ng-click="logout()">Вийти</a>
   </div>
 
 </div>
@@ -47,10 +59,27 @@
   </div>
 </div>
 
+<div class="stage-active">
+  <div class="text-row">
+    <div class="left-column">
+      <div class="chart">
+        <pie-chart data='graphs.test' options='options'></pie-chart>
+      </div>
+    </div>
+    <div class="right-column">
+      <h3>0. Monkey testing stage</h3>
+      <p>
+        Go make it!
+      </p>
+      <a href="#/proof" class="button large success">Oтримати завдання</a>
+    </div>  
+  </div>
+</div>
+
 <div class="text-row stage-done">
   <div class="left-column">
     <div class="chart">
-      <pie-chart data='dataDone' options='optionsSmall'></pie-chart>
+      <pie-chart data='dataNone' options='optionsSmall'></pie-chart>
     </div>
   </div>
   <div class="right-column">
