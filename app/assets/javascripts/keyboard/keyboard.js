@@ -9,14 +9,15 @@ function KeyboardCtrl(keyboardConfig) {
     var scrollPos = element.scrollTop;
     var strPos = element.selectionStart;
 
-    ctrl.value = ctrl.value.slice(0, strPos) + text + ctrl.value.slice(strPos);
+    element.value = element.value.slice(0, strPos) + text + element.value.slice(strPos);
     strPos = strPos + text.length;
-    
+
     element.selectionStart = strPos;
     element.selectionEnd = strPos;
-    element.focus();
-
+      
     element.scrollTop = scrollPos;
+    element.focus();
+    angular.element(element).triggerHandler('input');
   }
 }
 
