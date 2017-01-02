@@ -37,8 +37,11 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
       templateUrl: 'index/_index.html',
       controller: 'IndexCtrl',
       resolve: {
-        postPromise: ['stages', function(stages){
+        stagesPromise: ['stages', function(stages){
           return stages.getStats();
+        }],
+        tasksPromise: ['tasks', function(tasks){
+          return tasks.getCurrent();
         }]
       }
     })

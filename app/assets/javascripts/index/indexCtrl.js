@@ -3,9 +3,10 @@ angular.module('scharwerk')
 '$scope',
 'ezfb',
 'stages',
+'tasks',
 '$http',
 'Auth',
-function($scope, ezfb, stages, $http, Auth){
+function($scope, ezfb, stages, tasks, $http, Auth){
 	
   function fbLogin(response) {
     $http.post('/login', response.authResponse).then(function successCallback(response) {
@@ -31,6 +32,7 @@ function($scope, ezfb, stages, $http, Auth){
   $scope.$on('devise:login', function (e, user){ $scope.user = user; });
   $scope.$on('devise:logout', function (e, user){ $scope.user = {}; });
 
+  $scope.task = tasks.current;
   $scope.graphs = stages.graphs;
 
   $scope.options = {thickness: 16.5, mode: 'gauge', total: 100};

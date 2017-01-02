@@ -18,6 +18,13 @@
 
   <div class="right-column" ng-show="isAuthenticated()">
     <h2>Вітаємо, {{ user.name }}!</h2>
+    <p ng-show="!task">
+      Ви зараз не працюэте над завдання. Щось оберыть.
+    </p>
+    <p ng-show="task">
+      Ви зараз працюэте над «<strong>{{ task.description }}</strong>»
+      <a href="#/proof" class="button large primary expand">перейти до завдання</a>
+    </p>
     <a ng-click="logout()">Вийти</a>
   </div>
 
