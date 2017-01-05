@@ -53,6 +53,6 @@ class Page < ActiveRecord::Base
       page.save
       part_pages.push(page)
     end
-    part_pages
+    part_pages.sort_by { |page| page.path.chomp('.jpg').to_i }
   end
 end
