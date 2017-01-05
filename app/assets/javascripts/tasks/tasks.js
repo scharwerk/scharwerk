@@ -12,13 +12,20 @@ angular.module('scharwerk')
     return $http.get('/task.json').then(function(data){
       s.current = {};
       angular.copy(data.data, s.current);
-      console.log(s.current);
       return s.current;
     }, function(error){
       
       return false;
     });
   };
+
+  s.assign = function(stage) {
+    return $http.post('/task.json', {stage: stage}).success(function(data) {
+      s.current = {};
+      angular.copy(data, s.current);
+      return s.current;
+    });    
+  }
 
   s.release = function() {
     return $http.delete('/task.json').success(function() {

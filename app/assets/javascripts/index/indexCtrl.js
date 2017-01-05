@@ -28,16 +28,15 @@ function($scope, ezfb, stages, tasks, $http, Auth){
 	};
   
   $scope.release = tasks.release;
+  $scope.assign = tasks.assign;
 
   $scope.logout = Auth.logout;
   $scope.isAuthenticated = Auth.isAuthenticated;
   Auth.currentUser().then(function (user){ 
-    console.log('auth');
-    tasks.updateCurrent();
     $scope.user = user; 
+    tasks.updateCurrent();
   });
   $scope.$on('devise:login', function (e, user){ 
-    console.log('login');
     $scope.user = user; 
     tasks.updateCurrent();
   });
