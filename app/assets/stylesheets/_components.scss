@@ -6,11 +6,11 @@
 .frame {
 	height: 100vh;
 	overflow: hidden;
-	background: #455A64;
+	background: $primary-color-dark;
 }
 #sidebar {
 	height: 100%;
-	background: #607D8B;
+	background: $primary-color;
 	@include scroll;
 
 	h1 {
