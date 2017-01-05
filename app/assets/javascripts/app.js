@@ -29,9 +29,9 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
         stagesPromise: ['stages', function(stages){
           return stages.getStats();
         }],
-        tasksPromise: ['tasks', function(tasks){
-          return tasks.getCurrent();
-        }]
+        // tasksPromise: ['tasks', function(tasks){
+        //   return tasks.updateCurrent();
+        // }]
       }
     });
 

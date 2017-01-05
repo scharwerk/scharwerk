@@ -29,7 +29,7 @@ class TasksController < ApplicationController
   def destroy
     task_missing && return
     current_user.active_task.release
-    render text: 'released', status: :ok
+    render json: {status: 'released'}, status: :ok
   end
 
   private
