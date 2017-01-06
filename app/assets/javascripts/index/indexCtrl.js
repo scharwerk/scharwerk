@@ -26,13 +26,23 @@ function($scope, ezfb, stages, tasks, $http, Auth){
           	fbLogin(response)
   		});
 	};
+  
+  $scope.release = tasks.release;
+  $scope.assign = tasks.assign;
+
   $scope.logout = Auth.logout;
   $scope.isAuthenticated = Auth.isAuthenticated;
-  Auth.currentUser().then(function (user){ $scope.user = user; });
-  $scope.$on('devise:login', function (e, user){ $scope.user = user; });
+  Auth.currentUser().then(function (user){ 
+    $scope.user = user; 
+    tasks.updateCurrent();
+  });
+  $scope.$on('devise:login', function (e, user){ 
+    $scope.user = user; 
+    tasks.updateCurrent();
+  });
   $scope.$on('devise:logout', function (e, user){ $scope.user = {}; });
 
-  $scope.task = tasks.current;
+  $scope.task = tasks.getCurrent;
   $scope.graphs = stages.graphs;
 
   $scope.options = {thickness: 16.5, mode: 'gauge', total: 100};

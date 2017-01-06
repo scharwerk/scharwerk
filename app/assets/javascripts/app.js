@@ -28,9 +28,6 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
       resolve: {
         stagesPromise: ['stages', function(stages){
           return stages.getStats();
-        }],
-        tasksPromise: ['tasks', function(tasks){
-          return tasks.getCurrent();
         }]
       }
     });
@@ -49,8 +46,5 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
 .run([
 'Auth',
 function (Auth) {
-  Auth.currentUser().then(function(user) {
-    console.log(user);
-    console.log(Auth._currentUser);
-  });
+  Auth.currentUser();
 }]);
