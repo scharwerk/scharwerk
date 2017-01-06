@@ -5,14 +5,14 @@ namespace :sharwerk do
   end
 
   desc "Create all tasks and pages from texts"
-  task :create_tasks, [:scans_folder_path, :texts_folder_path, :stage, :part] => :environment do |t, args|
+  task :create_tasks, [:scans_folder_path, :texts_folder_path, :stage, :part, :pages_per_task] => :environment do |t, args|
 
     part_pages = Page.create_pages(args[:scans_folder_path], args[:texts_folder_path])
 
-    Task.generate_tasks(part_pages, args[:part], args[:stage])
+    Task.generate_tasks(part_pages, args[:part], args[:stage], args[:pages_per_task].to_i)
   end
   # call this task in console
   # bundle exec rake sharwerk:create_tasks['public/scharwerk_data/scans/3.2',
-  #'public/scharwerk_data/texts/3.2','first_proof','book_3_2']
+  #'public/scharwerk_data/texts/3.2','first_proof','book_3_2',5]
   # more information http://railscasts.com/episodes/66-custom-rake-tasks
 end
