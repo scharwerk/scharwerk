@@ -55,3 +55,7 @@ If styling changed:
 Visit http://46.101.228.108/
     
 ## Todo
+
+## Generate tasks, should look like:
+
+    RAILS_ENV=production rake sharwerk:create_tasks['public/scans/franko.web','public/das-kapital/text/franko','test','franko',5]
