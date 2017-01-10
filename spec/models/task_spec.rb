@@ -22,6 +22,21 @@ RSpec.describe Task, type: :model do
     expect(task.current_page).to eq(current)
   end
 
+  it 'releses task page' do
+    task = Task.create(user: User.create(), status: :active)
+    task.release
+    expect(task.status).to eq('free')
+    expect(task.user).to eq(nil)
+  end
+
+  it 'frees pages on task release' do
+    task = Task.create(status: :active)
+    page = task.pages.create(status: :done)
+    task.pages.create(status: :free)
+    task.release
+    expect(Page.find(page.id).status).to eq('free')
+  end
+
   describe ".generate_tasks" do
     it 'generate tasks' do
       task_count = Task.count

@@ -33,7 +33,8 @@ class Task < ActiveRecord::Base
   end
 
   def release
-    update(status: :free, user: user)
+    update(status: :free, user: nil)
+    pages.update_all(status: 0)
   end
 
   def progress
