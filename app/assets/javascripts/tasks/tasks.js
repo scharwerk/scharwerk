@@ -14,7 +14,7 @@ angular.module('scharwerk')
       angular.copy(data.data, s.current);
       return s.current;
     }, function(error){
-      
+      s.current = false;
       return false;
     });
   };

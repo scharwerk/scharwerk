@@ -18,7 +18,12 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
     .state('proof', {
       url: '/proof',
       templateUrl: 'proof/_proof.html',
-      controller: 'ProofCtrl'
+      controller: 'ProofCtrl',
+      resolve: {
+        task: ['tasks', function(tasks){
+          return tasks.updateCurrent();
+        }]
+      }
     })
 
     .state('index', {
