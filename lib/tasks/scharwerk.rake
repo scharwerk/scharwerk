@@ -11,8 +11,8 @@ namespace :sharwerk do
 
     Task.generate_tasks(part_pages, args[:part], args[:stage], args[:pages_per_task].to_i)
   end
-  # call this task in console
-  # bundle exec rake sharwerk:create_tasks['public/scharwerk_data/scans/3.2',
-  #'public/scharwerk_data/texts/3.2','first_proof','book_3_2',5]
-  # more information http://railscasts.com/episodes/66-custom-rake-tasks
 end
+
+# call this task in console
+# more information http://railscasts.com/episodes/66-custom-rake-tasks
+#  bundle exec rake sharwerk:create_tasks['public/scans/franko.web','public/das-kapital/text/franko','test','franko',5]
