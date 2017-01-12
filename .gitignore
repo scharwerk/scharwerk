@@ -21,4 +21,5 @@
 
 #Ignore photos and texts
 /scharwerk_data
-/public/scharwerk_data
+/public/scans
+/public/das-kapital
