@@ -5,12 +5,24 @@ angular.module('scharwerk')
 'tasks',
 'task',
 '$anchorScroll',
-function($scope, $state, tasks, task, $anchorScroll){
+'$modal',
+function($scope, $state, tasks, task, $anchorScroll, $modal){
   if (!task) {
     $state.go('index');
   }
   
+  var submitModal = function() {
+    $modal.open({templateUrl: 'submitModal.html'}).result.then(function () {
+      alert('confirmed');
+    }, function () {
+      $scope.goto(tasks.current.pages[0].id);
+    });
+  }
+
   var updatePage = function(page) {
+    if (!page) {
+      return submitModal();
+    }
     $scope.id = page.id;
     $scope.text = page.text;
     $scope.image = page.path;
@@ -23,7 +35,7 @@ function($scope, $state, tasks, task, $anchorScroll){
   updatePage(tasks.current.current_page);
 
   $scope.save = function() {
-    tasks.savePage($scope.text);
+    tasks.savePage($scope.id, $scope.text);
   }
 
   $scope.goto = function(id) {
@@ -31,7 +43,7 @@ function($scope, $state, tasks, task, $anchorScroll){
   }
 
   $scope.saveAndContinue = function() {
-    tasks.savePage($scope.text, true).success(function() {
+    tasks.savePage($scope.id, $scope.text, true).success(function() {
       updatePage(tasks.current.current_page);
     });
   }

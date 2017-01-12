@@ -50,3 +50,13 @@
     </div>
   </div>
 </div>
+
+<script type="text/ng-template" id="submitModal.html">
+  <h3>Выдправити завдання?</h3>
+  <p>Ви завершили, та можете ще почитати.</p>
+  <a ng-click="$dismiss()">Почитати ще</a>
+  <button class="button" ng-click="$close()">Выдправити</button>
+  <button class="close-button" type="button" ng-click="$dismiss()">
+    &times;
+  </button>
+</script>
