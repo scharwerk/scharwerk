@@ -41,5 +41,9 @@ angular.module('scharwerk')
     return $http.delete('/task.json').success(s.clearCurrent);
   };
 
+  s.finish = function() {
+    return $http.put('/task.json', {done: true});
+  };
+
   return s;
 }])

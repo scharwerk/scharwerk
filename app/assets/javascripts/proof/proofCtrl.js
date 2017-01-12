@@ -13,7 +13,9 @@ function($scope, $state, tasks, task, $anchorScroll, $modal){
   
   var submitModal = function() {
     $modal.open({templateUrl: 'submitModal.html'}).result.then(function () {
-      alert('confirmed');
+      tasks.finish().success(function () {
+        $state.go('index');
+      });
     }, function () {
       $scope.goto(tasks.current.pages[0].id);
     });
