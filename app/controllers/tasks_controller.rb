@@ -23,6 +23,8 @@ class TasksController < ApplicationController
   # mark task as completed
   def update
     task_missing && return
+    current_user.active_task.finish if params['done']
+    render json: {status: 'done'}, status: :ok
   end
 
   # free task from user

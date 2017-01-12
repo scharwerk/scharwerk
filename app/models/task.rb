@@ -37,6 +37,10 @@ class Task < ActiveRecord::Base
     pages.update_all(status: 0)
   end
 
+  def finish
+    update(status: :done)
+  end
+
   def progress
     total = (pages.free.size + pages.done.size)
     total ? BigDecimal.new(pages.done.size) / total : 1
