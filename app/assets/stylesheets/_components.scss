@@ -60,3 +60,19 @@
   }
 }
 @include font-scale();
+
+.pagination .done a {
+  background-color: $primary-color;
+  color: #FFF;
+  &:hover {
+  	background-color: $primary-color-light;
+  }
+}
+
+.pagination .current {
+  background-color: $accent-color;
+  color: #FFF;
+  &:hover {
+  	background-color: $divider-color;
+  }
+}

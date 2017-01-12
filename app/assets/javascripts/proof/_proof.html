@@ -30,6 +30,13 @@
           </textarea>
           <div class="row collapse">
             <div class="small-5 columns">
+              <ul class="pagination">
+                <li 
+                  ng-repeat="page in task.pages" 
+                  ng-class="{done: page.status == 'done', current: page.id == id}">
+                    <a ng-click="load();">{{ page.id }}</a>
+                </li>
+              </ul>
             </div>
             <div class="small-3 columns">
               <a class="float-right" ng-click="save()">Зберегти</a>
