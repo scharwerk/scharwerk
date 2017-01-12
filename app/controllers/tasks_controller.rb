@@ -37,7 +37,7 @@ class TasksController < ApplicationController
   def task_missing
     current_user.active_task && return
 
-    render text: 'not found', status: :not_found
+    render json: {text: 'not found'}, status: :not_found
     true
   end
 end
