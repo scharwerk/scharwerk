@@ -10,18 +10,29 @@ function($scope, $state, tasks, task, $anchorScroll){
     $state.go('index');
   }
   
+  var updatePage = function(page) {
+    $scope.id = page.id;
+    $scope.text = page.text;
+    $scope.image = page.path;
+
+    $anchorScroll('text-top');
+    $anchorScroll('image-top');
+  };
+
   $scope.task = tasks.current;
-  $scope.text = tasks.current.current_page.text;
+  updatePage(tasks.current.current_page);
 
   $scope.save = function() {
     tasks.savePage($scope.text);
   }
 
+  $scope.goto = function(id) {
+    tasks.getPage(id).success(function (data) { updatePage(data) });
+  }
+
   $scope.saveAndContinue = function() {
     tasks.savePage($scope.text, true).success(function() {
-      $scope.text = tasks.current.current_page.text;
-      $anchorScroll('text-top');
-      $anchorScroll('image-top');
+      updatePage(tasks.current.current_page);
     });
   }
 }]);

@@ -26,13 +26,15 @@ angular.module('scharwerk')
     return $http.post('/task.json', {stage: stage}).success(s.setCurrent);
   };
 
-  s.savePage = function(text, done) {
-    pageId = s.current.current_page.id;
-
+  s.savePage = function(id, text, done) {
     return $http.put(
-        '/task/pages/' + pageId + '.json',
+        '/task/pages/' + id + '.json',
         {text: text, done: done}
       ).success(s.setCurrent);
+  };
+
+  s.getPage = function(id) {
+    return $http.get('/task/pages/' + id + '.json');
   };
 
   s.release = function() {
