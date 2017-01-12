@@ -21,6 +21,4 @@ production:
   <<: *default
   database: scharwerk_production
   username: rails
-  pool: 5
-  host: localhost
   password: <%= ENV['APP_DATABASE_PASSWORD'] %>
