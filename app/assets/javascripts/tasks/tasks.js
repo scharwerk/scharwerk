@@ -24,21 +24,20 @@ angular.module('scharwerk')
 
   s.assign = function(stage) {
     return $http.post('/task.json', {stage: stage}).success(s.setCurrent);
-  }
+  };
 
-  s.savePage = function(text) {
+  s.savePage = function(text, done) {
     pageId = s.current.current_page.id;
 
-    return $http.put('/task/pages/' + pageId + '.json',
-      {text: text}).success(s.setCurrent);
-  }
+    return $http.put(
+        '/task/pages/' + pageId + '.json',
+        {text: text, done: done}
+      ).success(s.setCurrent);
+  };
 
   s.release = function() {
     return $http.delete('/task.json').success(s.clearCurrent);
-  }
+  };
 
   return s;
 }])
-
-
-
