@@ -8,8 +8,9 @@ class PagesController < ApplicationController
 
   def update
     page = current_user.active_task.pages.find(params[:id])
-    page.update(text: params[:text], status: :done)
+    status = params[:done] ? "done" : "free";
+    page.update(text: params[:text], status: status)
 
-    render json: current_user.active_task.current_page
+    render json: current_user.active_task
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206112045) do
+ActiveRecord::Schema.define(version: 20170110114754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,22 +19,21 @@ ActiveRecord::Schema.define(version: 20161206112045) do
   create_table "pages", force: :cascade do |t|
     t.string   "path"
     t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "task_id"
-    t.integer  "status"
+    t.integer  "status",     default: 0, null: false
   end
 
-  add_index "pages", ["path"], name: "index_pages_on_path", unique: true, using: :btree
   add_index "pages", ["task_id"], name: "index_pages_on_task_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "status"
-    t.integer  "stage"
-    t.integer  "part"
+    t.integer  "status",     default: 0, null: false
+    t.integer  "stage",      default: 0, null: false
+    t.integer  "part",       default: 0, null: false
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree

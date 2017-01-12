@@ -8,8 +8,9 @@ function KeyboardCtrl(keyboardConfig) {
 	
     var scrollPos = element.scrollTop;
     var strPos = element.selectionStart;
+    var endPos = element.selectionEnd;
 
-    element.value = element.value.slice(0, strPos) + text + element.value.slice(strPos);
+    element.value = element.value.slice(0, strPos) + text + element.value.slice(endPos);
     strPos = strPos + text.length;
 
     element.selectionStart = strPos;
