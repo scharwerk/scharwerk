@@ -23,6 +23,8 @@ class TasksController < ApplicationController
   # mark task as completed
   def update
     task_missing && return
+    current_user.active_task.finish if params['done']
+    render json: {status: 'done'}, status: :ok
   end
 
   # free task from user
@@ -37,7 +39,7 @@ class TasksController < ApplicationController
   def task_missing
     current_user.active_task && return
 
-    render text: 'not found', status: :not_found
+    render json: {text: 'not found'}, status: :not_found
     true
   end
 end
