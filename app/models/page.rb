@@ -16,8 +16,12 @@ class Page < ActiveRecord::Base
 
   enum status: { free: 0, done: 1 }
 
-  def self.git_path(path)
-    File.join(Rails.configuration.x.data.git_path, path)
+  def self.text_path(path)
+    File.join(
+      Rails.configuration.x.data.git_path,
+      Rails.configuration.x.data.text_folder,
+      path
+    )
   end
 
   def self.file_path(path)
@@ -25,22 +29,14 @@ class Page < ActiveRecord::Base
   end
 
   def save_to_file
-    full_path = self.class.path_join(path)
+    full_path = Page.text_path(path) + '.txt'
     File.write(full_path, text)
-    full_path.to_s
-  end
-
-  # should be moved somewhere else
-  def self.add_and_commit(pathes)
-    GitWorker.perform_async(pathes)
-    # g = Git.open(Rails.configuration.x.data.text_path)
-    # g.add(pathes)
-    # g.commit('added files')
+    full_path
   end
 
   def self.create_pages(pattern)
-    Dir[git_path(pattern)].sort.collect do |text_file|
-      path = text_file[git_path('').length..-5]
+    Dir[text_path(pattern)].sort.collect do |text_file|
+      path = text_file[text_path('').length..-5]
       text = File.read(text_file)
       Page.create(path: path, text: text)
     end
