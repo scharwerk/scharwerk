@@ -8,7 +8,7 @@ class StatsController < ApplicationController
   # }
   def tasks
     result = {}
-    Task.stages.each { |s, _| result[s] = {'total' => 0} }
+    Task.stages.each { |s, _| result[s] = { 'total' => 0 } }
     Task.group(:status, :stage).count.each do |ss, count|
       status = Task.statuses.key(ss[0])
       stage = Task.stages.key(ss[1])

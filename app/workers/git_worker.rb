@@ -7,5 +7,4 @@ class GitWorker
     g.add(pathes)
     g.commit('added files')
   end
-
 end

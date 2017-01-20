@@ -45,11 +45,9 @@ class Page < ActiveRecord::Base
     Dir.foreach(scans_path) do |item|
       # 'public/scharwerk_data/scans/3.2'
       next if item == '.' || item == '..'
-      page = Page.new
-      page.path = item
+      page = Page.create(path: item)
       number = item.delete('.jpg')
       page.text = File.read(texts_path + "/#{number}.txt")
-
       page.save
       part_pages.push(page)
     end

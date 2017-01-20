@@ -51,25 +51,19 @@ class Task < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(
-            methods: [:description, :progress, :current_page],
-            include: [pages: { only: [:id, :status] }]
-    ))
+    super(options.merge(methods: [:description, :progress, :current_page],
+                        include: [pages: { only: [:id, :status] }]))
   end
 
   def self.generate_tasks(part_pages, part, stage, pages_per_task)
     n = 0
-    until n > part_pages.size do
-      task = Task.new
-      task.stage = stage
-      task.part = part
-      task.save
+    until n > part_pages.size
+      task = Task.create(stage: stage, part: part)
       pages_per_task.times do |i|
-        next if part_pages[n + i] == nil
+        next if part_pages[n + i].nil?
         part_pages[n + i].update(task_id: task.id)
       end
       n += pages_per_task
     end
   end
-
 end

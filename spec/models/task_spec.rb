@@ -23,7 +23,7 @@ RSpec.describe Task, type: :model do
   end
 
   it 'releses task page' do
-    task = Task.create(user: User.create(), status: :active)
+    task = Task.create(user: User.create, status: :active)
     task.release
     expect(task.status).to eq('free')
     expect(task.user).to eq(nil)
@@ -37,11 +37,11 @@ RSpec.describe Task, type: :model do
     expect(Page.find(page.id).status).to eq('free')
   end
 
-  describe ".generate_tasks" do
+  describe '.generate_tasks' do
     it 'generate tasks' do
       task_count = Task.count
       part_pages = []
-      21.times do |i|
+      21.times do
         page = Page.new
         part_pages.push(page)
       end
@@ -52,9 +52,8 @@ RSpec.describe Task, type: :model do
       expect(Task.count).to eq task_count + 2
     end
     it 'generate task with proper number of pages' do
-      task_count = Task.count
       part_pages = []
-      21.times do |i|
+      21.times do
         page = Page.new
         part_pages.push(page)
       end

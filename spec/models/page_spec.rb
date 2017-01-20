@@ -43,24 +43,28 @@ RSpec.describe Page, type: :model do
   describe '.create_pages' do
     it 'return array of new pages' do
       expect(Page.create_pages('public/scharwerk_data/scans/3.2',
-        'public/scharwerk_data/texts/3.2').class).to eq Array
+                               'public/scharwerk_data/texts/3.2')
+                               .class).to eq Array
     end
     it 'return array of object with class page' do
       expect(Page.create_pages('public/scharwerk_data/scans/3.2',
-        'public/scharwerk_data/texts/3.2')[0].class). to eq Page
+                               'public/scharwerk_data/texts/3.2')[0]
+                               .class). to eq Page
     end
     it 'save new pages' do
       page_count = Page.count
       Page.create_pages('public/scharwerk_data/scans/3.2',
-        'public/scharwerk_data/texts/3.2')
+                        'public/scharwerk_data/texts/3.2')
       expect(Page.count).to be > page_count
     end
     it 'return sorted, by page number, array of pages' do
       part_pages = Page.create_pages('public/scharwerk_data/scans/3.2',
-        'public/scharwerk_data/texts/3.2')
+                                     'public/scharwerk_data/texts/3.2')
       random = rand(0...(part_pages.size - 1))
-      expect(part_pages[random].path.chomp('.jpg').to_i).to be < 
-        part_pages[random + 1].path.chomp('.jpg').to_i
+      expect(part_pages[random]
+        .path.chomp('.jpg')
+        .to_i).to be < part_pages[random + 1]
+                       .path.chomp('.jpg').to_i
     end
   end
 end
