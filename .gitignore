@@ -19,7 +19,7 @@
 #Ignore redis DB dump
 /dump.rdb
 
-#Ignore photos and texts
-/scharwerk_data
-/public/scans
-/public/das-kapital
+#Keep public folder
+/public/images/*
+!/public/images/.keep
+
