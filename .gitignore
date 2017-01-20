@@ -20,6 +20,6 @@
 /dump.rdb
 
 #Keep public folder
-/public/images/*
-!/public/images/.keep
+/public/files/images/*
+!/public/files/images/.keep
 
