@@ -53,9 +53,22 @@ If styling changed:
     service nginx reload
 
 Visit http://46.101.228.108/
-    
-## Todo
+
+# Loadind data
+
+* clone text into 
+
+    mkdir app/assets/git/
+    git clone git@github.com:marx-in-ua/das-kapital.git .
+    git checkout test
+
+* copy images to public/files/images/
 
 ## Generate tasks, should look like:
 
-    RAILS_ENV=production rake sharwerk:create_tasks['public/scans/franko.web','public/das-kapital/text/franko','test','franko',5]
+    RAILS_ENV=production rake scharwerk:generate_tasks['franko/*','test','franko',5]
+
+
+## Todo
+
+
