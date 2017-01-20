@@ -40,4 +40,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Path to git repository with text and tex files
+  config.x.data.git_path = Rails.root.join('app', 'assets', 'test_git')
 end

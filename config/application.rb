@@ -28,5 +28,14 @@ module Scharwerk
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Path to git repository with text and tex files
+    config.x.data.git_path = Rails.root.join('app', 'assets', 'git')
+  
+    # Path to scanned images etc.
+    config.x.data.files_path = Rails.root.join('public', 'files')
+
+    # Path to scanned images etc.
+    config.x.data.files_url = '/files/'
   end
 end
