@@ -7,8 +7,7 @@ class StatsController < ApplicationController
   #   "second_proof" : {"active": 0, "completed": 100}
   # }
   def tasks
-    result = {}
-    Task.stages.each { |s, _| result[s] = { 'total' => 0 } }
+    result = Task.stages.map { |s, _| [s, { 'total' => 0 }] }.to_h
     Task.group(:status, :stage).count.each do |ss, count|
       status = Task.statuses.key(ss[0])
       stage = Task.stages.key(ss[1])
