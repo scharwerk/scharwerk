@@ -39,9 +39,9 @@ module Scharwerk
     config.x.data.files_path = Rails.root.join('public', 'files')
 
     # Folder in files
-    config.x.data.iamges_folder = 'images'
+    config.x.data.images_folder = 'images'
 
     # Path to scanned images etc.
-    config.x.data.files_url = '/files/'
+    config.x.data.images_url = '/files/images/'
   end
 end

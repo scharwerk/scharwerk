@@ -28,6 +28,10 @@ class Page < ActiveRecord::Base
     File.join(Rails.configuration.x.data.file_path, path)
   end
 
+  def image()
+    Rails.configuration.x.data.images_url + path + '.jpg'
+  end
+
   def save_to_file
     full_path = Page.text_path(path) + '.txt'
     File.write(full_path, text)
@@ -40,5 +44,9 @@ class Page < ActiveRecord::Base
       text = File.read(text_file)
       Page.create(path: path, text: text)
     end
+  end
+
+  def as_json(options = {})
+    super(options.merge(methods: [:image]))
   end
 end

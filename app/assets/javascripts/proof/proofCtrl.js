@@ -27,7 +27,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal){
     }
     $scope.id = page.id;
     $scope.text = page.text;
-    $scope.image = page.path;
+    $scope.image = page.image;
 
     $anchorScroll('text-top');
     $anchorScroll('image-top');
