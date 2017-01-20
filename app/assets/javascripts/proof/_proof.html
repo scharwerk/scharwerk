@@ -35,7 +35,7 @@
                 <li 
                   ng-repeat="page in task.pages" 
                   ng-class="{done: page.status == 'done', cur: page.id == id}">
-                    <a ng-click="goto(page.id);">{{ page.id }}</a>
+                    <a ng-click="goto(page.id);">{{ $index + 1}}</a>
                 </li>
               </ul>
             </div>
