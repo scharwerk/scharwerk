@@ -7,11 +7,11 @@ Das Scharwerk is distributed publishing system.
 1. Install rails http://railsapps.github.io/installing-rails.html
 2. Install deps
         
-        bundler install
+    bundler install
 
 3. Run and go to http://localhost:3000/
 
-        rails s
+    rails s
 
 ## Codestyle
 
@@ -43,7 +43,7 @@ Get new version:
 
 Update project:
 
-    bundle
+    bundle install --without development test
     . /etc/default/unicorn
     RAILS_ENV=production rake db:migrate
 
@@ -58,16 +58,17 @@ Visit http://46.101.228.108/
 
 * clone text into 
 
-    mkdir app/assets/git/
+    cd app/assets/
+    mkdir git/
+    cd git/
     git clone git@github.com:marx-in-ua/das-kapital.git .
     git checkout test
 
 * copy images to public/files/images/
 
-## Generate tasks, should look like:
+* Generate tasks:
 
     RAILS_ENV=production rake scharwerk:generate_tasks['franko/*','test','franko',5]
-
 
 ## Todo
 
