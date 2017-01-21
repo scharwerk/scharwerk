@@ -5,6 +5,7 @@ angular.module('scharwerk',
     'Devise',
     'mm.foundation',
     'ezfb',
+    'monospaced.elastic',
     'n3-pie-chart'
   ]
 )

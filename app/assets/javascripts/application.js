@@ -6,4 +6,5 @@
 //= require angular-easyfb/build/angular-easyfb.js
 //= require d3/d3.js
 //= require pie-chart/dist/pie-chart.js
+//= require angular-elastic/elastic.js
 //= require_tree .

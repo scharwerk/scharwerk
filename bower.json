@@ -18,6 +18,7 @@
     "angular-easyfb": "^1.5.1",
     "foundation-sites": "^6.2.3",
     "angular-foundation-6": "^0.10.7",
-    "pie-chart": "master"
+    "pie-chart": "master",
+    "angular-elastic": "^2.5.1"
   }
 }
