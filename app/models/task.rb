@@ -14,7 +14,7 @@
 # add top level class documentation
 class Task < ActiveRecord::Base
   belongs_to :user
-  has_many :pages
+  has_many :pages, -> { order(:id) }
 
   attr_accessor :progress
   attr_accessor :current_page
@@ -25,7 +25,7 @@ class Task < ActiveRecord::Base
   enum part: { book_1: 1, book_2: 2, book_3_1: 3, book_3_2: 4, franko: 5 }
 
   def description
-    I18n.t(stage) + ' ' + I18n.t(part)
+    I18n.t(part) + '. ' + I18n.t(stage)
   end
 
   def assign(user)
@@ -39,6 +39,14 @@ class Task < ActiveRecord::Base
 
   def finish
     update(status: :done)
+  end
+
+  def commit
+    pathes = pages.collect(&:save_to_file)
+    g = Git.open(Rails.configuration.x.data.git_path.to_s)
+    g.add(pathes)
+    g.commit(stage.to_s + ' ' + Zlib.crc32(user.id.to_s).to_s(16))
+    update(status: :commited)
   end
 
   def progress

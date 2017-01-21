@@ -1,9 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  before(:all) do
+    FileUtils.mkdir_p(Page.text_path('test/'))
+  end
+
+  after(:all) do
+    FileUtils.rm_r(Page.text_path('../.git/'))
+    FileUtils.rm_rf(Dir.glob(Page.text_path('')))
+  end
+
   it 'shows text' do
     task = Task.create(stage: :first_proof, part: :book_1)
-    expect(task.description).to eq('Перша корректура. Капітал. Том І.')
+    expect(task.description).to eq('Капітал, том І. Перша корректура')
   end
 
   it 'calculates progress' do
@@ -35,6 +44,17 @@ RSpec.describe Task, type: :model do
     task.pages.create(status: :free)
     task.release
     expect(Page.find(page.id).status).to eq('free')
+  end
+
+  it 'commit files' do
+    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+
+    task = Task.create(status: :done, user: User.create)
+    task.pages.create(status: :done, path: 'test/1', text: '1')
+    task.pages.create(status: :done, path: 'test/2', text: '2')
+    task.commit
+
+    expect(g.log[0].message).to start_with('test ')
   end
 
   describe '.generate_tasks' do
