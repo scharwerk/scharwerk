@@ -28,7 +28,7 @@ class Page < ActiveRecord::Base
     File.join(Rails.configuration.x.data.file_path, path)
   end
 
-  def image()
+  def image
     Rails.configuration.x.data.images_url + path + '.jpg'
   end
 
