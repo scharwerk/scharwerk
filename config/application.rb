@@ -30,7 +30,7 @@ module Scharwerk
     config.active_record.raise_in_transactional_callbacks = true
 
     # Path to git repository with text and tex files
-    config.x.data.git_path = Rails.root.join('app', 'assets', 'git')
+    config.x.data.git_path = Rails.root.join('db', 'git')
 
     # Fonder in repo
     config.x.data.text_folder = 'text'

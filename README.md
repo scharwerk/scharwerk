@@ -58,7 +58,7 @@ Visit http://46.101.228.108/
 
 * clone text into 
 
-    cd app/assets/
+    cd db/
     mkdir git/
     cd git/
     git clone git@github.com:marx-in-ua/das-kapital.git .
