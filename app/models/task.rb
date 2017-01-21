@@ -45,7 +45,7 @@ class Task < ActiveRecord::Base
     pathes = pages.collect(&:save_to_file)
     g = Git.open(Rails.configuration.x.data.git_path.to_s)
     g.add(pathes)
-    g.commit(stage.to_s + ' ' + Zlib.crc32(user.id.to_s).to_s(16))
+    g.commit(stage.to_s + ' U' + user.id.to_s)
     update(status: :commited)
   end
 

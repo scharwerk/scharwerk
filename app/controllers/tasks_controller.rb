@@ -23,8 +23,12 @@ class TasksController < ApplicationController
   # mark task as completed
   def update
     task_missing && return
-    current_user.active_task.finish if params['done']
-    GitWorker.perform_async(current_user.active_task)
+    if params['done']
+      task = current_user.active_task
+      task.finish
+      GitWorker.perform_async(task.id)
+    end
+
     render json: { status: 'done' }, status: :ok
   end
 
