@@ -20,7 +20,7 @@ class Task < ActiveRecord::Base
   attr_accessor :current_page
   attr_accessor :description
 
-  enum status: { free: 0, active: 1, done: 2, commited: 3 }
+  enum status: { free: 0, active: 1, done: 2, commited: 3, error: 4 }
   enum stage: { test: 0, first_proof: 1, second_proof: 2 }
   enum part: { book_1: 1, book_2: 2, book_3_1: 3, book_3_2: 4, franko: 5 }
 
@@ -47,6 +47,9 @@ class Task < ActiveRecord::Base
     g.add(pathes)
     g.commit(stage.to_s + ' U' + user.id.to_s)
     update(status: :commited)
+  rescue StandardError
+    update(status: :error)
+    raise
   end
 
   def progress
