@@ -6,8 +6,15 @@ namespace :scharwerk do
                          :pages_per_task] => :environment do |_t, args|
     part_pages = Page.create_pages(args[:pattern])
 
-    Task.generate_tasks(part_pages, args[:part],
-                        args[:stage],
-                        args[:pages_per_task].to_i)
+    tasks = Task.generate_tasks(part_pages,
+                                args[:part],
+                                args[:stage],
+                                args[:pages_per_task].to_i)
+    tasks.each do |task|
+      puts 'Task #' + task.id.to_s
+      task.pages.each do |page|
+        puts "\t Page #" + page.id.to_s + ' ' + page.path
+      end
+    end
   end
 end
