@@ -1,12 +1,13 @@
 angular.module('scharwerk')
 .controller('IndexCtrl', [
 '$scope',
+'$state',
 'ezfb',
 'stages',
 'tasks',
 '$http',
 'Auth',
-function($scope, ezfb, stages, tasks, $http, Auth){
+function($scope, $state, ezfb, stages, tasks, $http, Auth){
 
   function fbLogin(response) {
     $http.post('/login', response.authResponse).then(function successCallback(response) {
@@ -29,7 +30,11 @@ function($scope, ezfb, stages, tasks, $http, Auth){
   };
 
   $scope.release = tasks.release;
-  $scope.assign = tasks.assign;
+  $scope.assign = function(stage) {
+    tasks.assign(stage).success(function () {
+      $state.go('proof');
+    });
+  };
 
   $scope.logout = Auth.logout;
   $scope.isAuthenticated = Auth.isAuthenticated;
