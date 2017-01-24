@@ -37,6 +37,14 @@ Go to the project folder:
 
     cd /home/rails/scharwerk
 
+Config sidekiq. Copy upstart/sidekiq.conf to /etc/init/sidekiq.conf. Set the PASSWORD_GOES_HERE 
+in file. Start by: 
+
+    start sidekiq index=0
+
+Logs in /var/log/upstart/sidekiq-0.log
+
+
 Get new version:
 
     git pull
