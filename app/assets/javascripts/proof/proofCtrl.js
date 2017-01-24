@@ -7,8 +7,9 @@ angular.module('scharwerk')
 '$anchorScroll',
 '$modal',
 function($scope, $state, tasks, task, $anchorScroll, $modal){
-  if (!task) {
+  if (!tasks.current.exists) {
     $state.go('index');
+    return ;
   }
   
   var submitModal = function() {
