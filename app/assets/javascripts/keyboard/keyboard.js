@@ -2,6 +2,11 @@ function KeyboardCtrl(keyboardConfig) {
   var ctrl = this;
 
   this.config = keyboardConfig;
+  this.chars = {}
+
+  angular.forEach(keyboardConfig, function(string, key) {
+    this[key] = string.split('');
+  }, this.chars);
 
   this.insertText = function(text) {
   	var element = document.getElementById(ctrl.targetId);
@@ -20,16 +25,18 @@ function KeyboardCtrl(keyboardConfig) {
     element.focus();
     angular.element(element).triggerHandler('input');
   }
-}
+};
 
 angular.module('scharwerk')
 .constant('keyboardConfig', {
-  'Α…Ω': ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ'],
-  'α…ω': ['α', 'β', 'γ', 'δ', 'ε', 'ζ']
+  '«»…VI': "'„“«»[]/—ҐґIVXLcvmΔ",
+  'Ää…Ùù': 'ÄäÀàÂâÆæÇçÉéÈèÊêËëÎîÏïÖöÔôŒœÜüÙùÛûŸÿß',
+  'Α…Ω': 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ',
+  'α…ω': 'αβγδεζηθικλμνξοπρσςτυφχψω'
 })
 .component('keyboard', {
   templateUrl: 'keyboard/_keyboard.html',
-  controller: KeyboardCtrl,
+  controller: ['keyboardConfig', KeyboardCtrl],
   bindings: {
     targetId: '@',
     value: '='
