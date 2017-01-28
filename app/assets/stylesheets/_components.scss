@@ -13,17 +13,17 @@
 	background: $primary-color;
 	@include scroll;
 
-	h1 {
+	h1, h3, p, ol, h1 a {
 		color: #FFFFFF;
 	}
-	p {
-		font-size: 120%;
-		color: #CFD8DC;
+	h3 {
+		margin-top: 1em;
 	}
 }
 #main {
 	overflow-y: auto;
 	height: 100%;
+	padding: 0;
 }
 #top,
 #bottom {
@@ -34,7 +34,7 @@
 }
 
 .edit-content {
-	padding: 4%;
+	padding: 1%;
 }
 .textarea-page {
 	background: #FFFFFF;
@@ -51,7 +51,7 @@
   {
     @media all and (min-width: rem-calc(980) + rem-calc(100) * $i) {
     	.textarea-page textarea {
-    		font-size: 1em + 0.1em * $i; 
+    		font-size: 1em + 0.07em * $i; 
     	}
     }
     $i: $i + 1;
@@ -73,4 +73,24 @@
   &:hover {
   	background-color: $divider-color;
   }
+}
+
+keyboard .tabs-panel {
+	padding: 0;
+
+	& a {
+		font-weight: bold;
+		width: 18%;
+		margin: 1%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.progress-proof {
+	background-color: #FFFFFF;
+
+	& .progress-meter {
+		background-color: $progress-color;
+	}
 }
