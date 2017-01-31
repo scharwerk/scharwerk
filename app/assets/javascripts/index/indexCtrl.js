@@ -51,6 +51,7 @@ function($scope, $state, ezfb, stages, tasks, $http, Auth){
   $scope.task = tasks.current;
   $scope.graphs = stages.graphs;
 
+  $scope.debug = (window.location.hash.indexOf('debug') !== -1);
   $scope.options = {thickness: 16.5, mode: 'gauge', total: 100};
   $scope.optionsSmall = {thickness: 12, mode: 'gauge', total: 100};
   $scope.data  = [{label: "Завершено", value: 75, suffix: '%', colorComplement: '#FFFFFF', color: '#FFC107'}];

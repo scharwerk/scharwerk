@@ -91,6 +91,7 @@ $index-colum-width: $index-page-width / 12;
 .text-row {
 	padding-top: $index-colum-width;
 
+	font-size: rem-calc(18px);
 	@include grid-row($columns: 12, $width: $index-page-width);
 	
 	.left-column {
@@ -113,6 +114,8 @@ $index-colum-width: $index-page-width / 12;
 
 .stage-active {
 	margin-top: $index-colum-width;
+	padding-bottom: 1em;
+	padding-top: 1em;
 
 	.text-row:first-child {
 		padding-top: 0;
@@ -132,4 +135,16 @@ $index-colum-width: $index-page-width / 12;
 	text, path {
 		fill-opacity: 1 !important; // hack
 	}
+}
+
+.footer {
+	margin-top: 3em;
+
+	background-color: $main-color;
+
+	p, & a {
+		color: #FFF;
+	}
+
+	padding: 1em;
 }
