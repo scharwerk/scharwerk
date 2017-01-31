@@ -11,22 +11,23 @@
 
   <div class="right-column" ng-show="!isAuthenticated()">
     <h2>Повернутися до завдання</h2>
-    <p>Щоби повернутися до поточного завдання завдання або отримати нове завдання увійдіть через facebook</p>
+    <p>Щоби повернутися до поточного завдання завдання або отримати нове увійдіть через facebook</p>
     <a ng-click="login();" class="button large primary expand">увійти через facebook</a>
-    <p><small>Обіцяємо, не зловживати вашою довірою. </small></p>
+    <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
   </div>
 
   <div class="right-column" ng-show="isAuthenticated()">
     <h2>Вітаємо, {{ user.name }}!</h2>
     <div ng-show="!task.exists">
-      У вас немає жодного завдання. Оберіть одне із завдань, з нижченаведеного списку.
+      <p>У вас немає жодного завдання. Оберіть одне із завдань, зі списку етапів нижче.</p>
+      <p><a ng-click="logout()">Вийти</a></p>
     </div>
     <div ng-show="task.exists">
       <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»</p>
       <a href="#/proof" class="button large primary expand">перейти до завдання</a>
-      <p><a ng-click="release();">відмовитись від завдання</a></p>
+      <p><a ng-click="logout()">Вийти</a> або <a ng-click="release();">Відмовитись від завдання</a></p>
     </div>
-    <a ng-click="logout()">Вийти</a>
+    
   </div>
 
 </div>
@@ -34,13 +35,18 @@
 <div class="text-row">
   <div class="left-column" >
     <h2>Як це працює?</h2>
-    <p>Готуємо книгу до видання в три етапи</p>
     <p>Процес організований таким чином, що не потребує від користувача попередньої підготовки</p>
+    <p>Готуємо книгу до видання в чотири етапи</p>
+    <ul>
+      <li>2 корректури</li>
+      <li>верстка</li>
+      <li>фінальна корректура</li>
+    </ul>
   </div>
   <div class="right-column">
     <h2>Навіщо це мені?</h2>
     <p>Долучіться до спільної роботи. </p>
-    <p>Ваше ім’я назавжди залишиться в друкованому виданні</p>
+    <p>Ваше ім’я назавжди залишиться в електронному виданні. І в друкованому, якщо воно буде.</p>
   </div>
 </div>
 
@@ -60,7 +66,7 @@
   </div>
 </div>
 
-<div class="stage-active">
+<div ng-if="debug" class="stage-active">
   <div class="text-row">
     <div class="left-column">
       <div class="chart">
@@ -70,10 +76,41 @@
     <div class="right-column">
       <h3>0. Monkey testing stage</h3>
       <p>
+        {{ debug }}
         Go make it!
+        
       </p>
       <a ng-click="assign('test');" class="button large success">Oтримати завдання</a>
     </div>  
+  </div>
+</div>
+
+<div class="stage-active">
+  <div class="text-row stage-done">
+    <div class="left-column">
+      <div class="chart">
+        <pie-chart data='graphs.first_proof' options='options'></pie-chart>
+      </div>
+    </div>
+    <div class="right-column">
+      <h3>1. Перша коректура</h3>
+      <p>
+        На першому етапі коректуємо текст після автоматичного розпізнавання. 
+      </p>
+      <div ng-show="!isAuthenticated()">
+        <p>Щоби отримати нове завдання увійдіть через facebook</p>
+        <a ng-click="login();" class="button large success expand">увійти через facebook</a>
+        <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
+      </div>
+      <div ng-show="isAuthenticated()">
+        <div ng-show="!task.exists">
+          <a href="#/proof" class="button large success">Oтримати завдання</a>
+        </div>
+        <div ng-show="task.exists">
+          <p>Ви вже працюєте над «<strong>{{ task.description }}</strong>»</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -84,28 +121,11 @@
     </div>
   </div>
   <div class="right-column">
-    <h3>1. Перша коректура</h3>
+    <h3>2. Друга коректура</h3>
     <p>
-      На першому етапі коректуємо текст після автоматичного розпізнавання. 
+      Помилок вже значно менше. Прагнемо до досконалості!
     </p>
-  </div>
-</div>
-
-<div class="stage-active">
-  <div class="text-row">
-    <div class="left-column">
-      <div class="chart">
-        <pie-chart data='data' options='options'></pie-chart>
-      </div>
-    </div>
-    <div class="right-column">
-      <h3>2. Друга коректура</h3>
-      <p>
-        Помилок вже значно менше. Прагнемо до досконалості!
-      </p>
-      <a href="#/proof" class="button large success">Oтримати завдання</a>
-    </div>  
-  </div>
+  </div>  
 </div>
 
 <div class="text-row stage-done">
@@ -136,18 +156,10 @@
   </div>
 </div>
 
-  </div>   
-    <h3></h3>
-    <h3></h3>
-  </div>
-
-
-<div class="stage-active">
-  <div class="text-row">
-    <div class="left-column">
-    </div>
-    <div class="right-column">
-      <p>Шарварок проект з відритим кодом.</p>
+<div class="footer">
+  <div class="row">
+    <div class="small-6 columns small-offset-6">
+      <p>Шарварок — <a href="https://github.com/chmen/scharwerk">вільне програмне забезпечення</a>.</p>
     </div>
   </div>
 </div>
