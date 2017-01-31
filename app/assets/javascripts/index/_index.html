@@ -97,7 +97,19 @@
       <p>
         На першому етапі коректуємо текст після автоматичного розпізнавання. 
       </p>
-      <a href="#/proof" class="button large success">Oтримати завдання</a>
+      <div ng-show="!isAuthenticated()">
+        <p>Щоби отримати нове завдання увійдіть через facebook</p>
+        <a ng-click="login();" class="button large success expand">увійти через facebook</a>
+        <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
+      </div>
+      <div ng-show="isAuthenticated()">
+        <div ng-show="!task.exists">
+          <a href="#/proof" class="button large success">Oтримати завдання</a>
+        </div>
+        <div ng-show="task.exists">
+          <p>Ви вже працюєте над «<strong>{{ task.description }}</strong>»</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
