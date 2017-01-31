@@ -27,6 +27,7 @@ Please, before push to github run in console, in your project folder:
     
 Before deployment. If assets changed:
 
+    RAILS_ENV=production rake assets:clobber 
     RAILS_ENV=production rake assets:precompile
 
 Connect via ssh:
