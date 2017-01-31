@@ -104,7 +104,7 @@
       </div>
       <div ng-show="isAuthenticated()">
         <div ng-show="!task.exists">
-          <a href="#/proof" class="button large success">Oтримати завдання</a>
+          <a ng-click="assign('first_proof');" class="button large success">Oтримати завдання</a>
         </div>
         <div ng-show="task.exists">
           <p>Ви вже працюєте над «<strong>{{ task.description }}</strong>»</p>
