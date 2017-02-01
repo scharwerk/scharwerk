@@ -41,11 +41,15 @@ class Task < ActiveRecord::Base
     update(status: :done)
   end
 
+  def commit_message
+    stage.to_s + ' T' + id.to_s + ' U' + user.id.to_s
+  end
+
   def commit
     pathes = pages.collect(&:save_to_file)
     g = Git.open(Rails.configuration.x.data.git_path.to_s)
     g.add(pathes)
-    g.commit(stage.to_s + ' U' + user.id.to_s)
+    g.commit(commit_message)
     update(status: :commited)
   rescue StandardError
     update(status: :error)
