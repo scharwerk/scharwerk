@@ -42,8 +42,11 @@ Config sidekiq. Copy upstart/sidekiq.conf to /etc/init/sidekiq.conf. Set the PAS
 in file. Start by: 
 
     start sidekiq index=0
+    sudo service sidekiq restart index=0
 
 Logs in /var/log/upstart/sidekiq-0.log
+
+
 
 
 Get new version:
@@ -79,9 +82,9 @@ Visit http://46.101.228.108/
 
     RAILS_ENV=production rake scharwerk:generate_tasks['franko/*','test','franko',5]
 
-    RAILS_ENV=production rake scharwerk:generate_tasks['ii/*','first_proof','book_2',10]
-    RAILS_ENV=production rake scharwerk:generate_tasks['franko/*','first_proof','franko',5]
-    RAILS_ENV=production rake scharwerk:generate_tasks['iii.2/*','first_proof','book_3_2',7]
+    RAILS_ENV=production rake scharwerk:generate_tasks['ii/*','first_proof','book_2',5]
+    RAILS_ENV=production rake scharwerk:generate_tasks['franko/*','first_proof','franko',3]
+    RAILS_ENV=production rake scharwerk:generate_tasks['iii.2/*','first_proof','book_3_2',3]
 
 ## Todo
 
