@@ -6,7 +6,8 @@ angular.module('scharwerk')
 'task',
 '$anchorScroll',
 '$modal',
-function($scope, $state, tasks, task, $anchorScroll, $modal){
+'$timeout',
+function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   if (!tasks.current.exists) {
     $state.go('index');
     return ;
@@ -38,7 +39,10 @@ function($scope, $state, tasks, task, $anchorScroll, $modal){
   updatePage(tasks.current.current_page);
 
   $scope.save = function() {
-    tasks.savePage($scope.id, $scope.text);
+    tasks.savePage($scope.id, $scope.text).success(function () {
+      $scope.savedStatus = 'Збережено. ';
+      $timeout(function () { $scope.savedStatus = '';}, 1000);
+    });
   }
 
   $scope.goto = function(id) {

@@ -40,7 +40,7 @@
           <textarea id="main-text" class="msd-elastic: \n;" ng-model="text">
           </textarea>
           <div class="row collapse">
-            <div class="small-5 columns">
+            <div class="small-4 columns">
               <ul class="pagination">
                 <li 
                   ng-repeat="page in task.pages" 
@@ -49,10 +49,12 @@
                 </li>
               </ul>
             </div>
-            <div class="small-2 columns">
-              <a class="button large secondary hollow" ng-click="save()">Зберегти</a>
+            <div class="small-3 columns">
+              <a class="button secondary hollow" ng-click="save()">Зберегти</a>
+              <p></p>
+              <p><small><b>{{ savedStatus }}</b>Зберегти сторінку, щоби повернутися до неї пізніше.</small></p>
             </div>
-            <div class="small-5 columns">
+            <div class="small-4 columns">
               <a class="button large expanded success" ng-click="saveAndContinue()">Завершити сторінку</a>
               <p><small>Відмітити поточну сторінку як завершену і перейти до наступної</small></p>
             </div>
