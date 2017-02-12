@@ -2,32 +2,30 @@ angular.module('scharwerk')
 .controller('IndexCtrl', [
 '$scope',
 '$state',
-'ezfb',
+'authentication',
 'stages',
 'tasks',
-'$http',
-'Auth',
-function($scope, $state, ezfb, stages, tasks, $http, Auth){
+function($scope, $state, authentication, stages, tasks){
 
-  function fbLogin(response) {
-    $http.post('/login', response.authResponse).then(function successCallback(response) {
-      Auth._currentUser = response.data;
-      $scope.$broadcast('devise:login', response.data);
-    }, function errorCallback(response) {
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
-    });
-  };
+  $scope.login =  authentication.login; 
+  $scope.logout = authentication.logout;
 
-  $scope.login = function() {
-    ezfb.getLoginStatus(function (response) {
-      if (response.status !== 'connected') {
-              ezfb.login(fbLogin);
-              return ;  
-            } 
-            fbLogin(response)
-      });
-  };
+  $scope.$on('devise:logout', function (e, user){ 
+    $scope.user = {}; 
+    $scope.isAuthenticated = false;
+  });
+  $scope.$on('devise:login', function (e, user){ 
+    $scope.isAuthenticated = true;
+    $scope.user = user; 
+    tasks.updateCurrent();
+  });
+
+  $scope.isAuthenticated = authentication.isAuthenticated();
+  authentication.currentUser().then(function (user){ 
+    $scope.isAuthenticated = true;
+    $scope.user = user; 
+    tasks.updateCurrent();
+  });
 
   $scope.release = tasks.release;
   $scope.assign = function(stage) {
@@ -35,18 +33,6 @@ function($scope, $state, ezfb, stages, tasks, $http, Auth){
       $state.go('proof');
     });
   };
-
-  $scope.logout = Auth.logout;
-  $scope.isAuthenticated = Auth.isAuthenticated;
-  Auth.currentUser().then(function (user){ 
-    $scope.user = user; 
-    tasks.updateCurrent();
-  });
-  $scope.$on('devise:login', function (e, user){ 
-    $scope.user = user; 
-    tasks.updateCurrent();
-  });
-  $scope.$on('devise:logout', function (e, user){ $scope.user = {}; });
 
   $scope.task = tasks.current;
   $scope.graphs = stages.graphs;

@@ -50,7 +50,7 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
 
 }])
 .run([
-'Auth',
-function (Auth) {
-  Auth.currentUser();
+'authentication',
+function (authentication) {
+  authentication.currentUser();
 }]);
