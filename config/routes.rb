@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   post 'login' => 'users#login'
   get 'stats/tasks'
+  get 'stats/top'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
