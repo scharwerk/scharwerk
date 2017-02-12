@@ -23,6 +23,19 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :rememberable, :trackable
   has_many :tasks
 
+  def tasks_done
+    tasks.commited.count
+  end
+
+  def pages_done
+    return 0 unless active_task
+    active_task.pages.done.count
+  end
+
+  def pages_left
+    active_task.pages.free.count
+  end
+
   def encrypted_password
     false
   end
