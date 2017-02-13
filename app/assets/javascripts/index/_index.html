@@ -19,7 +19,9 @@
   <div class="right-column" ng-show="isAuthenticated">
     <h2>Вітаємо, {{ user.name }}!</h2>
     <div ng-show="!task.exists">
-      <p>У вас немає жодного завдання. Оберіть одне із завдань, зі списку етапів нижче.</p>
+      <p>У вас немає жодного завдання.</p>
+      <p>Поточний етап — <strong>Перша коректура</strong></p>
+      <a ng-click="assign('first_proof');" class="button large success">Oтримати завдання</a>
       <p><a ng-click="logout()">Вийти</a></p>
     </div>
     <div ng-show="task.exists">
