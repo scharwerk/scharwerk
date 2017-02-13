@@ -46,9 +46,6 @@ in file. Start by:
 
 Logs in /var/log/upstart/sidekiq-0.log
 
-
-
-
 Get new version:
 
     git pull
@@ -88,4 +85,5 @@ Visit http://46.101.228.108/
 
 ## Todo
 
+  Autzologin on proof
 
