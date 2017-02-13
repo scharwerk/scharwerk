@@ -9,17 +9,19 @@
     </div>
   </div>
 
-  <div class="right-column" ng-show="!isAuthenticated()">
+  <div class="right-column" ng-show="!isAuthenticated">
     <h2>Повернутися до завдання</h2>
     <p>Щоби повернутися до поточного завдання завдання або отримати нове увійдіть через facebook</p>
     <a ng-click="login();" class="button large primary expand">увійти через facebook</a>
     <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
   </div>
 
-  <div class="right-column" ng-show="isAuthenticated()">
+  <div class="right-column" ng-show="isAuthenticated">
     <h2>Вітаємо, {{ user.name }}!</h2>
     <div ng-show="!task.exists">
-      <p>У вас немає жодного завдання. Оберіть одне із завдань, зі списку етапів нижче.</p>
+      <p>У вас немає жодного завдання.</p>
+      <p>Поточний етап — <strong>Перша коректура</strong></p>
+      <a ng-click="assign('first_proof');" class="button large success">Oтримати завдання</a>
       <p><a ng-click="logout()">Вийти</a></p>
     </div>
     <div ng-show="task.exists">
@@ -44,9 +46,10 @@
     </ul>
   </div>
   <div class="right-column">
-    <h2>Навіщо це мені?</h2>
-    <p>Долучіться до спільної роботи. </p>
-    <p>Ваше ім’я назавжди залишиться в електронному виданні. І в друкованому, якщо воно буде.</p>
+    <h2>Подяка!</h2>
+    <p>Цей проект був би не можливий без тих, хто долучився до спільної роботи (за кількістю виконаних завданнь):</p>
+    <p><strong>{{ topList }}.</strong></p>
+    <p><small>Ті, хто поки не завершив завдання: {{ goingList }}.</small></p>
   </div>
 </div>
 
@@ -100,12 +103,12 @@
       <p>
         Цей етап не потребує попереднього досвіду коректури.
       </p>
-      <div ng-show="!isAuthenticated()">
+      <div ng-show="!isAuthenticated">
         <p>Щоби отримати нове завдання увійдіть через facebook</p>
         <a ng-click="login();" class="button large success expand">увійти через facebook</a>
         <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
       </div>
-      <div ng-show="isAuthenticated()">
+      <div ng-show="isAuthenticated">
         <div ng-show="!task.exists">
           <a ng-click="assign('first_proof');" class="button large success">Oтримати завдання</a>
         </div>
