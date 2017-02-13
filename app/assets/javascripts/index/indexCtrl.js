@@ -11,7 +11,7 @@ function($scope, $state, authentication, stages, tasks){
   $scope.logout = authentication.logout;
   
   $scope.isAuthenticated = false;
-  
+
   $scope.$on('devise:logout', function (e, user){ 
     $scope.user = {}; 
     $scope.isAuthenticated = false;
@@ -35,6 +35,14 @@ function($scope, $state, authentication, stages, tasks){
       $state.go('proof');
     });
   };
+
+  // top list
+  $scope.topList = 'Завантаження...';
+  $scope.goingList = 'Завантаження...';
+  stages.getTop(function(top, going) {
+    $scope.topList = top;
+    $scope.goingList = going;    
+  });
 
   $scope.task = tasks.current;
   $scope.graphs = stages.graphs;

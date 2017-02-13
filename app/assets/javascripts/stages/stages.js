@@ -19,6 +19,13 @@ angular.module('scharwerk')
     });
   };
 
+  s.getTop = function(callback) {
+    return $http.get('/stats/top.json').success(function(data){
+      var top = data.top.map(function(u) { return u.name }).join(', ');
+      var going = data.going.map(function(u) { return u.name }).join(', ');
+      callback(top, going);
+    });
+  }
   return s;
 }])
 
