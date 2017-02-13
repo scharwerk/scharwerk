@@ -9,7 +9,9 @@ function($scope, $state, authentication, stages, tasks){
 
   $scope.login =  authentication.login; 
   $scope.logout = authentication.logout;
-
+  
+  $scope.isAuthenticated = false;
+  
   $scope.$on('devise:logout', function (e, user){ 
     $scope.user = {}; 
     $scope.isAuthenticated = false;
@@ -20,7 +22,7 @@ function($scope, $state, authentication, stages, tasks){
     tasks.updateCurrent();
   });
 
-  $scope.isAuthenticated = authentication.isAuthenticated();
+  
   authentication.currentUser().then(function (user){ 
     $scope.isAuthenticated = true;
     $scope.user = user; 

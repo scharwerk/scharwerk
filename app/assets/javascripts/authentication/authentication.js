@@ -17,7 +17,7 @@ function(Auth, $rootScope, $http, ezfb){
 
   var s = {};
 
-  s.login = function(callback) {
+  s.login = function() {
     ezfb.getLoginStatus(function (response) {
       if (response.status !== 'connected') {
         ezfb.login(fbLogin);
@@ -26,6 +26,10 @@ function(Auth, $rootScope, $http, ezfb){
       fbLogin(response)
     });  	
   };
+
+  s.autologin = function(callback) {
+
+  }
 
   s.logout = Auth.logout;
   s.currentUser = Auth.currentUser;
