@@ -86,6 +86,6 @@ Visit http://46.101.228.108/
 ## Todo
 
   Autologin on proof
-  × add multiplication char (check to replace all x)
+  (check to replace all x with × multiplication char)
   
 
