@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110114754) do
+ActiveRecord::Schema.define(version: 20170319200015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170110114754) do
     t.string   "name"
     t.string   "facebook_id"
     t.text     "facebook_data"
+    t.string   "token"
   end
 
   add_index "users", ["facebook_id"], name: "index_users_on_facebook_id", unique: true, using: :btree
