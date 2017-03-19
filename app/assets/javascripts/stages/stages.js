@@ -21,7 +21,9 @@ angular.module('scharwerk')
 
   s.getTop = function(callback) {
     return $http.get('/stats/top.json').success(function(data){
-      var top = data.top.map(function(u) { return u.name }).join(', ');
+      var top = data.top.map(function(u) { 
+        return '<strong>' + u.name + '&nbsp;<span class="label primary">' + u.tasks + '</sup></strong>'
+      }).join('');
       var going = data.going.map(function(u) { return u.name }).join(', ');
       callback(top, going);
     });

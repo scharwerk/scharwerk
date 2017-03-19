@@ -1,11 +1,12 @@
 angular.module('scharwerk')
 .controller('IndexCtrl', [
+'$sce',
 '$scope',
 '$state',
 'authentication',
 'stages',
 'tasks',
-function($scope, $state, authentication, stages, tasks){
+function($sce, $scope, $state, authentication, stages, tasks){
 
   $scope.login =  authentication.login; 
   $scope.logout = authentication.logout;
@@ -37,10 +38,10 @@ function($scope, $state, authentication, stages, tasks){
   };
 
   // top list
-  $scope.topList = 'Завантаження...';
+  $scope.topList = $sce.trustAsHtml('Завантаження...');
   $scope.goingList = 'Завантаження...';
   stages.getTop(function(top, going) {
-    $scope.topList = top;
+    $scope.topList = $sce.trustAsHtml(top);
     $scope.goingList = going;    
   });
 

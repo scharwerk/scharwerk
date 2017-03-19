@@ -48,7 +48,7 @@
   <div class="right-column">
     <h2>Подяка!</h2>
     <p>Цей проект був би не можливий без тих, хто долучився до спільної роботи (за кількістю виконаних завданнь):</p>
-    <p><strong>{{ topList }}.</strong></p>
+    <p ng-bind-html="topList" class="top-list"></p>
     <p><small>Ті, хто поки не завершив завдання: {{ goingList }}.</small></p>
   </div>
 </div>

@@ -148,3 +148,19 @@ $index-colum-width: $index-page-width / 12;
 
 	padding: 1em;
 }
+
+.top-list {
+	strong:nth-child(-n+3) {
+		display: block;
+		font-size: 120%;
+		&::after {
+			content: "";
+		}
+	}
+	strong::after {
+		content: ", ";
+	}
+	strong:last-child::after {
+		content: ". ";
+	}
+}
