@@ -18,7 +18,7 @@ class TextProcessing
   end
 
   def uppercase_line?(line)
-    line.match?(/\p{Upper}/) && !line.match?(/[\p{Lower}—.\/\\]/)
+    line.match?(/\p{Upper}/) && !line.match?(%r{[\p{Lower}—./\\]})
   end
 
   def remove_line_breaks
