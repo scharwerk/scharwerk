@@ -22,18 +22,11 @@ class TextProcessing
   end
 
   def remove_line_breaks
-    #@text.gsub(/(-\n)(\S+)\s/) { "#{$2}\n" }
-    #@text.gsub/(-\n)(\S+)\s/, "\\2\n"
     @text.gsub(/-\n(\S+)\s/, "\\1\n")
     # In plain English, we looking for a pattern (/(-\n)(\S+)\s/),
     # that represent, hyphen then end of a line, then any charcter except
     # whitespace, then whitespace and replace with second group of pattern
-    # $2 means (\S+), then end of a line \n
-
-    # /(\d\d):(\d\d)(..)/ =~ "12:50am"
-    # "Hour is #$1, minute #$2"
-    # md = /(\d\d):(\d\d)(..)/.match("12:50am")
-    # "Hour is #{md[1]}, minute #{md[2]}"
+    # \\1 means referance to (\S+), then end of a line \n
   end
 
   def capitalize_heading(text)
@@ -48,10 +41,10 @@ class TextProcessing
   def add_empty_line
     @text.match?(/\S\z/) ? @text << "\n" : @text
     # \z match end of a string
-    # \S march any symbol except whitespace and Line seperator
+    # \S match any symbol except whitespace and Line seperator
   end
 
   def replace_double_chars
-    @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/) { "#{$1}\n" }
+    @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
   end
 end
