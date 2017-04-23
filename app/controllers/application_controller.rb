@@ -12,9 +12,15 @@ class ApplicationController < ActionController::Base
     render 'layouts/application'
   end
 
+  def fb
+    @params = params
+    render 'layouts/fb', layout: false
+  end
+
   private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :username
   end
+
 end
