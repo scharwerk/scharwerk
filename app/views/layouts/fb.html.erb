@@ -1,1 +1,21 @@
-<%= params.inspect %>
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- FB sharing info -->
+  <meta property="og:image" content="<%= image_url("fb.jpg") %>" />
+  <meta property="og:title" content="Марксів шарварок" />
+  <meta property="og:description" content="Спільна підготовка видання Марксового «Капіталу»" />
+  <meta property="fb:app_id" content="599480133566803" />
+  
+  <title>Марксів шарварок</title>
+</head>
+<body ng-app="scharwerk">
+	<h1>Hi, facebook!</h1>
+	<h2><%= params.inspect %></h2>
+</body>
+</html>
+
