@@ -66,7 +66,6 @@ class User < ActiveRecord::Base
 
     status, user = find_or_create_user(fb_user)
     user.update(token: access_token)
-    sign_in(:user, user)
 
     [status, user]
   end
