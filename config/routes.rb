@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'application#angular'
 
+  # for different page urls
+  get 's/:round' => 'application#angular'
+  
   resource :task do
     resources :pages
   end
