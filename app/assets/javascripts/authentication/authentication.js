@@ -27,8 +27,11 @@ function(Auth, $rootScope, $http, ezfb){
     });  	
   };
 
-  s.autologin = function(callback) {
-
+  s.autologin = function() {
+    s.login();
+    if (!s.isAuthenticated) {
+      s.autologin();
+    }
   }
 
   s.logout = Auth.logout;

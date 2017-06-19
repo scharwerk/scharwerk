@@ -29,7 +29,8 @@ class StatsController < ApplicationController
     end
     result[:top].sort_by! { |k| -k[:tasks] }
     result[:users] = User.all.count
-    result[:current] = current_user.tasks_done
+    
+    result[:current] = current_user.tasks_done if current_user
 
     # calculate total number of finished tasks
     result[:total] = result[:top].inject(0){ |sum, el| sum + el[:tasks] }

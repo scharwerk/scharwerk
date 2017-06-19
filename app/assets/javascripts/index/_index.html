@@ -10,7 +10,7 @@
   </div>
 
   <div class="right-column" ng-show="!isAuthenticated">
-    <h2>Повернутися до завдання</h2>
+    <h4>Повернутися до завдання</h4>
     <p>Щоби повернутися до поточного завдання завдання або отримати нове увійдіть через facebook</p>
     <a ng-click="login();" class="button large primary expand">увійти через facebook</a>
     <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
@@ -18,6 +18,9 @@
 
   <div class="right-column" ng-show="isAuthenticated">
     <h4>Вітаємо, {{ user.name }}!</h4>
+    <div ng-if="isFacebook">
+      Hi, Facebook
+    </div>
     <p>Ви <ng-pluralize count="current"
               when="{'0': 'поки не завершили жодного завдання',
                      'one': 'вже завершили {} завдання',

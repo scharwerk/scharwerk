@@ -8,22 +8,42 @@ angular.module('scharwerk')
 'tasks',
 function($sce, $scope, $state, authentication, stages, tasks){
 
+  // hack for fb app
+  isFacebook = window.location.pathname.includes('/fb');
+  $scope.isFacebook = isFacebook;
+
+  if (isFacebook){
+    authentication.autologin(); 
+  }
+
   $scope.login =  authentication.login; 
   $scope.logout = authentication.logout;
   
   $scope.isAuthenticated = false;
 
+  var updateTop = function () {
+    stages.getUsers(function(data) {
+      $scope.top = data.top;
+      $scope.going = data.going;
+      $scope.usersCount = data.users;
+      $scope.current = data.current;
+      $scope.avg = Math.round(data.total / data.top.length);
+    });
+  };
+  updateTop();
+
   $scope.$on('devise:logout', function (e, user){ 
     $scope.user = {}; 
     $scope.isAuthenticated = false;
   });
+
   $scope.$on('devise:login', function (e, user){ 
     $scope.isAuthenticated = true;
     $scope.user = user; 
     tasks.updateCurrent();
+    updateTop();
   });
 
-  
   authentication.currentUser().then(function (user){ 
     $scope.isAuthenticated = true;
     $scope.user = user; 
@@ -37,14 +57,7 @@ function($sce, $scope, $state, authentication, stages, tasks){
     });
   };
 
-  // top list
-  stages.getUsers(function(data) {
-    $scope.top = data.top;
-    $scope.going = data.going;
-    $scope.usersCount = data.users;
-    $scope.current = data.current;
-    $scope.avg = Math.round(data.total / data.top.length);
-  });
+
 
   $scope.task = tasks.current;
   $scope.graphs = stages.graphs;

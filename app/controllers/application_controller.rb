@@ -14,8 +14,7 @@ class ApplicationController < ActionController::Base
 
   def fb
     response.headers['X-Frame-Options'] = 'ALLOW-FROM https://apps.facebook.com'
-    @params = params
-    render 'layouts/fb', layout: false
+    render 'layouts/application'
   end
 
   private
