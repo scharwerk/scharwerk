@@ -38,11 +38,10 @@ function($sce, $scope, $state, authentication, stages, tasks){
   };
 
   // top list
-  $scope.topList = $sce.trustAsHtml('Завантаження...');
-  $scope.goingList = 'Завантаження...';
   stages.getUsers(function(data) {
-    $scope.topList = $sce.trustAsHtml(data.top_text);
-    $scope.goingList = data.going_text;
+    $scope.top = data.top;
+    $scope.going = data.going;
+    $scope.usersCount = data.users;
   });
 
   $scope.task = tasks.current;

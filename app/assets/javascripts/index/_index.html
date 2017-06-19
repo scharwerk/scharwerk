@@ -44,9 +44,19 @@
   </div>
   <div class="right-column">
     <h2>Подяка!</h2>
-    <p>Цей проект був би не можливий без тих, хто долучився до спільної роботи (за кількістю виконаних завданнь):</p>
-    <p ng-bind-html="topList" class="top-list"></p>
-    <p style="display: none;"><small>Ті, хто поки не завершив завдання: {{ goingList }}.</small></p>
+    <p>Цей проект був би не можливий без тих, хто долучився до спільної роботи.
+      Наразі до спільної підготовки видання Марксового «Капіталу» вже 
+        <b><ng-pluralize count="usersCount"
+              when="{'one': 'долучилась {} людина',
+                     'few': 'долучилось {} людини',
+                     'many': 'долучилось {} людей'}"></ng-pluralize>.</b>
+    </p>
+
+    <p>{{ top.length }} — завершили хоча б одне завдання (за кількістю виконаних завданнь):</p>
+
+    <p class="top-list">
+      <span ng-repeat="user in top">{{ user.name }}&nbsp;<sup>{{ user.tasks }}</sup></span>
+    </p>
   </div>
 </div>
 
@@ -165,7 +175,7 @@
 <div class="footer">
   <div class="row">
     <div class="small-6 columns small-offset-6">
-      <p>Шарварок — <a href="https://github.com/chmen/scharwerk">вільне програмне забезпечення</a>.</p>
+      <p>Шарварок — <a href="https://github.com/scharwerk/scharwerk">вільне програмне забезпечення</a></p>
     </div>
   </div>
 </div>

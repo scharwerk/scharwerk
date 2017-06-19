@@ -146,21 +146,29 @@ $index-colum-width: $index-page-width / 12;
 		color: #FFF;
 	}
 
+	a {
+		text-decoration: underline;
+	}
 	padding: 1em;
 }
 
 .top-list {
-	strong:nth-child(-n+3) {
+	sup {
+		color: $main-color;
+		font-weight: bold;
+	}
+	span:nth-child(-n+3) {
 		display: block;
+		font-weight: bold;
 		font-size: 120%;
 		&::after {
 			content: "";
 		}
 	}
-	strong::after {
+	span::after {
 		content: ", ";
 	}
-	strong:last-child::after {
+	span:last-child::after {
 		content: ". ";
 	}
 }

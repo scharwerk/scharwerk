@@ -20,14 +20,9 @@ angular.module('scharwerk')
   };
 
   s.getUsers = function(callback) {
-    return $http.get('/stats/users.json').success(function(data){
-      data.top_text = data.top.map(function(u) { 
-        return '<strong>' + u.name + '&nbsp;<span class="label primary">' + u.tasks + '</sup></strong>'
-      }).join('');
-      data.going_text = data.going.map(function(u) { return u.name }).join(', ');
-      callback(data);
-    });
+    return $http.get('/stats/users.json').success(callback);
   }
+  
   return s;
 }])
 
