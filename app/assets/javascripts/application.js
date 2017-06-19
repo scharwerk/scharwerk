@@ -7,4 +7,5 @@
 //= require d3/d3.js
 //= require pie-chart/dist/pie-chart.js
 //= require angular-elastic/elastic.js
+//= require angular-i18n/angular-locale_uk.js
 //= require_tree .

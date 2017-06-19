@@ -19,6 +19,7 @@
     "foundation-sites": "^6.2.3",
     "angular-foundation-6": "^0.10.7",
     "pie-chart": "master",
-    "angular-elastic": "^2.5.1"
+    "angular-elastic": "^2.5.1",
+    "angular-i18n": "^1.6.4"
   }
 }
