@@ -17,8 +17,9 @@ class StatsController < ApplicationController
     respond_with result
   end
 
-  def top
+  def users
     result = { top: [], going: [] }
+
     User.all.each do |user|
       if user.tasks_done > 0
         result[:top] << { name: user.name, tasks: user.tasks_done }
@@ -27,6 +28,9 @@ class StatsController < ApplicationController
       end
     end
     result[:top].sort_by! { |k| -k[:tasks] }
+    result[:users] = User.all.count
+    result[:current] = current_user.tasks_done
+
     respond_with result
   end
 end

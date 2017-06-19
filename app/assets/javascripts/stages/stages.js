@@ -19,13 +19,13 @@ angular.module('scharwerk')
     });
   };
 
-  s.getTop = function(callback) {
-    return $http.get('/stats/top.json').success(function(data){
-      var top = data.top.map(function(u) { 
+  s.getUsers = function(callback) {
+    return $http.get('/stats/users.json').success(function(data){
+      data.top_text = data.top.map(function(u) { 
         return '<strong>' + u.name + '&nbsp;<span class="label primary">' + u.tasks + '</sup></strong>'
       }).join('');
-      var going = data.going.map(function(u) { return u.name }).join(', ');
-      callback(top, going);
+      data.going_text = data.going.map(function(u) { return u.name }).join(', ');
+      callback(data);
     });
   }
   return s;

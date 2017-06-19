@@ -40,9 +40,9 @@ function($sce, $scope, $state, authentication, stages, tasks){
   // top list
   $scope.topList = $sce.trustAsHtml('Завантаження...');
   $scope.goingList = 'Завантаження...';
-  stages.getTop(function(top, going) {
-    $scope.topList = $sce.trustAsHtml(top);
-    $scope.goingList = going;    
+  stages.getUsers(function(data) {
+    $scope.topList = $sce.trustAsHtml(data.top_text);
+    $scope.goingList = data.going_text;
   });
 
   $scope.task = tasks.current;
