@@ -17,15 +17,27 @@
   </div>
 
   <div class="right-column" ng-show="isAuthenticated">
-    <h2>Вітаємо, {{ user.name }}!</h2>
+    <h4>Вітаємо, {{ user.name }}!</h4>
+    <p>Ви <ng-pluralize count="current"
+              when="{'0': 'поки не завершили жодного завдання',
+                     'one': 'вже завершили {} завдання',
+                     'few': 'вже завершили {} завдання',
+                     'many': 'вже завершили {} завдань'}"></ng-pluralize>.
+      В середньому кожний, хто долучився виконав 
+        <b><ng-pluralize count="avg"
+              when="{'one': '{} завдання',
+                     'few': '{} завдання',
+                     'many': '{} завдань'}"></ng-pluralize></b>.
+    </p>
     <div ng-show="!task.exists">
-      <p>У вас немає жодного завдання.</p>
-      <p>Поточний етап — <strong>Перша коректура</strong></p>
+      <p>Ви зараз не працюєте над завданням. 
+      Отримайте завдання з поточного етапу «<strong>Перша коректура</strong>».
+      </p>
       <a ng-click="assign('first_proof');" class="button large success">Oтримати завдання</a>
       <p><a ng-click="logout()">Вийти</a></p>
     </div>
     <div ng-show="task.exists">
-      <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»</p>
+      <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»:</p>
       <a href="#/proof" class="button large primary expand">перейти до завдання</a>
       <p><a ng-click="logout()">Вийти</a> або <a ng-click="release();">Відмовитись від завдання</a></p>
     </div>
@@ -106,8 +118,6 @@
       <h3>1. Перша коректура</h3>
       <p>
         На першому етапі виправляємо лише помилки автоматичного розпізнавання. 
-      </p>
-      <p>
         Цей етап не потребує попереднього досвіду коректури.
       </p>
       <div ng-show="!isAuthenticated">
@@ -121,6 +131,7 @@
         </div>
         <div ng-show="task.exists">
           <p>Ви вже працюєте над «<strong>{{ task.description }}</strong>»</p>
+          <a href="#/proof" class="button large large success">перейти до завдання</a>
         </div>
       </div>
     </div>

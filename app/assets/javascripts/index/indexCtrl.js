@@ -42,6 +42,8 @@ function($sce, $scope, $state, authentication, stages, tasks){
     $scope.top = data.top;
     $scope.going = data.going;
     $scope.usersCount = data.users;
+    $scope.current = data.current;
+    $scope.avg = Math.round(data.total / data.top.length);
   });
 
   $scope.task = tasks.current;
