@@ -31,6 +31,9 @@ class StatsController < ApplicationController
     result[:users] = User.all.count
     result[:current] = current_user.tasks_done
 
+    # calculate total number of finished tasks
+    result[:total] = result[:top].inject(0){ |sum, el| sum + el[:tasks] }
+
     respond_with result
   end
 end
