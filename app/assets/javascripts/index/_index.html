@@ -18,9 +18,6 @@
 
   <div class="right-column" ng-show="isAuthenticated">
     <h4>Вітаємо, {{ user.name }}!</h4>
-    <div ng-if="isFacebook">
-      Hi, Facebook
-    </div>
     <p>Ви <ng-pluralize count="current"
               when="{'0': 'поки не завершили жодного завдання',
                      'one': 'вже завершили {} завдання',
@@ -37,12 +34,15 @@
       Отримайте завдання з поточного етапу «<strong>Перша коректура</strong>».
       </p>
       <a ng-click="assign('first_proof');" class="button large success">Oтримати завдання</a>
-      <p><a ng-click="logout()">Вийти</a></p>
+      <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
     </div>
     <div ng-show="task.exists">
       <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»:</p>
-      <a href="#/proof" class="button large primary expand">перейти до завдання</a>
-      <p><a ng-click="logout()">Вийти</a> або <a ng-click="release();">Відмовитись від завдання</a></p>
+      <a href="https://шарварок.маркс.укр/#/proof" class="button large primary expand" target="_blank">перейти до завдання</a>
+      <p>
+        <span ng-if="!isFacebook"><a ng-click="logout()">Вийти</a> або </span>
+        <a ng-click="release();">Відмовитись від завдання</a>
+      </p>
     </div>
     
   </div>
@@ -78,7 +78,12 @@
 <div class="hero-row">
   <div class="left-column">&nbsp;
     <div class="left-column-text">
-      <h2>Поточний прогрес</h2>
+
+      <h2 ng-if="!isFacebook">Поточний прогрес</h2>
+
+      <a ng-if="isFacebook" href="https://шарварок.маркс.укр/" class="button large primary expand" target="_blank">
+        перейти до Марксового шарварку</a>
+
     </div>
   </div>
 
@@ -134,7 +139,7 @@
         </div>
         <div ng-show="task.exists">
           <p>Ви вже працюєте над «<strong>{{ task.description }}</strong>»</p>
-          <a href="#/proof" class="button large large success">перейти до завдання</a>
+          <a href="https://шарварок.маркс.укр/#/proof" class="button large large success" target="_blank">перейти до завдання</a>
         </div>
       </div>
     </div>
@@ -189,7 +194,7 @@
 <div class="footer">
   <div class="row">
     <div class="small-6 columns small-offset-6">
-      <p>Шарварок — <a href="https://github.com/scharwerk/scharwerk">вільне програмне забезпечення</a></p>
+      <p>Шарварок — <a href="https://github.com/scharwerk/scharwerk" target="_blank">вільне програмне забезпечення</a></p>
     </div>
   </div>
 </div>

@@ -2,18 +2,18 @@ angular.module('scharwerk')
 .controller('IndexCtrl', [
 '$sce',
 '$scope',
-'$state',
+'$window',
 'authentication',
 'stages',
 'tasks',
-function($sce, $scope, $state, authentication, stages, tasks){
+function($sce, $scope, $window, authentication, stages, tasks){
 
   // hack for fb app
   isFacebook = window.location.pathname.includes('/fb');
   $scope.isFacebook = isFacebook;
 
   if (isFacebook){
-    authentication.autologin(); 
+    authentication.login(); 
   }
 
   $scope.login =  authentication.login; 
@@ -53,11 +53,9 @@ function($sce, $scope, $state, authentication, stages, tasks){
   $scope.release = tasks.release;
   $scope.assign = function(stage) {
     tasks.assign(stage).success(function () {
-      $state.go('proof');
+      tasks.updateCurrent();
     });
   };
-
-
 
   $scope.task = tasks.current;
   $scope.graphs = stages.graphs;
