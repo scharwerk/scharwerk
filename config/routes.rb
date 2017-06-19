@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   post 'login' => 'users#login'
   get 'stats/tasks'
-  get 'stats/top'
+  get 'stats/users'
 
   post 'fb' => 'application#fb'
   get 'fb' => 'application#fb'
