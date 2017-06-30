@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # for different page urls
   get 's/:round' => 'application#angular'
-  
+
   resource :task do
     resources :pages
   end
