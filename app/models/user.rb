@@ -40,8 +40,16 @@ class User < ActiveRecord::Base
     false
   end
 
+  def time_inactive
+    Time.now - last_task.updated_at
+  end
+
   def active_task
     tasks.active.first
+  end
+
+  def last_task
+    tasks.commited.last
   end
 
   def self.find_or_create_user(fb_user)
