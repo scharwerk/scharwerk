@@ -23,7 +23,7 @@ gem 'devise', '~> 3.4.0'
 
 gem 'git', '~> 1.3.0'
 
-gem 'fb_graph2'
+gem 'fb_graph2', '~> 0.9.1'
 
 gem 'sidekiq'
 gem 'sinatra', require: false
