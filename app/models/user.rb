@@ -52,6 +52,14 @@ class User < ActiveRecord::Base
     tasks.commited.last
   end
 
+  def notification_message
+    return [:active, I18n.t('notification.active')] if active_task
+    return [:none, I18n.t('notification.none')] if not last_task
+    inactive_days = (time_inactive / 1.day).to_i
+    return [:recent, I18n.t('notification.recent')] if inactive_days < 2
+    return [:inactive, I18n.t('notification.inactive', count: inactive_days)]
+  end
+
   def self.find_or_create_user(fb_user)
     user = User.find_by(facebook_id: fb_user.id)
     return [:ok, user] if user
