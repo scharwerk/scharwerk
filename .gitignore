@@ -24,3 +24,6 @@
 !/public/files/images/.keep
 
 public/assets/**
+
+#ignore pass
+.pass
