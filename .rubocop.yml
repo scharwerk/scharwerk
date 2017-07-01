@@ -2,4 +2,5 @@ AllCops:
   Exclude:
     - db/schema.rb
     - db/**/*
+    - config/locales/*
     
