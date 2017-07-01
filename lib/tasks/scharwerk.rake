@@ -37,7 +37,7 @@ namespace :scharwerk do
       puts params
 
       # if no key continue
-      next unless token
+      next unless params[:access_token]
 
       uri = URI.parse("https://graph.facebook.com")
       https = Net::HTTP.new(uri.host, uri.port)
