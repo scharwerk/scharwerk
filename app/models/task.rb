@@ -46,6 +46,8 @@ class Task < ActiveRecord::Base
   end
 
   def commit
+    return if commited?
+
     pathes = pages.collect(&:save_to_file)
     g = Git.open(Rails.configuration.x.data.git_path.to_s)
     g.add(pathes)
