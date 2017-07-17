@@ -73,7 +73,6 @@ class Task < ActiveRecord::Base
   end
 
   def self.generate_tasks(part_pages, part, stage, pages_per_task)
-    tasks = []
     n = 0
     until n > part_pages.size
       task = Task.create(stage: stage, part: part)
@@ -82,8 +81,6 @@ class Task < ActiveRecord::Base
         part_pages[n + i].update(task_id: task.id)
       end
       n += pages_per_task
-      tasks.push(task)
     end
-    tasks
   end
 end
