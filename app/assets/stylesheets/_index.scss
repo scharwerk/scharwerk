@@ -171,4 +171,7 @@ $index-colum-width: $index-page-width / 12;
 	span:last-child::after {
 		content: ". ";
 	}
+	span:nth-child(n+16) {
+		font-size: 70%;
+	}
 }
