@@ -24,6 +24,7 @@ angular.module('scharwerk')
 
   s.assign = function(stage) {
     ga('send', 'event', 'Tasks', 'assign');
+    fbq('track', 'assign');
     return $http.post('/task.json', {stage: stage}).success(s.setCurrent);
   };
 
@@ -44,6 +45,7 @@ angular.module('scharwerk')
 
   s.finish = function() {
     ga('send', 'event', 'Tasks', 'finish');
+    fbq('track', 'finish');
     return $http.put('/task.json', {done: true});
   };
 
