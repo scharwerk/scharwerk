@@ -77,6 +77,8 @@ Visit http://46.101.228.108/
 
 * Generate tasks:
 
+    . /etc/default/unicorn
+
     RAILS_ENV=production rake scharwerk:generate_tasks['franko/*','test','franko',5]
 
     RAILS_ENV=production rake scharwerk:generate_tasks['ii/*','first_proof','book_2',5]
@@ -85,9 +87,16 @@ Visit http://46.101.228.108/
     RAILS_ENV=production rake scharwerk:generate_tasks['i/*','first_proof','book_1',5]
     RAILS_ENV=production rake scharwerk:generate_tasks['iii.1/*','first_proof','book_3_1',5]
 
-## Todo
+* Send fb notifications
 
-  Autologin on proof
-  (check to replace all x with × multiplication char)
+    . /etc/default/unicorn
+    
+    RAILS_ENV=production scharwerk:notify_fb['APP_ID','SECRET','']
+
+* Console
+    
+    . /etc/default/unicorn
+    bin/rails console staging
+
   
 
