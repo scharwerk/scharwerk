@@ -26,26 +26,29 @@ namespace :scharwerk do
                     :user_id] => :environment do |_t, args|
 
     auth = FbGraph2::Auth.new(args[:app_id], args[:app_secret])
-    params = {access_token: args[:app_id] ? auth.access_token!.to_s : nil}
+    params = { access_token: args[:app_id] ? auth.access_token!.to_s : nil }
 
     User.all.each do |user|
       # only for user_id if set
       next if args[:user_id] && user.facebook_id != args[:user_id]
 
       params[:ref], msg = user.notification_message
-      params[:template] = '@[%s], %s' % [user.facebook_id, msg]
+      params[:template] = format('@[%s], %s', user.facebook_id, msg)
       puts params
 
       # if no key continue
       next unless params[:access_token]
 
-      uri = URI.parse("https://graph.facebook.com")
+      uri = URI.parse('https://graph.facebook.com')
       https = Net::HTTP.new(uri.host, uri.port)
       https.use_ssl = true
 
-      path = '/v2.8/%s/notifications?%s' % [user.facebook_id, URI.encode_www_form(params)]
+      path = format('/v2.8/%s/notifications?%s',
+                    user.facebook_id,
+                    URI.encode_www_form(params))
+
       res = https.request(Net::HTTP::Post.new(path))
       puts "Response: #{res.code} #{res.body}"
     end
   end
-end 
+end
