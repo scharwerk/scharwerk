@@ -67,7 +67,7 @@ describe TextProcessing do
   end
 
   describe '#uppercase_line?' do
-    # TODO: It could be as well 'РОЗДІЛ ТРИДЦЯТЬ шостий'
+    # TODO: It could be as well 'ROSDIL TRIDCYAT shostiy'
     context 'a line with all uppercase laters' do
       it 'return true' do
         line = 'КРУГОБІГ ТОВАРОВОГО КАПІТАЛУ'
