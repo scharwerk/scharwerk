@@ -84,4 +84,33 @@ RSpec.describe Task, type: :model do
       expect(Page.where(task_id: Task.first.id).count).to eq pages_per_task
     end
   end
+
+  describe '.unassign_tasks' do
+    it 'unassign tasks thet havent been updated more then N days' do
+      part_pages = []
+      page = Page.new
+      part_pages.push(page)
+      part = 'book_3_2'
+      stage = 'first_proof'
+      pages_per_task = 3
+      Task.generate_tasks(part_pages, part, stage, pages_per_task)
+      task = Task.last 
+      task.assign(User.last)
+      task.updated_at = "2009-08-15 18:05:44"
+      
+      task_count = Task.count
+
+      Task.unassign_tasks(60)
+
+      expect(Task.count).to eq task_count - 1
+      #what test do:
+      #create tasks
+      #assign tasks
+      #unassign task
+
+      #what method do
+      #change status of task to free
+      #delete user id 
+    end
+  end
 end
