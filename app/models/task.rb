@@ -86,4 +86,9 @@ class Task < ActiveRecord::Base
     end
     tasks
   end
+
+  def self.unassign_tasks(days_not_updated)
+    Task.where("updated_at < ?", Time.now - days_not_updated.day)
+    # Client.where("orders_count = ?", params[:orders])
+  end
 end
