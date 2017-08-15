@@ -51,4 +51,9 @@ namespace :scharwerk do
       puts "Response: #{res.code} #{res.body}"
     end
   end
+
+  desc 'Unassign tasks thet havent been modified for N days'
+  task :unassign_tasks, [days] => :environment do |_t, args|
+    
+  end
 end
