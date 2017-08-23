@@ -85,6 +85,17 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe '.unassign' do
+    it 'change status to :free' do
+      task = Task.new
+      task.assign(User.last)
+      task.unassign
+
+      expect(task.status).to eq 'free'
+    end
+  end
+
+
   describe '.unassign_abandoned' do
     context 'with task, that havent been updated more than N days' do
       it 'change status to free ' do
