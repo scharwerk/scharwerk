@@ -85,32 +85,17 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe '.unassign_tasks' do
-    it 'unassign tasks thet havent been updated more then N days' do
-      part_pages = []
-      page = Page.new
-      part_pages.push(page)
-      part = 'book_3_2'
-      stage = 'first_proof'
-      pages_per_task = 3
-      Task.generate_tasks(part_pages, part, stage, pages_per_task)
-      task = Task.last 
-      task.assign(User.last)
-      task.updated_at = "2009-08-15 18:05:44"
-      
-      task_count = Task.count
+  describe '.unassign_abandoned' do
+    context 'with task, that havent been updated more than N days' do
+      it 'change status to free ' do
+        task = Task.new
+        task.assign(User.last)
+        task.updated_at = "2009-08-15 18:05:44"
 
-      Task.unassign_tasks(60)
+        Task.unassign_tasks(60)
 
-      expect(Task.count).to eq task_count - 1
-      #what test do:
-      #create tasks
-      #assign tasks
-      #unassign task
-
-      #what method do
-      #change status of task to free
-      #delete user id 
+        expect(task.status).to eq 'free'
+      end
     end
   end
 end
