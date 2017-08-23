@@ -95,10 +95,8 @@ class Task < ActiveRecord::Base
   def self.unassign_tasks(days_not_updated)
     tasks = Task.where("updated_at < ?", Time.now - days_not_updated.day)
     tasks.each do |task|
-      task.status = "free"
-      task.user_id = nil
+      task.unassign
     end
 
-    # Client.where("orders_count = ?", params[:orders])
   end
 end
