@@ -91,11 +91,8 @@ class Task < ActiveRecord::Base
     update(status: :free, user: nil)
   end
 
-
   def self.unassign_tasks(days_not_updated)
-    tasks = Task.where("updated_at < ?", Time.now - days_not_updated.day)
-    tasks.each do |task|
-      task.unassign
-    end
+    tasks = Task.where('updated_at < ?', Time.now - days_not_updated.day)
+    tasks.each(&:unassign)
   end
 end
