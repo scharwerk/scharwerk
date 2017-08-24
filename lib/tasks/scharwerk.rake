@@ -53,7 +53,7 @@ namespace :scharwerk do
   end
 
   desc 'Unassign tasks thet havent been modified for N days'
-  task :unassign_tasks, [days] => :environment do |_t, args|
-    
+  task :unassign_tasks, [:days_not_updated] => :environment do |_t, args|
+    Task.unassign_tasks(args[:days_not_updated].to_i)
   end
 end
