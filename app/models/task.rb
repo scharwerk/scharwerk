@@ -97,6 +97,5 @@ class Task < ActiveRecord::Base
     tasks.each do |task|
       task.unassign
     end
-
   end
 end

@@ -110,10 +110,11 @@ RSpec.describe Task, type: :model do
         task = Task.new
         task.assign(User.last)
         task.updated_at = "2009-08-15 18:05:44"
+        task.save
 
         Task.unassign_tasks(60)
 
-        expect(task.status).to eq 'free'
+        expect(Task.last.status).to eq 'free'
       end
     end
   end
