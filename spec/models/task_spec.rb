@@ -117,5 +117,19 @@ RSpec.describe Task, type: :model do
         expect(Task.last.status).to eq 'free'
       end
     end
+
+    context 'with task, that have been updated in last N days' do
+      it 'should live status active' do
+        task = Task.new
+        task.assign(User.last)
+        task.updated_at = Time.now - 1.day
+        task.save
+
+        Task.unassign_tasks(60)
+
+        expect(Task.last.status).to eq 'active'
+        
+      end
+    end
   end
 end
