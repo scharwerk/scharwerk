@@ -121,7 +121,7 @@ RSpec.describe Task, type: :model do
     end
 
     context 'with task, that have been updated in last N days' do
-      it 'should live status active' do
+      it 'live status active' do
         task = Task.new
         task.assign(User.last)
         task.updated_at = Time.now - 1.day
@@ -131,6 +131,18 @@ RSpec.describe Task, type: :model do
 
         expect(Task.last.status).to eq 'active'
         
+      end
+    end
+
+    context 'with tasks, thet have status commited' do
+      it 'live without changes' do
+        task = Task.create(user: User.create, status: :commited)
+        task.updated_at = "2009-08-15 18:05:44"
+        task.save
+        
+        Task.unassign_tasks(60)
+
+        expect(Task.last.status).to eq('commited')
       end
     end
   end
