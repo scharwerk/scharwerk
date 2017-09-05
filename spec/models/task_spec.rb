@@ -31,20 +31,6 @@ RSpec.describe Task, type: :model do
     expect(task.current_page).to eq(current)
   end
 
-  it 'releses task page' do
-    task = Task.create(user: User.create, status: :active)
-    task.release
-    expect(task.status).to eq('free')
-    expect(task.user).to eq(nil)
-  end
-
-  it 'frees pages on task release' do
-    task = Task.create(status: :active)
-    page = task.pages.create(status: :done)
-    task.pages.create(status: :free)
-    task.release
-    expect(Page.find(page.id).status).to eq('free')
-  end
 
   it 'commit files' do
     g = Git.init(Rails.configuration.x.data.git_path.to_s)
@@ -85,11 +71,11 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe '.unassign' do
+  describe '.release' do
     it 'change status to :free' do
       task = Task.new
       task.assign(User.last)
-      task.unassign
+      task.release
 
       expect(task.status).to eq 'free'
     end
@@ -97,10 +83,26 @@ RSpec.describe Task, type: :model do
     it 'change user_id to nil' do
       task = Task.new
       task.assign(User.last)
-      task.unassign
+      task.release
 
       expect(task.user_id).to eq nil
     end
+
+    it 'releses task page' do
+	  task = Task.create(user: User.create, status: :active)
+      task.release
+      expect(task.status).to eq('free')
+      expect(task.user).to eq(nil)
+    end
+
+    it 'frees pages on task release' do
+      task = Task.create(status: :active)
+      page = task.pages.create(status: :done)
+      task.pages.create(status: :free)
+      task.release
+      expect(Page.find(page.id).status).to eq('free')
+    end
+    
   end
 
 
