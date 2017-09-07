@@ -91,7 +91,7 @@ Visit http://46.101.228.108/
 
     . /etc/default/unicorn
     
-    RAILS_ENV=production scharwerk:notify_fb['APP_ID','SECRET','']
+    RAILS_ENV=production bundle exec rake scharwerk:notify_fb['APP_ID','SECRET','']
 
 * Console
     
