@@ -6,7 +6,7 @@ Das Scharwerk is distributed publishing system.
 
 1. Install rails http://railsapps.github.io/installing-rails.html
 2. Install deps
-        
+
     bundler install
 
 3. Run and go to http://localhost:3000/
@@ -24,10 +24,10 @@ Please, before push to github run in console, in your project folder:
     rake db:migrate RAILS_ENV=test
 
 ## Deployment
-    
+
 If assets changed:
 
-    RAILS_ENV=production rake assets:clobber 
+    RAILS_ENV=production rake assets:clobber
     RAILS_ENV=production rake assets:precompile
 
 Connect via ssh:
@@ -38,8 +38,8 @@ Go to the project folder:
 
     cd /home/rails/scharwerk
 
-Config sidekiq. Copy upstart/sidekiq.conf to /etc/init/sidekiq.conf. Set the PASSWORD_GOES_HERE 
-in file. Start by: 
+Config sidekiq. Copy upstart/sidekiq.conf to /etc/init/sidekiq.conf. Set the PASSWORD_GOES_HERE
+in file. Start by:
 
     start sidekiq index=0
     sudo service sidekiq restart index=0
@@ -57,7 +57,7 @@ Update project:
     RAILS_ENV=production rake db:migrate
 
 If styling changed:
-    
+
     service unicorn restart
     service nginx reload
 
@@ -65,7 +65,7 @@ Visit http://46.101.228.108/
 
 # Loadind data
 
-* clone text into 
+* clone text into
 
     cd db/
     mkdir git/
@@ -90,13 +90,17 @@ Visit http://46.101.228.108/
 * Send fb notifications
 
     . /etc/default/unicorn
-    
+
     RAILS_ENV=production scharwerk:notify_fb['APP_ID','SECRET','']
 
+* Unassigne abandoned tasks(without changes for 20 days)
+
+    RAILS_ENV=production rake scharwerk:unassign_tasks[20]
+
 * Console
-    
+
     . /etc/default/unicorn
     bin/rails console staging
 
-  
+
 
