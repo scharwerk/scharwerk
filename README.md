@@ -90,8 +90,8 @@ Visit http://46.101.228.108/
 * Send fb notifications
 
     . /etc/default/unicorn
+    RAILS_ENV=production bundle exec rake scharwerk:notify_fb['APP_ID','SECRET','']
 
-    RAILS_ENV=production scharwerk:notify_fb['APP_ID','SECRET','']
 
 * Unassigne abandoned tasks(without changes for 20 days)
 
@@ -100,7 +100,7 @@ Visit http://46.101.228.108/
 * Console
 
     . /etc/default/unicorn
-    bin/rails console staging
+    bin/rails console production
 
 
 
