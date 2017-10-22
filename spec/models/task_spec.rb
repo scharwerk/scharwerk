@@ -110,13 +110,13 @@ RSpec.describe Task, type: :model do
     context 'with task, that havent been updated more than N days' do
       it 'change status to free ' do
         task = Task.new
-        task.assign(User.last)
+        task.assign(User.create)
         task.updated_at = "2009-08-15 18:05:44"
         task.save
 
         Task.unassign_tasks(60)
 
-        expect(Task.last.status).to eq 'free'
+        expect(Task.find(task.id).status).to eq 'free'
       end
     end
 
