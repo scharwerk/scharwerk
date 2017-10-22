@@ -96,7 +96,7 @@ Visit http://46.101.228.108/
 * Console
     
     . /etc/default/unicorn
-    bin/rails console staging
+    bin/rails console production
 
   
 
