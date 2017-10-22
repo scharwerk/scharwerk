@@ -102,7 +102,7 @@ RSpec.describe Task, type: :model do
       task.release
       expect(Page.find(page.id).status).to eq('free')
     end
-    
+
   end
 
 
@@ -130,7 +130,7 @@ RSpec.describe Task, type: :model do
         Task.unassign_tasks(60)
 
         expect(Task.last.status).to eq 'active'
-        
+
       end
     end
 
@@ -139,7 +139,7 @@ RSpec.describe Task, type: :model do
         task = Task.create(user: User.create, status: :commited)
         task.updated_at = "2009-08-15 18:05:44"
         task.save
-        
+
         Task.unassign_tasks(60)
 
         expect(Task.last.status).to eq('commited')
