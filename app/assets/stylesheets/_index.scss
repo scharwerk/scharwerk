@@ -158,12 +158,8 @@ $index-colum-width: $index-page-width / 12;
 		font-weight: bold;
 	}
 	span:nth-child(-n+3) {
-		display: block;
 		font-weight: bold;
 		font-size: 120%;
-		&::after {
-			content: "";
-		}
 	}
 	span::after {
 		content: ", ";
