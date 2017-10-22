@@ -31,20 +31,6 @@ RSpec.describe Task, type: :model do
     expect(task.current_page).to eq(current)
   end
 
-  it 'releses task page' do
-    task = Task.create(user: User.create, status: :active)
-    task.release
-    expect(task.status).to eq('free')
-    expect(task.user).to eq(nil)
-  end
-
-  it 'frees pages on task release' do
-    task = Task.create(status: :active)
-    page = task.pages.create(status: :done)
-    task.pages.create(status: :free)
-    task.release
-    expect(Page.find(page.id).status).to eq('free')
-  end
 
   it 'commit files' do
     g = Git.init(Rails.configuration.x.data.git_path.to_s)
@@ -82,6 +68,82 @@ RSpec.describe Task, type: :model do
       pages_per_task = 10
       Task.generate_tasks(part_pages, part, stage, pages_per_task)
       expect(Page.where(task_id: Task.first.id).count).to eq pages_per_task
+    end
+  end
+
+  describe '.release' do
+    it 'change status to :free' do
+      task = Task.new
+      task.assign(User.last)
+      task.release
+
+      expect(task.status).to eq 'free'
+    end
+
+    it 'change user_id to nil' do
+      task = Task.new
+      task.assign(User.last)
+      task.release
+
+      expect(task.user_id).to eq nil
+    end
+
+    it 'releses task page' do
+	  task = Task.create(user: User.create, status: :active)
+      task.release
+      expect(task.status).to eq('free')
+      expect(task.user).to eq(nil)
+    end
+
+    it 'frees pages on task release' do
+      task = Task.create(status: :active)
+      page = task.pages.create(status: :done)
+      task.pages.create(status: :free)
+      task.release
+      expect(Page.find(page.id).status).to eq('free')
+    end
+
+  end
+
+
+  describe '.unassign_abandoned' do
+    context 'with task, that havent been updated more than N days' do
+      it 'change status to free ' do
+        task = Task.new
+        task.assign(User.create)
+        task.updated_at = "2009-08-15 18:05:44"
+        task.save
+
+        Task.unassign_tasks(60)
+
+        expect(Task.find(task.id).status).to eq 'free'
+      end
+    end
+
+    context 'with task, that have been updated in last N days' do
+      it 'live status active' do
+        task = Task.new
+        task.assign(User.last)
+        task.updated_at = Time.now - 1.day
+        task.save
+
+        Task.unassign_tasks(60)
+
+        expect(Task.last.status).to eq 'active'
+
+      end
+    end
+
+    context 'with tasks, thet have status commited' do
+      it 'live without changes' do
+        task = Task.create(user: User.create, status: :commited)
+        task.updated_at = "2009-08-15 18:05:44"
+        task.save
+
+        Task.unassign_tasks(60)
+
+        expect(Task.last.status).to eq('commited')
+      end
     end
   end
 end

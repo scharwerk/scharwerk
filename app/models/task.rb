@@ -86,4 +86,9 @@ class Task < ActiveRecord::Base
     end
     tasks
   end
+
+  def self.unassign_tasks(days_not_updated)
+    tasks = Task.active.where('updated_at < ?', Time.now - days_not_updated.day)
+    tasks.each(&:release)
+  end
 end
