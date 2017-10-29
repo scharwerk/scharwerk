@@ -23,9 +23,10 @@ class Page < ActiveRecord::Base
     full_path
   end
 
-  # def text
-  #   read_from_file()
-  # end
+  def text
+    full_path = Page.text_path(path) + '.txt'
+    File.read(full_path)
+  end
 
   def self.text_path(path)
     File.join(
