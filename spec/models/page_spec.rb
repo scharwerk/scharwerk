@@ -35,4 +35,14 @@ RSpec.describe Page, type: :model do
       expect(page.path).to eq 'test/3'
     end
   end
+
+  describe '#text' do
+    it 'save to file' do
+      page = Page.create(path: 'test/4')
+      text_to_save = 'book 4'
+      page.text = text_to_save
+
+      expect(File.read(Page.text_path('test/4.txt'))).to eq('book 4')
+    end
+  end
 end

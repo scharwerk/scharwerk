@@ -16,6 +16,17 @@ class Page < ActiveRecord::Base
 
   enum status: { free: 0, done: 1 }
 
+  def text=(text)
+    # write_to_file(text)
+    full_path = Page.text_path(path) + '.txt'
+    File.write(full_path, text)
+    full_path
+  end
+
+  # def text
+  #   read_from_file()
+  # end
+
   def self.text_path(path)
     File.join(
       Rails.configuration.x.data.git_path,
