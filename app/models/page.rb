@@ -44,9 +44,8 @@ class Page < ActiveRecord::Base
     Rails.configuration.x.data.images_url + path + '.jpg'
   end
 
-  def save_to_file
+  def text_full_path
     full_path = Page.text_path(path) + '.txt'
-    File.write(full_path, text)
     full_path
   end
 
