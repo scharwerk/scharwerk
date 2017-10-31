@@ -153,6 +153,7 @@ $index-colum-width: $index-page-width / 12;
 }
 
 .top-list {
+	line-height: 1.5em;
 	sup {
 		color: $main-color;
 		font-weight: bold;
@@ -162,10 +163,7 @@ $index-colum-width: $index-page-width / 12;
 		font-size: 120%;
 	}
 	span::after {
-		content: ", ";
-	}
-	span:last-child::after {
-		content: ". ";
+		content: " ";
 	}
 	span:nth-child(n+16) {
 		font-size: 70%;
