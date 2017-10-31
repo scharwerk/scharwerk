@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     tasks.commited.count
   end
 
+  def total_pages_done
+    Page.where(task_id: tasks.commited.pluck(:id)).count
+  end
+
   def pages_done
     return 0 unless active_task
     active_task.pages.done.count

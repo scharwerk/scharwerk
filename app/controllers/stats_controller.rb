@@ -22,11 +22,11 @@ class StatsController < ApplicationController
   end
 
   def users
-    result = { top: [], going: [] }
+    result = { top: [] }
 
     User.all.each do |user|
       if user.tasks_done > 0
-        result[:top] << { name: user.name, tasks: user.pages_done }
+        result[:top] << { name: user.name, tasks: user.total_pages_done }
       end
     end
     result[:top].sort_by! { |k| -k[:tasks] }
