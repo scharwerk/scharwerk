@@ -24,7 +24,6 @@ function($sce, $scope, $window, authentication, stages, tasks){
   var updateTop = function () {
     stages.getUsers(function(data) {
       $scope.top = data.top;
-      $scope.going = data.going;
       $scope.usersCount = data.users;
       $scope.current = data.current;
       $scope.avg = Math.round(data.total / data.top.length);
