@@ -18,8 +18,8 @@
   </div>
 
   <div class="right-column" ng-show="!isAuthenticated">
-    <h4>Повернутися до фрагменту</h4>
-    <p>Щоби повернутися до поточного фрагменту або отримати новий увійдіть через facebook</p>
+    <h4>Отримати фрагмент</h4>
+    <p>Щоби отримати новий фрагмент або повернутися до поточного увійдіть через facebook</p>
     <a ng-click="login();" class="button large primary expand">увійти через facebook</a>
     <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
   </div>
@@ -27,15 +27,15 @@
   <div class="right-column" ng-show="isAuthenticated">
     <h4>Вітаємо, {{ user.name }}!</h4>
     <p>Ви <ng-pluralize count="current"
-              when="{'0': 'поки не завершили жодного фрагменту',
-                     'one': 'вже завершили {} фрагмент',
-                     'few': 'вже завершили {} фрагменти',
-                     'many': 'вже завершили {} фрагментів'}"></ng-pluralize>.
+              when="{'0': 'поки не завершили жодної сторінки',
+                     'one': 'вже завершили {} сторінку',
+                     'few': 'вже завершили {} сторінки',
+                     'many': 'вже завершили {} сторінок'}"></ng-pluralize>.
       В середньому кожний, хто долучився, завершив 
         <b><ng-pluralize count="avg"
-              when="{'one': '{} фрагмент',
-                     'few': '{} фрагменти',
-                     'many': '{} фрагментів'}"></ng-pluralize></b>.
+              when="{'one': '{} сторінку',
+                     'few': '{} сторінки',
+                     'many': '{} сторінок'}"></ng-pluralize></b>.
     </p>
     <div ng-show="!task.exists">
       <p>Ви зараз не працюєте над фрагментом. 
@@ -58,14 +58,7 @@
 </div>
 
 <div class="text-row">
-  <div class="left-column" >
-    <h2>Як це працює?</h2>
-    <p>На першому етапі перевіряємо, чи текст правильно розпізнано.</p>
-    <div class="fb-video" data-href="https://www.facebook.com/marx.in.ua/videos/878402982310440/" data-width="400" data-show-text="false"><blockquote cite="https://www.facebook.com/marx.in.ua/videos/878402982310440/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/marx.in.ua/videos/878402982310440/">Як долучитися до Марксового «Капіталу»?</a>Posted by <a href="https://www.facebook.com/marx.in.ua/">Марксів «Капітал» українською</a> on Thursday, July 20, 2017</blockquote></div>
-    <p>Після цього ще три етапи до видання: коректура, верстка і фінальна коректура.</p>
-    <p>Процес організований таким чином, що не потребує від користувача попередньої підготовки</p>
-  </div>
-  <div class="right-column">
+  <div class="columns smalĺ-12 large-6">
     <h2>Подяка!</h2>
     <p>Цей проект був би неможливий без тих, хто долучився до спільної роботи.
       Наразі до спільної підготовки видання Марксового «Капіталу» вже 
@@ -77,6 +70,13 @@
     <p class="top-list">
       <span ng-repeat="user in top">{{ user.name }}&nbsp;<sup>{{ user.tasks }}</sup></span>
     </p>
+  </div>
+  <div class="columns smalĺ-12 large-5 large-offset-1" >
+    <h2>Як це працює?</h2>
+    <p>Процес організований таким чином, що не потребує від користувача попередньої підготовки.</p>
+    <p>На першому етапі перевіряємо, чи текст правильно розпізнано.</p>
+    <div class="fb-video" data-href="https://www.facebook.com/marx.in.ua/videos/878402982310440/" data-width="400" data-show-text="false"><blockquote cite="https://www.facebook.com/marx.in.ua/videos/878402982310440/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/marx.in.ua/videos/878402982310440/">Як долучитися до Марксового «Капіталу»?</a>Posted by <a href="https://www.facebook.com/marx.in.ua/">Марксів «Капітал» українською</a> on Thursday, July 20, 2017</blockquote></div>
+    <p>Після цього ще три етапи до видання: коректура, верстка і фінальна коректура.</p>
   </div>
 </div>
 

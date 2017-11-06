@@ -32,9 +32,9 @@ class StatsController < ApplicationController
     result[:top].sort_by! { |k| -k[:tasks] }
     result[:users] = User.all.count
 
-    result[:current] = current_user.tasks_done if current_user
+    result[:current] = current_user.total_pages_done if current_user
 
-    # calculate total number of finished tasks
+    # calculate total number of finished pages
     result[:total] = result[:top].inject(0) { |a, e| a + e[:tasks] }
 
     render json: result
