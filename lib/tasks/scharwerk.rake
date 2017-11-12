@@ -32,6 +32,9 @@ namespace :scharwerk do
       # only for user_id if set
       next if args[:user_id] && user.facebook_id != args[:user_id]
 
+      # skip empty messages
+      next if user.notification_message.blank?
+
       params[:ref], msg = user.notification_message
       params[:template] = format('@[%s], %s', user.facebook_id, msg)
       puts params
