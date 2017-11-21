@@ -29,7 +29,7 @@ function KeyboardCtrl(keyboardConfig) {
 
 angular.module('scharwerk')
 .constant('keyboardConfig', {
-  '«»…VI': "'’„“«»[]×/—Ґґо́́IVXLcvmΔ…",
+  '«»…VI': "'’„“«»[]×/—ҐґIVXLcvmΔ…",
   'Ää…Ùù': 'ÄäÀàÂâÆæÇçÉéÈèÊêËëÎîÏïÖöÔôŒœÜüÙùÛûŸÿß',
   'Α…Ω': 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ',
   'α…ω': 'αβγδεζηθικλμνξοπρσςτυφχψω'
