@@ -58,7 +58,6 @@ class User < ActiveRecord::Base
 
   def notification_message
     return [:active, I18n.t('notification.active')] if active_task
-    return ''
     return [:none, I18n.t('notification.none')] unless last_task
     inactive_days = (time_inactive / 1.day).to_i
     return [:recent, I18n.t('notification.recent')] if inactive_days < 2
