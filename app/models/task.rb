@@ -53,7 +53,12 @@ class Task < ActiveRecord::Base
     g.add(pathes)
     g.commit(commit_message)
     update(status: :commited)
-  rescue StandardError
+  rescue Git::GitExecuteError => e
+    if e.message.include? 'nothing to commit'
+      update(status: :unchanged)
+      return
+    end
+
     update(status: :error)
     raise
   end

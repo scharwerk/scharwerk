@@ -52,6 +52,15 @@ RSpec.describe Task, type: :model do
     expect(task.status).to eq 'free'
   end
 
+  it 'set status to unchanged' do
+    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+
+    task = Task.create(status: :done, user: User.create)
+    task.commit
+
+    expect(task.status).to eq 'unchanged'
+  end
+
   describe '.generate_tasks' do
     it 'generate tasks' do
       task_count = Task.count
