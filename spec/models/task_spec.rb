@@ -43,6 +43,15 @@ RSpec.describe Task, type: :model do
     expect(g.log[0].message).to start_with('test ')
   end
 
+  it 'commit only done' do
+    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+
+    task = Task.create(status: :free)
+    task.commit
+
+    expect(task.status).to eq 'free'
+  end
+
   describe '.generate_tasks' do
     it 'generate tasks' do
       task_count = Task.count
