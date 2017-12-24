@@ -19,6 +19,10 @@ Please, before push to github run in console, in your project folder:
 
     rubocop
 
+## test
+    
+    bundle exec rspec
+
 ## migration
 
     rake db:migrate RAILS_ENV=test
