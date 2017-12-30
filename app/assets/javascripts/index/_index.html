@@ -41,8 +41,13 @@
       <p>Ви зараз не працюєте над фрагментом. 
       Отримайте фрагмент з поточного етапу «<strong>Перша коректура</strong>».
       </p>
-      <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
-      <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
+      <div ng-show="graphs.first_proof.free">
+        <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
+        <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
+      </div>
+      <div ng-show="!graphs.first_proof.free">
+        <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
+      </div>
     </div>
     <div ng-show="task.exists">
       <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»:</p>
@@ -140,8 +145,14 @@
       </div>
       <div ng-show="isAuthenticated">
         <div ng-show="!task.exists">
-          <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
+          <div ng-show="graphs.first_proof.free">
+            <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
+          </div>
+          <div ng-show="!graphs.first_proof.free">
+            <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
+          </div>
         </div>
+
         <div ng-show="task.exists">
           <p>Ви вже працюєте над «<strong>{{ task.description }}</strong>»</p>
           <a href="https://шарварок.маркс.укр/#/proof" class="button large large success" target="_blank">перейти до фрагменту</a>

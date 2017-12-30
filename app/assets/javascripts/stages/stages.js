@@ -11,9 +11,10 @@ angular.module('scharwerk')
         [{
           label: 'Завершено',
           suffix: '%',
-          value: Math.round(100 * stage.commited / stage.total),
+          value: Math.floor(100 * stage.commited / stage.total),
           color: '#FFC107',
-          colorComplement: '#FFFFFF'
+          colorComplement: '#FFFFFF',
+          free: (stage.free != 0)
         }];
       });
     });
