@@ -14,7 +14,7 @@ angular.module('scharwerk')
           value: Math.floor(100 * stage.commited / stage.total),
           color: '#FFC107',
           colorComplement: '#FFFFFF',
-          free: (stage.free != 0)
+          free: (!!stage.free)
         }];
       });
     });

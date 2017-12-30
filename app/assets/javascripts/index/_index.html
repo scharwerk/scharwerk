@@ -41,11 +41,11 @@
       <p>Ви зараз не працюєте над фрагментом. 
       Отримайте фрагмент з поточного етапу «<strong>Перша коректура</strong>».
       </p>
-      <div ng-show="graphs.first_proof.free">
+      <div ng-show="graphs.first_proof[0].free">
         <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
         <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
       </div>
-      <div ng-show="!graphs.first_proof.free">
+      <div ng-show="!graphs.first_proof[0].free">
         <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
       </div>
     </div>
@@ -118,7 +118,13 @@
       <p>
         {{ debug }}
         Go make it!
-        
+        <div ng-show="graphs.test[0].free">
+          <p>Ще э!</p>
+          {{ graphs.test[0].free }}
+        </div>
+        <div ng-show="!graphs.test[0].free">
+          <p>Нема!</p>
+        </div>
       </p>
       <a ng-click="assign('test');" class="button large success">Oтримати завдання</a>
     </div>  
@@ -145,10 +151,10 @@
       </div>
       <div ng-show="isAuthenticated">
         <div ng-show="!task.exists">
-          <div ng-show="graphs.first_proof.free">
+          <div ng-show="graphs.first_proof[0].free">
             <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
           </div>
-          <div ng-show="!graphs.first_proof.free">
+          <div ng-show="!graphs.first_proof[0].free">
             <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
           </div>
         </div>
