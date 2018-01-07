@@ -48,7 +48,7 @@ class Task < ActiveRecord::Base
   def commit
     return if not done?
 
-    pathes = pages.collect(&:save_to_file)
+    pathes = pages.collect(&:text_file_name)
     g = Git.open(Rails.configuration.x.data.git_path.to_s)
     g.add(pathes)
     g.commit(commit_message)

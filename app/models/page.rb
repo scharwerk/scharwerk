@@ -32,17 +32,22 @@ class Page < ActiveRecord::Base
     Rails.configuration.x.data.images_url + path + '.jpg'
   end
 
-  def save_to_file
-    full_path = Page.text_path(path) + '.txt'
-    File.write(full_path, text)
-    full_path
+  def text_file_name
+    Page.text_path(path + '.txt')
+  end
+
+  def text=(text)
+    File.write(text_file_name, text)
+  end
+
+  def text
+    File.read(text_file_name)
   end
 
   def self.create_pages(pattern)
     Dir[text_path(pattern)].sort.collect do |text_file|
       path = text_file[text_path('').length..-5]
-      text = File.read(text_file)
-      Page.create(path: path, text: text)
+      Page.create(path: path)
     end
   end
 
