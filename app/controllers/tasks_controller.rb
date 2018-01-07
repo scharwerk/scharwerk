@@ -14,8 +14,8 @@ class TasksController < ApplicationController
       return
     end
 
-    stage = params['stage']
-    task = Task.where(stage: Task.stages[stage]).free.first
+    stage = Task.stages[params['stage']]
+    task = Task.first_free(stage, current_user)
     task.assign(current_user)
     respond_with task
   end
