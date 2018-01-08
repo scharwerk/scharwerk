@@ -4,14 +4,14 @@ require 'spec_helper'
 describe TextProcessing do
   describe '#change_quotes' do
     it 'return text with «...» instead „...“' do
-      text1 =  ' с., р. 40). „Навпаки,
-єдино правильний метод той, щоб на доходи кожного року покладати
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні“ (Captain '
-      text2 =  ' с., р. 40). «Навпаки,
-єдино правильний метод той, щоб на доходи кожного року покладати
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні» (Captain '
+      text1 =  ' с., р. 40). „Навпаки,'\
+        'єдино правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні“ (Captain '
+      text2 =  ' с., р. 40). «Навпаки,'\
+        'єдино правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні» (Captain '
       text_proc = TextProcessing.new(text1)
       expect(text_proc.change_quotes).to eq text2
     end
@@ -20,38 +20,38 @@ describe TextProcessing do
   describe '#remove_trailing_whitespace' do
     it 'remove space in an end of a line' do
       # Don`t touch trailing whitespace in the spec
-      text1 =  'Навпаки,
-єдино правильний метод той, щоб на доходи кожного року покладати 
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні“ (Captain'
-      text2 =  'Навпаки,
-єдино правильний метод той, щоб на доходи кожного року покладати
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні“ (Captain'
+      text1 =  'Навпаки,'\
+        'єдино правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні“ (Captain'
+      text2 =  'Навпаки,'\
+        'єдино правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні“ (Captain'
       text_proc = TextProcessing.new(text1)
       expect(text_proc.remove_trailing_whitespace).to eq text2
     end
     it 'remove space in a begining of a line' do
-      text1 =  'Навпаки,
- єдино правильний метод той, щоб на доходи кожного року покладати
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні“ (Captain'
-      text2 =  'Навпаки,
-єдино правильний метод той, щоб на доходи кожного року покладати
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні“ (Captain'
+      text1 =  'Навпаки,'\
+        'єдино правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні“ (Captain'
+      text2 =  'Навпаки,'\
+        'єдино правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні“ (Captain'
       text_proc = TextProcessing.new(text1)
       expect(text_proc.remove_trailing_whitespace).to eq text2
     end
     it 'remove multiple spaces' do
-      text1 =  'Навпаки,
-єдино  правильний метод той, щоб на доходи кожного року покладати
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні“ (Captain'
-      text2 =  'Навпаки,
-єдино правильний метод той, щоб на доходи кожного року покладати
-зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все
-одно, чи витрачено дану суму, чи ні“ (Captain'
+      text1 =  'Навпаки,'\
+        'єдино  правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні“ (Captain'
+      text2 =  'Навпаки,'\
+        'єдино правильний метод той, щоб на доходи кожного року покладати'\
+        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
+        'одно, чи витрачено дану суму, чи ні“ (Captain'
       text_proc = TextProcessing.new(text1)
       expect(text_proc.remove_trailing_whitespace).to eq text2
     end
@@ -59,10 +59,60 @@ describe TextProcessing do
 
   describe '#capitalize_line' do
     it 'replace all laters to capitalize except first' do
-      line1 = 'КРУГОБІГ ТОВАРОВОГО КАПІТАЛУ'
-      line2 = 'Кругобіг товарового капіталу'
+      line1 = "КРУГОБІГ ТОВАРОВОГО КАПІТАЛУ\n"
+      line2 = "Кругобіг товарового капіталу\n"
       text_proc = TextProcessing.new(line1)
       expect(text_proc.capitalize_line(line1)).to eq line2
+    end
+  end
+
+  describe '#upcase_first_letter' do
+    context 'with first letter downcase' do
+      it 'upcase first line of a string' do
+        line1 = 'кругобіг товарового капіталу'
+        line2 = 'Кругобіг товарового капіталу'
+        text_proc = TextProcessing.new(line1)
+        expect(text_proc.upcase_first_letter(line1)).to eq line2
+      end
+    end
+    context 'with first letter upcase' do
+      it 'return string without changes' do
+        line1 = 'Кругобіг товарового капіталу'
+        line2 = 'Кругобіг товарового капіталу'
+        text_proc = TextProcessing.new(line1)
+        expect(text_proc.upcase_first_letter(line1)).to eq line2
+      end
+    end
+  end
+
+
+
+  describe '#downcase_word' do
+    context 'with all upcase letters' do
+      it 'downcase every leter of a word' do
+        word1 = 'КРУГОБІГ'
+        word2 = 'кругобіг'
+        text_proc = TextProcessing.new(word1)
+        expect(text_proc.downcase_word(word1)).to eq word2
+      end
+    end
+
+    context 'with all downcase letters' do
+      it 'downcase every leter of a word' do
+        word1 = 'кругобіг'
+        word2 = 'кругобіг'
+        text_proc = TextProcessing.new(word1)
+        expect(text_proc.downcase_word(word1)).to eq word2
+      end
+    end
+
+    context 'with first upcase' do
+      it 'downcase first letter' do
+        word1 = 'Кругобіг'
+        word2 = 'кругобіг'
+        text_proc = TextProcessing.new(word1)
+        expect(text_proc.downcase_word(word1)).to eq word2
+      end
     end
   end
 
@@ -75,6 +125,20 @@ describe TextProcessing do
         expect(text_proc.uppercase_line?(line)).to be true
       end
     end
+    context 'with emty line' do
+      it 'return false' do
+        line = "\n"
+        text_proc = TextProcessing.new(line)
+        expect(text_proc.uppercase_line?(line)).to be false
+      end
+      it 'return false' do
+        line = ''
+        text_proc = TextProcessing.new(line)
+        expect(text_proc.uppercase_line?(line)).to be false
+      end
+    end
+
+
     context 'a ordinary line' do
       it 'return false' do
         line = "циркуляції є Г — Т... Т'—Г' — Г — Т — Г. При"
@@ -109,12 +173,12 @@ describe TextProcessing do
   describe '#remove_line_breaks' do
     context 'with a multiply text' do
       it 'concatenate word with hyphen' do
-        text1 = "капітал
-фігурує лише як товар; але коли мова йде про складові частини варто-
-сти, то"
-        text2 = "капітал
-фігурує лише як товар; але коли мова йде про складові частини вартости,
-то"
+        text1 = "капітал\n"\
+          "фігурує лише як товар; але коли мова йде про складові частини варто-\n"\
+          "сти, то"
+        text2 = "капітал\n"\
+          "фігурує лише як товар; але коли мова йде про складові частини вартости,\n"\
+          "то"
         # now it add additional whitespace in the begining of line
         text_proc = TextProcessing.new(text1)
         expect(text_proc.remove_line_breaks).to eq text2
@@ -124,22 +188,22 @@ describe TextProcessing do
   describe '#capitalize_heading' do
     context 'a text with heading' do
       it 'return text with capitalize heading' do
-        text1 = 'капіталу є та форма, що в ній класична
-економія розглядає процес кругобігу промислового капіталу.
-
-РОЗДІЛ ТРЕТІЙ
-
-КРУГОБІГ ТОВАРОВОГО КАПІТАЛУ
-
-Загальна формула для кругобігу товарового капіталу така:'
-        text2 = 'капіталу є та форма, що в ній класична
-економія розглядає процес кругобігу промислового капіталу.
-
-Розділ третій
-
-Кругобіг товарового капіталу
-
-Загальна формула для кругобігу товарового капіталу така:'
+        text1 = "капіталу є та форма, що в ній класична\n"\
+          "економія розглядає процес кругобігу промислового капіталу.\n"\
+          "\n"\
+          "РОЗДІЛ ТРЕТІЙ\n"\
+          "\n"\
+          "КРУГОБІГ ТОВАРОВОГО КАПІТАЛУ\n"\
+          "\n"\
+          "Загальна формула для кругобігу товарового капіталу така:\n"
+        text2 = "капіталу є та форма, що в ній класична\n"\
+          "економія розглядає процес кругобігу промислового капіталу.\n"\
+          "\n"\
+          "Розділ третій\n"\
+          "\n"\
+          "Кругобіг товарового капіталу\n"\
+          "\n"\
+          "Загальна формула для кругобігу товарового капіталу така:\n"
         text_proc = TextProcessing.new(text1)
         expect(text_proc.capitalize_heading(text1)).to eq text2
       end
@@ -151,23 +215,23 @@ describe TextProcessing do
       it 'add`s an empty line at the end of a file' do
         text1 = 'на найманих робітників'
 
-        text2 = 'на найманих робітників
-'
+        text2 = "на найманих робітників\n"
+
         text_proc = TextProcessing.new(text1)
         expect(text_proc.add_empty_line).to eq text2
       end
       context 'with a real text' do
         it 'add`s an empty line at the end of a file' do
-          text1 = "на найманих робітників.
+          text1 = "на найманих робітників.\n\n"\
 
-Подруге. Товари, що входять у процес циркуляції промислового
-капіталу (сюди належать і доконечні засоби існування, що на них пере-"
+            "Подруге. Товари, що входять у процес циркуляції промислового\n"\
+            "капіталу (сюди належать і доконечні засоби існування, що на них пере-"
 
-          text2 = "на найманих робітників.
+          text2 = "на найманих робітників.\n\n"\
 
-Подруге. Товари, що входять у процес циркуляції промислового
-капіталу (сюди належать і доконечні засоби існування, що на них пере-
-"
+            "Подруге. Товари, що входять у процес циркуляції промислового\n"\
+            "капіталу (сюди належать і доконечні засоби існування, що на них пере-\n\n"
+
           text_proc = TextProcessing.new(text1)
           expect(text_proc.add_empty_line).to eq text2
         end
@@ -175,10 +239,12 @@ describe TextProcessing do
     end
     context 'for text with no empty line at the end' do
       it 'do not add`s an empty line at the end of a file' do
-        text1 = 'на найманих робітників
-'
+        text1 = "на найманих робітників"
+
+        text2 = "на найманих робітників\n"
+
         text_proc = TextProcessing.new(text1)
-        expect(text_proc.add_empty_line).to eq text1
+        expect(text_proc.add_empty_line).to eq text2
       end
     end
   end
@@ -186,10 +252,10 @@ describe TextProcessing do
   describe '#replace_double_chars' do
     # TODO: it could be as well X
     it 'Replace double chars on line break (—, =, +, -)' do
-      text1 = '(таблиці XVI і XVII), і сума ренти є знову 6X20=10X12 =
-= 120 шил.'
-      text2 = '(таблиці XVI і XVII), і сума ренти є знову 6X20=10X12 =
-120 шил.'
+      text1 = "(таблиці XVI і XVII), і сума ренти є знову 6X20=10X12 =\n"\
+        "= 120 шил."
+      text2 = "(таблиці XVI і XVII), і сума ренти є знову 6X20=10X12 =\n"\
+        "120 шил."
       text_proc = TextProcessing.new(text1)
       expect(text_proc.replace_double_chars). to eq text2
     end
