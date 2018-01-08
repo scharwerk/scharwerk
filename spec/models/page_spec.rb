@@ -13,9 +13,8 @@ RSpec.describe Page, type: :model do
     FileUtils.rm_rf(Dir.glob(Page.text_path('')))
   end
 
-  it 'saves text to file' do
+  it 'saves text to file on set' do
     page = Page.create(path: 'test/4', text: 'book 4')
-    page.save_to_file
     expect(File.read(Page.text_path('test/4.txt'))).to eq('book 4')
   end
 

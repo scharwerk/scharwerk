@@ -14,6 +14,7 @@
 # add top level class documentation
 class Task < ActiveRecord::Base
   belongs_to :user
+  belongs_to :restricted_user, class_name: "User"
   has_many :pages, -> { order(:id) }
 
   attr_accessor :progress
@@ -48,7 +49,7 @@ class Task < ActiveRecord::Base
   def commit
     return if not done?
 
-    pathes = pages.collect(&:save_to_file)
+    pathes = pages.collect(&:text_file_name)
     g = Git.open(Rails.configuration.x.data.git_path.to_s)
     g.add(pathes)
     g.commit(commit_message)
@@ -75,6 +76,11 @@ class Task < ActiveRecord::Base
   def as_json(options = {})
     super(options.merge(methods: [:description, :progress, :current_page],
                         include: [pages: { only: [:id, :status] }]))
+  end
+
+  def self.first_free(stage, user)
+    free = Task.where(stage: stage).free
+    free.where('restricted_user_id != ? OR restricted_user_id IS NULL', user.id).first
   end
 
   def self.generate_tasks(part_pages, part, stage, pages_per_task)
