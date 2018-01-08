@@ -39,13 +39,13 @@
     </p>
     <div ng-show="!task.exists">
       <p>Ви зараз не працюєте над фрагментом. 
-      Отримайте фрагмент з поточного етапу «<strong>Перша коректура</strong>».
+      Отримайте фрагмент з поточного етапу «<strong>Друга коректура</strong>».
       </p>
-      <div ng-show="graphs.first_proof[0].free">
-        <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
+      <div ng-show="graphs.second_proof[0].free">
+        <a ng-click="assign('second_proof');" class="button large success">Oтримати фрагмент</a>
         <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
       </div>
-      <div ng-show="!graphs.first_proof[0].free">
+      <div ng-show="!graphs.second_proof[0].free">
         <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
       </div>
     </div>
@@ -131,18 +131,34 @@
   </div>
 </div>
 
+
+<div class="text-row stage-done">
+  <div class="left-column">
+    <div class="chart">
+      <pie-chart data='dataDone' options='optionsSmall'></pie-chart>
+    </div>
+  </div>
+  <div class="right-column">
+    <h3>1. Перша коректура</h3>
+    <p>
+      На першому етапі виправляємо лише помилки автоматичного розпізнавання. 
+      Цей етап не потребує попереднього досвіду коректури.
+    </p>
+  </div>
+</div>
+
+
 <div class="stage-active">
-  <div class="text-row stage-done">
+  <div class="text-row">
     <div class="left-column">
       <div class="chart">
-        <pie-chart data='graphs.first_proof' options='options'></pie-chart>
+        <pie-chart data='graphs.second_proof' options='options'></pie-chart>
       </div>
     </div>
     <div class="right-column">
-      <h3>1. Перша коректура</h3>
+      <h3>2. Друга коректура</h3>
       <p>
-        На першому етапі виправляємо лише помилки автоматичного розпізнавання. 
-        Цей етап не потребує попереднього досвіду коректури.
+        На другому етапі виправляємо помилки, що залишились після першого етапу. А також уніфікуємо типографіку в книжках. 
       </p>
       <div ng-show="!isAuthenticated">
         <p>Щоби отримати новий фрагмент увійдіть через facebook</p>
@@ -151,10 +167,10 @@
       </div>
       <div ng-show="isAuthenticated">
         <div ng-show="!task.exists">
-          <div ng-show="graphs.first_proof[0].free">
-            <a ng-click="assign('first_proof');" class="button large success">Oтримати фрагмент</a>
+          <div ng-show="graphs.second_proof[0].free">
+            <a ng-click="assign('second_proof');" class="button large success">Oтримати фрагмент</a>
           </div>
-          <div ng-show="!graphs.first_proof[0].free">
+          <div ng-show="!graphs.second_proof[0].free">
             <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
           </div>
         </div>
@@ -164,25 +180,8 @@
           <a href="https://шарварок.маркс.укр/#/proof" class="button large large success" target="_blank">перейти до фрагменту</a>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
-</div>
-
-<div class="text-row stage-done">
-  <div class="left-column">
-    <div class="chart">
-      <pie-chart data='dataNone' options='optionsSmall'></pie-chart>
-    </div>
-  </div>
-  <div class="right-column">
-    <h3>2. Друга коректура</h3>
-      <p>
-        На другому етапі виправляємо помилки, що залишились після першого етапу. А також уніфікуємо типографіку в книжках. 
-      </p>
-      <p>
-        На цьому етапі бажаний досвід коректури. Але якщо ви робили завдання з першого етапу — цього буде досить.
-      </p>
-  </div>  
 </div>
 
 <div class="text-row stage-done">
