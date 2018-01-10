@@ -17,7 +17,7 @@ class TextProcessing
   end
 
   def remove_trailing_whitespace
-    @text.gsub(/ $/, '').gsub(/^ /, '').squeeze(' ')
+    @text.gsub(/ $/, '').gsub(/^ /, '')
   end
 
   def capitalize_line(line)
@@ -72,16 +72,4 @@ class TextProcessing
   def replace_double_chars
     @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
   end
-
-  def putser(name='valentin')
-    puts "Hello World #{name}"
-  end
-
-  # def read_text
-  #   File.read('path.txt')
-  # end
-
-  # def write_to_text
-  #   File.write('path.txt', 'Sontana')
-  # end
 end
