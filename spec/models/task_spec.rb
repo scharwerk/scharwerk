@@ -31,6 +31,16 @@ RSpec.describe Task, type: :model do
     expect(task.current_page).to eq(current)
   end
 
+  it 'blames user' do
+    u = User.create
+    task = Task.create(status: :commited, user: u, stage: :first_proof)
+    task.pages.create(path: 'test/1.txt')
+    expect(Task.blame(:first_proof, 'test/1.txt')).to eq(u)
+  end
+
+  it 'not blames user' do
+    expect(Task.blame(:first_proof, 'test/1.txt')).to eq(nil)
+  end
 
   it 'commit files' do
     g = Git.init(Rails.configuration.x.data.git_path.to_s)

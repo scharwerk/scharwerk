@@ -17,3 +17,35 @@
 
 * Normalise whitespace
 * Escape % (with \%)
+
+## Command line commands
+
+add new line to the end of file
+
+	sed -i -e '$a\' file
+
+replace tabs with spaces
+
+	sed -i $'s/\t/    /g' *.txt
+
+remove trailing spaces:
+
+
+Rename files:
+
+    find -name '*.txt' | sort | gawk 'BEGIN{ a=61 }{ printf "mv %s %04d.txt\n", $0, a++ }' | bash
+
+Test rename:
+
+    find -name '*.tif' | sort | gawk 'BEGIN{ a=1 }{ printf "echo %s !%04d.tif\n", $0, a++ }' | bash 
+
+Replace char in filenames:
+
+	rename 's/\:/-/g' *.txt -vn
+
+Mass file convert
+
+	mogrify -type Grayscale -format jpg -resize 50% -auto-level -quality 80 *.tif
+
+	mogrify -type Grayscale -format jpg -auto-level -quality 80 *.tif
+

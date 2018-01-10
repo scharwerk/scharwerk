@@ -83,6 +83,13 @@ class Task < ActiveRecord::Base
     free.where('restricted_user_id != ? OR restricted_user_id IS NULL', user.id).first
   end
 
+  # what user worked on page on stage
+  def self.blame(stage, path)
+    task_ids = Page.where(path: path).pluck(:task_id)
+    task = Task.where(id: task_ids, stage: Task.stages[stage]).commited.first
+    task.user if task
+  end
+
   def self.generate_tasks(part_pages, part, stage, pages_per_task)
     tasks = []
     n = 0
