@@ -13,7 +13,7 @@ class TextProcessing
   end
 
   def change_quotes
-    @text.gsub(/[„“]/, '„' => '«', '“' => '»')
+    @text = @text.gsub(/[„“]/, '„' => '«', '“' => '»')
   end
 
   def remove_trailing_whitespace
@@ -54,13 +54,13 @@ class TextProcessing
     # \\1 means referance to (\S+), then end of a line \n
   end
 
-  def capitalize_heading(text)
+  def capitalize_heading
     # TODO: somehow remuve new_text variable
     new_text = ''
-    text.each_line do |line|
+    @text.each_line do |line|
       uppercase_line?(line) ? new_text << capitalize_line(line) : new_text << line
     end
-    new_text
+    @text = new_text
   end
 
   def add_empty_line
@@ -72,4 +72,16 @@ class TextProcessing
   def replace_double_chars
     @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
   end
+
+  def putser(name='valentin')
+    puts "Hello World #{name}"
+  end
+
+  # def read_text
+  #   File.read('path.txt')
+  # end
+
+  # def write_to_text
+  #   File.write('path.txt', 'Sontana')
+  # end
 end
