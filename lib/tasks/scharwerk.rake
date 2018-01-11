@@ -20,6 +20,18 @@ namespace :scharwerk do
     end
   end
 
+  desc 'Create tasks for second proof'
+  task :generate_tasks, [:pattern,
+                         :part] => :environment do |_t, args|
+    pages = Page.create_pages(args[:pattern])
+
+    pages.each do |page|
+      task = Task.generate_task2(page, args[:part])
+      puts 'Task #' + task.id.to_s
+      puts "\t Page #" + page.id.to_s + ' ' + page.path
+    end
+  end
+
   desc 'Send fb notifications'
   task :notify_fb, [:app_id,
                     :app_secret,

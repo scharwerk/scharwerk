@@ -99,6 +99,16 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe '.generate_tasks_2' do
+    it 'generate tasks' do
+      page = Page.create(status: :free)
+      task = Task.generate_task2(page, 'book_3_2')
+
+      expect(task.pages.count).to eq 1
+      expect(task.restricted_user).to eq nil
+    end
+  end
+
   describe '.release' do
     it 'change status to :free' do
       task = Task.new

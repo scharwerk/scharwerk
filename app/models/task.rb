@@ -105,6 +105,14 @@ class Task < ActiveRecord::Base
     tasks
   end
 
+  # generate tasks for second proof
+  def self.generate_task2(page, part)
+    blame = self.blame(:first_proof, page.path)
+    task = Task.create(stage: :second_proof, part: part, restricted_user: blame)
+    task.pages << page
+    task
+  end
+
   def self.unassign_tasks(days_not_updated)
     tasks = Task.active.where('updated_at < ?', Time.now - days_not_updated.day)
     tasks.each(&:release)
