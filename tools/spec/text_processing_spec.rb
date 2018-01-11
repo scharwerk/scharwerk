@@ -43,18 +43,6 @@ describe TextProcessing do
       text_proc = TextProcessing.new(text1)
       expect(text_proc.remove_trailing_whitespace).to eq text2
     end
-    it 'remove multiple spaces' do
-      text1 =  'Навпаки,'\
-        'єдино  правильний метод той, щоб на доходи кожного року покладати'\
-        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
-        'одно, чи витрачено дану суму, чи ні“ (Captain'
-      text2 =  'Навпаки,'\
-        'єдино правильний метод той, щоб на доходи кожного року покладати'\
-        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
-        'одно, чи витрачено дану суму, чи ні“ (Captain'
-      text_proc = TextProcessing.new(text1)
-      expect(text_proc.remove_trailing_whitespace).to eq text2
-    end
   end
 
   describe '#capitalize_line' do
@@ -205,7 +193,7 @@ describe TextProcessing do
           "\n"\
           "Загальна формула для кругобігу товарового капіталу така:\n"
         text_proc = TextProcessing.new(text1)
-        expect(text_proc.capitalize_heading(text1)).to eq text2
+        expect(text_proc.capitalize_heading).to eq text2
       end
     end
   end
