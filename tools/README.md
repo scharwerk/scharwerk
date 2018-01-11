@@ -30,7 +30,8 @@ replace tabs with spaces
 
 remove trailing spaces:
 
-
+	sed -i 's/[ \t]*$//' "$1"
+	
 Rename files:
 
     find -name '*.txt' | sort | gawk 'BEGIN{ a=61 }{ printf "mv %s %04d.txt\n", $0, a++ }' | bash
