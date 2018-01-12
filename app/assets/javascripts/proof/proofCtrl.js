@@ -54,4 +54,6 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
       updatePage(tasks.current.current_page);
     });
   }
+
+  $modal.open({templateUrl: 'manualModal.html', size: 'small'});
 }]);
