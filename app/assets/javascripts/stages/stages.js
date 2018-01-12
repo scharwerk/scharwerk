@@ -7,14 +7,19 @@ angular.module('scharwerk')
   s.getStats = function() {
     return $http.get('/stats/tasks.json').success(function(data){
       angular.forEach(data, function(stage, key) {
+        // check if undefined and summ
+        finished = (stage.commited || 0) + (stage.unchanged || 0);
+        console.log(finished);
         s.graphs[key] =
         [{
           label: 'Завершено',
           suffix: '%',
-          value: Math.floor(100 * stage.commited / stage.total),
+          value: Math.floor(100 * finished / stage.total),
           color: '#FFC107',
           colorComplement: '#FFFFFF',
-          free: (!!stage.free)
+          free: (!!stage.free),
+          total: stage.total,
+          finished: finished
         }];
       });
     });

@@ -160,6 +160,13 @@
       <p>
         На другому етапі виправляємо помилки, що залишились після першого етапу. А також уніфікуємо типографіку в книжках. 
       </p>
+      <p>
+        <b>Наразі <ng-pluralize count="graphs.second_proof[0].finished"
+              when="{'one': 'завершена {} сторінка',
+                     'few': 'завершено {} сторінки',
+                     'many': 'завершено {} сторінок'}"></ng-pluralize>
+        з {{ graphs.second_proof[0].total }}</b>.
+      </p>
       <div ng-show="!isAuthenticated">
         <p>Щоби отримати новий фрагмент увійдіть через facebook</p>
         <a ng-click="login();" class="button large success expand">увійти через facebook</a>
