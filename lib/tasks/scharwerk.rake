@@ -21,7 +21,7 @@ namespace :scharwerk do
   end
 
   desc 'Create tasks for second proof'
-  task :generate_tasks, [:pattern,
+  task :generate_tasks_2, [:pattern,
                          :part] => :environment do |_t, args|
     pages = Page.create_pages(args[:pattern])
 
