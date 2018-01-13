@@ -72,4 +72,10 @@ class TextProcessing
   def replace_double_chars
     @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
   end
+
+  def get_dash_dict
+    r = /([[:alpha:]]+)\ *\-\ *([[:alpha:]]+)/
+    @text.match(r) {|m| puts m[1] + '-' +m[2]}
+    @text
+  end
 end
