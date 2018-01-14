@@ -9,5 +9,5 @@ method, path = ARGV
 Dir[path].each do |file|
   t = TextProcessing.new(File.read(file))
   text = t.method(method).call
-  File.write(path, text)
+  File.write(file, text)
 end

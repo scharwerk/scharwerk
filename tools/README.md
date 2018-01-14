@@ -9,6 +9,7 @@ Mind the slash before * in command line
 Commands
 
 - get_dash_dict - outputs list of words with dashes
+- spaces_around_dashes - fixes spaces around dashes
 
 ## After first stage
 
