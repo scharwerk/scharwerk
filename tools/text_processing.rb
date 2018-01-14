@@ -75,7 +75,11 @@ class TextProcessing
 
   def get_dash_dict
     r = /([[:alpha:]]+)\ *\-\ *([[:alpha:]]+)/
-    @text.match(r) {|m| puts m[1] + '-' +m[2]}
+    # this is syntax for match all
+    @text.to_enum(:scan, r).map do 
+      m = Regexp.last_match
+      puts m[1] + '-' + m[2]
+    end
     @text
   end
 end

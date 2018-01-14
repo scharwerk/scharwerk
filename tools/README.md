@@ -1,5 +1,15 @@
 # Proofreading tools
 
+## Tools
+
+Mind the slash before * in command line
+
+	ruby process.rb capitalize_heading ../text/i/\*.txt
+
+Commands
+
+- get_dash_dict - outputs list of words with dashes
+
 ## After first stage
 
 * Normalise whitespace:

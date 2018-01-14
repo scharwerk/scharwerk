@@ -251,10 +251,10 @@ describe TextProcessing do
 
   describe '#get_dash_dict' do
     it 'returns_dict' do
-      text = "слово -дефіс але\n не пере-\nнос"
+      text = "дефіс-перший слово -дефіс але\n не пере-\nнос"
       p = TextProcessing.new(text)
       expect(p.get_dash_dict).to eq text
-      expect{ p.get_dash_dict }.to output("слово-дефіс\n").to_stdout
+      expect{ p.get_dash_dict }.to output("дефіс-перший\nслово-дефіс\n").to_stdout
     end
   end
 end
