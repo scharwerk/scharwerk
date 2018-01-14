@@ -18,8 +18,20 @@ class TextProcessing
     @text = @text.gsub(/[„“]/, '„' => '«', '“' => '»')
   end
 
+  def remove_bom
+    @text.gsub(/\uFEFF/, '')
+  end
+
+  def replace_tabs_with_spaces
+    @text.gsub(/\t/, '    ')
+  end
+
   def remove_trailing_whitespace
     @text.gsub(/\s+$/, '')
+  end
+
+  def remove_multiple_nl
+    @text.gsub(/\n{2,}/, "\n\n")
   end
 
   def capitalize_line(line)
@@ -48,22 +60,8 @@ class TextProcessing
   end
 
   def uppercase_line?(line)
-    return true if line.match(/\p{Upper}/) && !line.match(%r{[\p{Lower}—./\\]})
+    return true if line.match(/\p{Upper}/) && !line.match(%r{[\p{Lower}—/\\]})
     false
-  end
-
-  def remove_line_breaks_dict
-    dict = []
-    File.open('dashes.txt').each { |w| dict |= [w.chomp.downcase] }
-    @text.gsub(/([[:alpha:]]+)-\n([[:alpha:]]+)(\S*)\s/) do
-      m = Regexp.last_match
-      if dict.include? (m[1] + '-' + m[2]).downcase
-        puts m
-        m[1] + '-' + m[2] + m[3] + "\n"
-      else
-        m[0]
-      end
-    end
   end
 
   def remove_line_breaks
@@ -95,7 +93,7 @@ class TextProcessing
   end
 
   def replace_double_chars
-    @text = @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
+    @text = @text.gsub(/([+×\-=—X])\n\1\s*/, "\\1\n")
   end
 
   def add_spaces_around_dash

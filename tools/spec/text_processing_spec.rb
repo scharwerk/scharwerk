@@ -131,11 +131,6 @@ describe TextProcessing do
         text_proc = TextProcessing.new(line)
         expect(text_proc.uppercase_line?(line)).to be false
       end
-      it 'return false, the formula contains dots' do
-        line = "Т...Т'"
-        text_proc = TextProcessing.new(line)
-        expect(text_proc.uppercase_line?(line)).to be false
-      end
       it 'return false, the formula contains slash' do
         line = '/Р'
         text_proc = TextProcessing.new(line)
@@ -225,10 +220,8 @@ describe TextProcessing do
   describe '#replace_double_chars' do
     # TODO: it could be as well X
     it 'Replace double chars on line break (—, =, +, -)' do
-      text1 = "(таблиці XVI і XVII), і сума ренти є знову 6X20=10X12 =\n"\
-        '= 120 шил.'
-      text2 = "(таблиці XVI і XVII), і сума ренти є знову 6X20=10X12 =\n"\
-        '120 шил.'
+      text1 = "6X20=10X12 =\n= 120 шил."
+      text2 = "6X20=10X12 =\n120 шил."
       text_proc = TextProcessing.new(text1)
       expect(text_proc.replace_double_chars). to eq text2
     end
