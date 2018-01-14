@@ -269,6 +269,15 @@ describe TextProcessing do
     end
   end
 
+  describe '#remove_line_breaks_dict' do
+    it 'works' do
+      text = "раз-\nураз, інше не пере-\nнос"
+      result = "раз-ураз,\nінше не пере-\nнос"
+      p = TextProcessing.new(text)
+      expect(p.remove_line_breaks_dict).to eq result
+    end
+  end
+
   describe '#add_spaces_around_dash' do
     context 'whith no spaces before and after dash' do
       it 'add spaces' do

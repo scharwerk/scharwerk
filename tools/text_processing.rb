@@ -52,6 +52,19 @@ class TextProcessing
     false
   end
 
+  def remove_line_breaks_dict
+    dict = []
+    File.open('dashes.txt').each { |w| dict |= [w.chomp.downcase] }
+    @text.gsub(/([[:alpha:]]+)-\n([[:alpha:]]+)(\S)*\s/) do
+      m = Regexp.last_match
+      if dict.include? (m[1] + '-' + m[2]).downcase
+        m[1] + '-' + m[2] + m[3] + "\n"
+      else
+        m[0]
+      end
+    end
+  end
+
   def remove_line_breaks
     @text.gsub(/-\n(\S+)\s/, "\\1\n")
     # In plain English, we looking for a pattern (/(-\n)(\S+)\s/),
