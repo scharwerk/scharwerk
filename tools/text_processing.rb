@@ -90,13 +90,13 @@ class TextProcessing
   end
 
   def delete_spaces_around_dash
-    @text = @text.gsub(/(\d) — (\d)/, '\\1—\\2')
+    @text = @text.gsub(/([\d\*IVX]) — ([\d\*IVX])/, '\\1—\\2')
   end
 
   def fix_ndash
     @text = @text.gsub(/(\S)[^\S\n]*-/, '\\1-')
     @text = @text.gsub(/-[^\S\n]*(\S)/, '-\\1')
-    @text = @text.gsub(/(\d)-(\d)/, '\\1—\\2')
+    @text = @text.gsub(/([\d\*IVX])-([\d\*IVX])/, '\\1—\\2')
   end
 
   def spaces_around_dashes

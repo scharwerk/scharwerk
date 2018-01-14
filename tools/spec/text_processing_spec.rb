@@ -255,8 +255,8 @@ describe TextProcessing do
 
   describe '#fix_ndash' do
     it 'works' do
-      text = "слово -дефіс і 1 - 10"
-      result = "слово-дефіс і 1—10"
+      text = "слово -дефіс і 1 - 10 88* - 90"
+      result = "слово-дефіс і 1—10 88*—90"
       p = TextProcessing.new(text)
       expect(p.fix_ndash).to eq result
     end
@@ -309,8 +309,8 @@ describe TextProcessing do
   describe '#delete_spaces_around_dash' do
     context 'with numbers around' do
       it 'delete spaces' do
-        text1 = 'становить 1 — 3 розвоїв'
-        text2 = 'становить 1—3 розвоїв'
+        text1 = 'становить 1 — 3 II — X'
+        text2 = 'становить 1—3 II—X'
         text_proc = TextProcessing.new(text1)
         expect(text_proc.delete_spaces_around_dash). to eq text2
       end
