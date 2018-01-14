@@ -85,18 +85,24 @@ class TextProcessing
   end
 
   def add_spaces_around_dash
-    @text = @text.gsub(/(\S)—(\S)/, '\\1 — \\2')
-         .gsub(/(\S) —(\S)/, '\\1 — \\2')
-         .gsub(/(\S)— (\S)/, '\\1 — \\2')
+    @text = @text.gsub(/(\S)[^\S\n]*—/, '\\1 —')
+    @text = @text.gsub(/—[^\S\n]*(\S)/, '— \\1')
   end
 
   def delete_spaces_around_dash
     @text = @text.gsub(/(\d) — (\d)/, '\\1—\\2')
   end
 
-  def process_spaces_around_dashes
+  def fix_ndash
+    @text = @text.gsub(/(\S)[^\S\n]*-/, '\\1-')
+    @text = @text.gsub(/-[^\S\n]*(\S)/, '-\\1')
+    @text = @text.gsub(/(\d)-(\d)/, '\\1—\\2')
+  end
+
+  def spaces_around_dashes
     add_spaces_around_dash
     delete_spaces_around_dash
+    fix_ndash
   end
 
   def get_dash_dict

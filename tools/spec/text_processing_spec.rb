@@ -253,6 +253,22 @@ describe TextProcessing do
     end
   end
 
+  describe '#fix_ndash' do
+    it 'works' do
+      text = "слово -дефіс і 1 - 10"
+      result = "слово-дефіс і 1—10"
+      p = TextProcessing.new(text)
+      expect(p.fix_ndash).to eq result
+    end
+
+    it 'works with new lines' do
+      text = "слово -\nдефіс"
+      result = "слово-\nдефіс"
+      p = TextProcessing.new(text)
+      expect(p.fix_ndash).to eq result
+    end
+  end
+
   describe '#add_spaces_around_dash' do
     context 'whith no spaces before and after dash' do
       it 'add spaces' do
@@ -262,6 +278,7 @@ describe TextProcessing do
         expect(text_proc.add_spaces_around_dash). to eq text2
       end
     end
+    
     context 'with one space before dash' do
       it 'add space after' do
         text1 = "циркуляції є Г — Т... Т' —Г' — Г — Т — Г. При"
@@ -270,10 +287,20 @@ describe TextProcessing do
         expect(text_proc.add_spaces_around_dash). to eq text2
       end
     end
+    
     context 'with spece after dash only ' do
       it 'add spece before' do
         text1 = "циркуляції є Г — Т... Т'— Г' — Г — Т — Г. При"
         text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"
+        text_proc = TextProcessing.new(text1)
+        expect(text_proc.add_spaces_around_dash). to eq text2
+      end
+    end
+
+    context 'works on line end' do
+      it 'add spece before' do
+        text1 = "циркуляції—\nі далі"
+        text2 = "циркуляції —\nі далі"
         text_proc = TextProcessing.new(text1)
         expect(text_proc.add_spaces_around_dash). to eq text2
       end
@@ -295,7 +322,7 @@ describe TextProcessing do
       text1 = "циркуляції є Г — Т... Т'— Г' — Г — Т — Г. При розвої 1 — 100500"
       text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При розвої 1—100500"
       text_proc = TextProcessing.new(text1)
-      expect(text_proc.process_spaces_around_dashes). to eq text2
+      expect(text_proc.spaces_around_dashes). to eq text2
     end
   end
 end
