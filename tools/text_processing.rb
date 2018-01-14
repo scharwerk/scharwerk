@@ -19,7 +19,7 @@ class TextProcessing
   end
 
   def remove_trailing_whitespace
-    @text.gsub(/ $/, '').gsub(/^ /, '')
+    @text.gsub(/\s+$/, '')
   end
 
   def capitalize_line(line)
@@ -55,9 +55,10 @@ class TextProcessing
   def remove_line_breaks_dict
     dict = []
     File.open('dashes.txt').each { |w| dict |= [w.chomp.downcase] }
-    @text.gsub(/([[:alpha:]]+)-\n([[:alpha:]]+)(\S)*\s/) do
+    @text.gsub(/([[:alpha:]]+)-\n([[:alpha:]]+)(\S*)\s/) do
       m = Regexp.last_match
       if dict.include? (m[1] + '-' + m[2]).downcase
+        puts m
         m[1] + '-' + m[2] + m[3] + "\n"
       else
         m[0]
@@ -66,7 +67,7 @@ class TextProcessing
   end
 
   def remove_line_breaks
-    @text.gsub(/-\n(\S+)\s/, "\\1\n")
+    @text.gsub(/-\n(\S+)\s+/, "\\1\n")
     # In plain English, we looking for a pattern (/(-\n)(\S+)\s/),
     # that represent, hyphen then end of a line, then any charcter except
     # whitespace, then whitespace and replace with second group of pattern
@@ -116,15 +117,5 @@ class TextProcessing
     add_spaces_around_dash
     delete_spaces_around_dash
     fix_ndash
-  end
-
-  def get_dash_dict
-    r = /([[:alpha:]]+)\ *\-\ *([[:alpha:]]+)/
-    # this is syntax for match all
-    @text.to_enum(:scan, r).map do 
-      m = Regexp.last_match
-      puts m[1] + '-' + m[2]
-    end
-    @text
   end
 end

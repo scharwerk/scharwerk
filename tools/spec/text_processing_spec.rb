@@ -20,14 +20,8 @@ describe TextProcessing do
   describe '#remove_trailing_whitespace' do
     it 'remove space in an end of a line' do
       # Don`t touch trailing whitespace in the spec
-      text1 =  'Навпаки,'\
-        'єдино правильний метод той, щоб на доходи кожного року покладати'\
-        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
-        'одно, чи витрачено дану суму, чи ні“ (Captain'
-      text2 =  'Навпаки,'\
-        'єдино правильний метод той, щоб на доходи кожного року покладати'\
-        'зневартнення, неминуче зв’язане з тим, щоб заслужити ці доходи, все'\
-        'одно, чи витрачено дану суму, чи ні“ (Captain'
+      text1 = "Навпаки,  \n єдино правильний метод той"
+      text2 = "Навпаки,\n єдино правильний метод той"
       text_proc = TextProcessing.new(text1)
       expect(text_proc.remove_trailing_whitespace).to eq text2
     end
@@ -158,13 +152,9 @@ describe TextProcessing do
   describe '#remove_line_breaks' do
     context 'with a multiply text' do
       it 'concatenate word with hyphen' do
-        text1 = "капітал\n"\
-          "фігурує лише як товар; мова йде про складові частини варто-\n"\
-          'сти, то'
-        text2 = "капітал\n"\
-          "фігурує лише як товар; мова йде про складові частини вартости,\n"\
-          'то'
-        # now it add additional whitespace in the begining of line
+        text1 = "капітал\n частини варто-\nсти,  то"
+        text2 = "капітал\n частини вартости,\nто"
+
         text_proc = TextProcessing.new(text1)
         expect(text_proc.remove_line_breaks).to eq text2
       end
@@ -244,19 +234,10 @@ describe TextProcessing do
     end
   end
 
-  describe '#get_dash_dict' do
-    it 'returns_dict' do
-      text = "дефіс-перший слово -дефіс але\n не пере-\nнос"
-      p = TextProcessing.new(text)
-      expect(p.get_dash_dict).to eq text
-      expect{ p.get_dash_dict }.to output("дефіс-перший\nслово-дефіс\n").to_stdout
-    end
-  end
-
   describe '#fix_ndash' do
     it 'works' do
-      text = "слово -дефіс і 1 - 10 88* - 90"
-      result = "слово-дефіс і 1—10 88*—90"
+      text = "робіт- ників слово -дефіс і 1 - 10 88* - 90"
+      result = "робіт-ників слово-дефіс і 1—10 88*—90"
       p = TextProcessing.new(text)
       expect(p.fix_ndash).to eq result
     end
@@ -266,15 +247,6 @@ describe TextProcessing do
       result = "слово-\nдефіс"
       p = TextProcessing.new(text)
       expect(p.fix_ndash).to eq result
-    end
-  end
-
-  describe '#remove_line_breaks_dict' do
-    it 'works' do
-      text = "раз-\nураз, інше не пере-\nнос"
-      result = "раз-ураз,\nінше не пере-\nнос"
-      p = TextProcessing.new(text)
-      expect(p.remove_line_breaks_dict).to eq result
     end
   end
 
