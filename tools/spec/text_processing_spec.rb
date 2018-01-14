@@ -209,11 +209,11 @@ describe TextProcessing do
         it 'add`s an empty line at the end of a file' do
           text1 = "на найманих робітників.\n\n"\
             "Подруге. Товари, що входять у процес циркуляції промислового\n"\
-            'капіталу (доконечні засоби існування, що на них пере-'
+            "капіталу (доконечні засоби існування, що на них пере-"
 
           text2 = "на найманих робітників.\n\n"\
             "Подруге. Товари, що входять у процес циркуляції промислового\n"\
-            "капіталу (доконечні засоби існування, що на них пере-\n\n"
+            "капіталу (доконечні засоби існування, що на них пере-\n"
 
           text_proc = TextProcessing.new(text1)
           expect(text_proc.add_empty_line).to eq text2
@@ -245,31 +245,48 @@ describe TextProcessing do
   end
 
   describe '#add_spaces_around_dash' do
-    context 'with letters' do
-      context 'whith no spaces before and after dash' do
-        it 'add spaces' do
-          text1 = "циркуляції є Г — Т... Т'—Г' — Г — Т — Г. При"
-          text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"
-          text_proc = TextProcessing.new(text1)
-          expect(text_proc.add_spaces_around_dash). to eq text2
-        end
+    context 'whith no spaces before and after dash' do
+      it 'add spaces' do
+        text1 = "циркуляції є Г — Т... Т'—Г' — Г — Т — Г. При"
+        text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"
+        text_proc = TextProcessing.new(text1)
+        expect(text_proc.add_spaces_around_dash). to eq text2
       end
-      context 'with one space before dash' do
-        it 'add space after' do
-          text1 = "циркуляції є Г — Т... Т' —Г' — Г — Т — Г. При"
-          text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"
-          text_proc = TextProcessing.new(text1)
-          expect(text_proc.add_spaces_around_dash). to eq text2
-        end
+    end
+    context 'with one space before dash' do
+      it 'add space after' do
+        text1 = "циркуляції є Г — Т... Т' —Г' — Г — Т — Г. При"
+        text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"
+        text_proc = TextProcessing.new(text1)
+        expect(text_proc.add_spaces_around_dash). to eq text2
       end
-      context 'with spece after dash only ' do
-        it 'add spece before' do
-          text1 = "циркуляції є Г — Т... Т'— Г' — Г — Т — Г. При"
-          text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"
-          text_proc = TextProcessing.new(text1)
-          expect(text_proc.add_spaces_around_dash). to eq text2
-        end
+    end
+    context 'with spece after dash only ' do
+      it 'add spece before' do
+        text1 = "циркуляції є Г — Т... Т'— Г' — Г — Т — Г. При"
+        text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"
+        text_proc = TextProcessing.new(text1)
+        expect(text_proc.add_spaces_around_dash). to eq text2
       end
+    end
+  end
+  describe '#delete_spaces_around_dash' do
+    context 'with numbers around' do
+      it 'delete spaces' do
+        text1 = 'становить 1 — 3 розвоїв'
+        text2 = 'становить 1—3 розвоїв'
+        text_proc = TextProcessing.new(text1)
+        expect(text_proc.delete_spaces_around_dash). to eq text2
+      end
+    end
+  end
+
+  describe '#process_spaces_around_dashes' do
+    it 'add spaces with letters and delete spaces with numbers' do
+      text1 = "циркуляції є Г — Т... Т'— Г' — Г — Т — Г. При розвої 1 — 100500"
+      text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При розвої 1—100500"
+      text_proc = TextProcessing.new(text1)
+      expect(text_proc.process_spaces_around_dashes). to eq text2
     end
   end
 end

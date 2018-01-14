@@ -74,18 +74,28 @@ class TextProcessing
   end
 
   def add_empty_line
+    # TODO: line schold be ended with \n or \n\n ?
     @text =~ /\S\z/ ? @text << "\n" : @text
     # \z match end of a string
     # \S match any symbol except whitespace and Line seperator
   end
 
   def replace_double_chars
-    @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
+    @text = @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
   end
 
   def add_spaces_around_dash
-    @text.gsub(/(\S)—(\S)/, '\\1 — \\2')
+    @text = @text.gsub(/(\S)—(\S)/, '\\1 — \\2')
          .gsub(/(\S) —(\S)/, '\\1 — \\2')
          .gsub(/(\S)— (\S)/, '\\1 — \\2')
+  end
+
+  def delete_spaces_around_dash
+    @text = @text.gsub(/(\d) — (\d)/, '\\1—\\2')
+  end
+
+  def process_spaces_around_dashes
+    add_spaces_around_dash
+    delete_spaces_around_dash
   end
 end
