@@ -1,12 +1,14 @@
 # This is a class for automatic text upgrade
 class TextProcessing
-  DOWNCASE_CAPITAL = {'А' => 'а', 'Б' => 'б', 'В' => 'в', 'Г' => 'г', 'Ґ' => 'ґ',
-                      'Д' => 'д', 'Е' => 'е', 'Є' => 'є', 'Ж' => 'ж', 'З' => 'з',
-                      'И' => 'и', 'І' => 'і', 'Ї' => 'ї', 'Й' => 'й', 'К' => 'к',
-                      'Л' => 'л', 'М' => 'м', 'Н' => 'н', 'О' => 'о', 'П' => 'п',
-                      'Р' => 'р', 'С' => 'с', 'Т' => 'т', 'У' => 'у', 'Ф' => 'ф',
-                      'Х' => 'х', 'Ц' => 'ц', 'Ч' => 'ч', 'Ш' => 'ш', 'Щ' => 'щ',
-                      'Ь' => 'ь', 'Ю' => 'ю', 'Я' => 'я'}
+  DOWNCASE_CAPITAL = { 'А' => 'а', 'Б' => 'б', 'В' => 'в', 'Г' => 'г',
+                       'Ґ' => 'ґ', 'Д' => 'д', 'Е' => 'е', 'Є' => 'є',
+                       'Ж' => 'ж', 'З' => 'з', 'И' => 'и', 'І' => 'і',
+                       'Ї' => 'ї', 'Й' => 'й', 'К' => 'к', 'Л' => 'л',
+                       'М' => 'м', 'Н' => 'н', 'О' => 'о', 'П' => 'п',
+                       'Р' => 'р', 'С' => 'с', 'Т' => 'т', 'У' => 'у',
+                       'Ф' => 'ф', 'Х' => 'х', 'Ц' => 'ц', 'Ч' => 'ч',
+                       'Ш' => 'ш', 'Щ' => 'щ', 'Ь' => 'ь', 'Ю' => 'ю',
+                       'Я' => 'я' }.freeze
 
   def initialize(text)
     @text = text
@@ -29,14 +31,18 @@ class TextProcessing
   end
 
   def upcase_first_letter(line)
-    line[0] = DOWNCASE_CAPITAL.key(line[0]) if DOWNCASE_CAPITAL.has_value?(line[0])
+    line[0] = DOWNCASE_CAPITAL.key(line[0]) if DOWNCASE_CAPITAL.value?(line[0])
     line
   end
 
   def downcase_word(word)
     new_word = ''
     word.each_char do |letter|
-      DOWNCASE_CAPITAL.include?(letter) ? new_word << DOWNCASE_CAPITAL[letter] : new_word << letter
+      new_word << if DOWNCASE_CAPITAL.include?(letter)
+                    DOWNCASE_CAPITAL[letter]
+                  else
+                    letter
+                  end
     end
     new_word
   end
@@ -58,18 +64,28 @@ class TextProcessing
     # TODO: somehow remuve new_text variable
     new_text = ''
     @text.each_line do |line|
-      uppercase_line?(line) ? new_text << capitalize_line(line) : new_text << line
+      new_text << if uppercase_line?(line)
+                    capitalize_line(line)
+                  else
+                    line
+                  end
     end
     @text = new_text
   end
 
   def add_empty_line
-    @text.match(/\S\z/) ? @text << "\n" : @text
+    @text =~ /\S\z/ ? @text << "\n" : @text
     # \z match end of a string
     # \S match any symbol except whitespace and Line seperator
   end
 
   def replace_double_chars
     @text.gsub(/([+, -, =, —, X])(\n)[+, -, =, —, X]\s/, "\\1\n")
+  end
+
+  def add_spaces_around_dash
+    @text.gsub(/(\S)—(\S)/, '\\1 — \\2')
+         .gsub(/(\S) —(\S)/, '\\1 — \\2')
+         .gsub(/(\S)— (\S)/, '\\1 — \\2')
   end
 end
