@@ -243,6 +243,16 @@ describe TextProcessing do
     end
   end
 
+
+  describe '#fix_space_in_math' do
+    it 'works' do
+      text = "P+D×Y=0"
+      result = "P + D × Y = 0"
+      p = TextProcessing.new(text)
+      expect(p.fix_space_in_math).to eq result
+    end
+  end
+
   describe '#add_spaces_around_dash' do
     context 'whith no spaces before and after dash' do
       it 'add spaces' do
@@ -280,6 +290,7 @@ describe TextProcessing do
       end
     end
   end
+
   describe '#delete_spaces_around_dash' do
     context 'with numbers around' do
       it 'delete spaces' do
@@ -288,6 +299,22 @@ describe TextProcessing do
         text_proc = TextProcessing.new(text1)
         expect(text_proc.delete_spaces_around_dash). to eq text2
       end
+    end
+  end
+
+  describe '#fix_white_space' do
+    it 'works with simple case' do
+      text1 = 'дужка( « текст» ), некоректно ;так!ні'
+      text2 = 'дужка («текст»), некоректно; так! ні'
+      text_proc = TextProcessing.new(text1)
+      expect(text_proc.fix_space_around). to eq text2
+    end
+
+    it 'works with dots' do
+      text1 = 'дужка .але . ... початок 10.0 10,0'
+      text2 = 'дужка. але. ... початок 10.0 10,0'
+      text_proc = TextProcessing.new(text1)
+      expect(text_proc.fix_space_around). to eq text2
     end
   end
 

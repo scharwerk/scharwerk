@@ -96,9 +96,58 @@ class TextProcessing
     @text = @text.gsub(/([+×\-=—X])\n\1\s*/, "\\1\n")
   end
 
+  def add_space_before(char)
+    @text = @text.gsub(/(\S)[^\S\n]*#{Regexp.escape(char)}/, "\\1 #{char}")
+  end
+
+  def add_space_after(char)
+    @text = @text.gsub(/#{Regexp.escape(char)}[^\S\n]*(\S)/, "#{char} \\1")
+  end
+
+  def add_space_around(char)
+    add_space_before(char)
+    add_space_after(char)
+  end
+
+  def remove_space_before(char)
+    @text = @text.gsub(/(\S)[^\S\n]*#{Regexp.escape(char)}/, "\\1#{char}")
+  end
+
+  def remove_space_after(char)
+    @text = @text.gsub(/#{Regexp.escape(char)}[^\S\n]*(\S)/, "#{char}\\1")
+  end
+
+  def fix_space_in_math
+    '=+×'.each_char { |c| add_space_around(c) }
+    @text
+  end
+
+  def fix_space_around
+    ')]}“»;:'.each_char { |c| add_space_after(c) }
+    '([{„«'.each_char { |c| add_space_before(c) }
+
+    # add space after if next char is not dot
+    @text = @text.gsub(/\?[^\S\n]*([^\s\.\*])/, "\? \\1")
+    @text = @text.gsub(/\![^\S\n]*([^\s\.\*])/, "\! \\1")
+
+    #add space after if next char is not number or dot
+    @text = @text.gsub(/\.[^\S\n]*([^\s\d\.\*])/, "\. \\1")
+    @text = @text.gsub(/\,[^\S\n]*([^\s\d\.\*])/, "\, \\1")
+
+    ')]}“»;:,?!%'.each_char { |c| remove_space_before(c) }
+    '([{„«'.each_char { |c| remove_space_after(c) }
+
+    # remove space before dot, if previous char is not dor
+    @text = @text.gsub(/([^\s\.])[^\S\n]*\./, "\\1.")
+    @text
+  end
+
+  def fix_period_space
+    "?!.,"
+  end
+
   def add_spaces_around_dash
-    @text = @text.gsub(/(\S)[^\S\n]*—/, '\\1 —')
-    @text = @text.gsub(/—[^\S\n]*(\S)/, '— \\1')
+    add_space_around('—')
   end
 
   def delete_spaces_around_dash
@@ -106,8 +155,8 @@ class TextProcessing
   end
 
   def fix_ndash
-    @text = @text.gsub(/(\S)[^\S\n]*-/, '\\1-')
-    @text = @text.gsub(/-[^\S\n]*(\S)/, '-\\1')
+    remove_space_before('-')
+    remove_space_after('-')
     @text = @text.gsub(/([\d\*IVX])-([\d\*IVX])/, '\\1—\\2')
   end
 
