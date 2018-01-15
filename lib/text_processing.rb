@@ -142,8 +142,12 @@ class TextProcessing
     @text
   end
 
-  def fix_period_space
-    "?!.,"
+  def fix_white_space
+    @text = remove_bom
+    @text = replace_tabs_with_spaces
+    @text = remove_trailing_whitespace
+    @text = add_empty_line
+    @text = remove_multiple_nl
   end
 
   def add_spaces_around_dash

@@ -71,6 +71,16 @@ RSpec.describe Task, type: :model do
     expect(task.status).to eq 'unchanged'
   end
 
+  it 'fixes whitespce before commit' do
+    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+
+    task = Task.create(status: :done, user: User.create)
+    page = task.pages.create(status: :done, path: 'test/1', text: "\ttext ")
+    task.commit
+
+    expect(page.text).to eq "    text\n"
+  end
+
   describe '.generate_tasks' do
     it 'generate tasks' do
       task_count = Task.count

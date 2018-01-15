@@ -44,6 +44,11 @@ class Page < ActiveRecord::Base
     File.read(text_file_name)
   end
 
+  def fix_white_space
+    t = TextProcessing.new(text)
+    File.write(text_file_name, t.fix_white_space)
+  end
+
   def self.create_pages(pattern)
     Dir[text_path(pattern)].sort.collect do |text_file|
       path = text_file[text_path('').length..-5]

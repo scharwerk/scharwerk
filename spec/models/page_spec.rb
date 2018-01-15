@@ -18,6 +18,12 @@ RSpec.describe Page, type: :model do
     expect(File.read(Page.text_path('test/4.txt'))).to eq('book 4')
   end
 
+  it 'fixes whitespace' do
+    page = Page.create(path: 'test/4', text: "\t book 4 ")
+    page.fix_white_space
+    expect(page.text).to eq("     book 4\n")
+  end
+
   describe '.create_pages' do
     it 'return array of new pages' do
       make_text('test/1.txt', '1')
