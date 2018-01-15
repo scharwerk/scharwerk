@@ -4,7 +4,7 @@
 
 Mind the slash before * in command line
 
-	ruby process.rb capitalize_heading ../text/i/\*.txt
+    ruby process.rb capitalize_heading ../text/i/\*.txt
 
 Commands
 
@@ -14,10 +14,10 @@ Commands
 ## After first stage
 
 * Normalise whitespace:
-	
-	* Remove trailing whitespace
-	* Normalise lineendings (\n)
-	* Add empty line at end of file
+    
+    * Remove trailing whitespace
+    * Normalise lineendings (\n)
+    * Add empty line at end of file
 
 * Replace CAPS WORDS with normal case
 * Merge hyphen words (with dictionary)
@@ -33,16 +33,16 @@ Commands
 
 add new line to the end of file
 
-	sed -i -e '$a\' file
+    sed -i -e '$a\' file
 
 replace tabs with spaces
 
-	sed -i $'s/\t/    /g' *.txt
+    sed -i $'s/\t/    /g' *.txt
 
 remove trailing spaces:
 
-	sed -i 's/[ \t]*$//' "$1"
-	
+    sed -i 's/[ \t]*$//' "$1"
+    
 Rename files:
 
     find -name '*.txt' | sort | gawk 'BEGIN{ a=61 }{ printf "mv %s %04d.txt\n", $0, a++ }' | bash
@@ -53,11 +53,11 @@ Test rename:
 
 Replace char in filenames:
 
-	rename 's/\:/-/g' *.txt -vn
+    rename 's/\:/-/g' *.txt -vn
 
 Mass file convert
 
-	mogrify -type Grayscale -format jpg -resize 50% -auto-level -quality 80 *.tif
+    mogrify -type Grayscale -format jpg -resize 50% -auto-level -quality 80 *.tif
 
-	mogrify -type Grayscale -format jpg -auto-level -quality 80 *.tif
+    mogrify -type Grayscale -format jpg -auto-level -quality 80 *.tif
 

@@ -2,7 +2,7 @@
 #
 # ruby process.rb capitalize_heading ../text/i/*.txt
 #
-require_relative 'text_processing'
+require_relative '../lib/text_processing'
 
 method, path = ARGV
 
