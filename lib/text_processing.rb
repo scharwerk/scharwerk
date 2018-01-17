@@ -27,7 +27,7 @@ class TextProcessing
   end
 
   def remove_trailing_whitespace
-    @text.gsub(/\s+$/, '')
+    @text.gsub(/[^\S\n]+?$/, '')
   end
 
   def remove_multiple_nl

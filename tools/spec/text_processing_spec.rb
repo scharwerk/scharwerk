@@ -20,8 +20,8 @@ describe TextProcessing do
   describe '#remove_trailing_whitespace' do
     it 'remove space in an end of a line' do
       # Don`t touch trailing whitespace in the spec
-      text1 = "Навпаки,  \n єдино правильний метод той"
-      text2 = "Навпаки,\n єдино правильний метод той"
+      text1 = "Навпаки,\t \n\n єдино правильний метод той"
+      text2 = "Навпаки,\n\n єдино правильний метод той"
       text_proc = TextProcessing.new(text1)
       expect(text_proc.remove_trailing_whitespace).to eq text2
     end

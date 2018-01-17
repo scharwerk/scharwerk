@@ -75,10 +75,11 @@ RSpec.describe Task, type: :model do
     g = Git.init(Rails.configuration.x.data.git_path.to_s)
 
     task = Task.create(status: :done, user: User.create)
-    page = task.pages.create(status: :done, path: 'test/1', text: "\ttext ")
+    text =  "\ttext\n\nnew paragraph "
+    page = task.pages.create(status: :done, path: 'test/1', text: text)
     task.commit
 
-    expect(page.text).to eq "    text\n"
+    expect(page.text).to eq "    text\n\nnew paragraph\n"
   end
 
   describe '.generate_tasks' do
