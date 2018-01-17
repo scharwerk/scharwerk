@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
   end
 
   def total_pages_done
-    tasks_ids = tasks.where(status: [:commited, :unchanged]).pluck(:id)
+    done_statuses = [Task.statuses[:commited], Task.statuses[:unchanged]]
+    tasks_ids = tasks.where("status IN (?)", done_statuses).pluck(:id)
     Page.where(task_id: tasks_ids).count
   end
 

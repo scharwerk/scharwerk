@@ -14,6 +14,15 @@ RSpec.describe User, type: :model do
     expect(user.time_inactive).to be > 1
   end
 
+  it 'counts finished pages' do
+    user = User.create
+    t1 = Task.create(status: :commited, user: user)
+    t1.pages.create()
+    t2 = Task.create(status: :unchanged, user: user)
+    t2.pages.create()
+    expect(user.total_pages_done).to eq 2
+  end
+
   describe 'user notification' do
     user = User.create
 
