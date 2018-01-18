@@ -42,7 +42,7 @@
       Отримайте фрагмент з поточного етапу «<strong>Друга коректура</strong>».
       </p>
       <div ng-show="graphs.second_proof[0].free">
-        <a ng-click="assign('second_proof');" class="button large success">Oтримати фрагмент</a>
+        <a ng-click="assign('second_proof');" class="button large success">Oтримати сторінку</a>
         <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
       </div>
       <div ng-show="!graphs.second_proof[0].free">
@@ -175,7 +175,7 @@
       <div ng-show="isAuthenticated">
         <div ng-show="!task.exists">
           <div ng-show="graphs.second_proof[0].free">
-            <a ng-click="assign('second_proof');" class="button large success">Oтримати фрагмент</a>
+            <a ng-click="assign('second_proof');" class="button large success">Oтримати сторінку</a>
           </div>
           <div ng-show="!graphs.second_proof[0].free">
             <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
