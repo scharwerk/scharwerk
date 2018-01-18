@@ -13,7 +13,10 @@
 	background: $primary-color;
 	@include scroll;
 
-	h1, h3, p, ol, h1 a {
+	a {
+		color: $accent-color;
+	}
+	h1, h3, p, ol, h1 {
 		color: #FFFFFF;
 	}
 	h3 {
@@ -79,11 +82,11 @@ keyboard .tabs-panel {
 	padding: 0;
 
 	& a {
-		font-weight: bold;
 		width: 18%;
 		margin: 1%;
 		padding: 0 0.2 0 0.2;
 		font-size: 1.2em;
+		color: $primary-color !important;
 	}
 }
 

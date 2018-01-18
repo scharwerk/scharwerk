@@ -43,6 +43,10 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     $anchorScroll('image-top');
   };
 
+  $scope.manualModal = function () {
+    $modal.open({templateUrl: 'manualModal.html', size: 'small'});
+  };
+
   $scope.task = tasks.current;
   updatePage(tasks.current.current_page);
 
@@ -63,5 +67,5 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     });
   }
 
-  $modal.open({templateUrl: 'manualModal.html', size: 'small'});
+  $scope.manualModal();
 }]);
