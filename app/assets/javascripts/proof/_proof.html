@@ -77,7 +77,9 @@
 <script type="text/ng-template" id="submitModal.html">
   <h3>Відправити фрагмент?</h3>
   <p>Дякуємо, ви завершили поточний фрагмент і готові відправити його на наступний етап.</p>
-  <button class="button large success float-right" ng-click="$close()">Відправити</button>
+
+  <button class="button large hollow" ng-click="$close(false)">Відправити і завершити</button>
+  <button class="button large success" ng-click="$close(true)">Відправити і отримати наступну сторінку</button>
   <button class="close-button" type="button" ng-click="$dismiss()">
     &times;
   </button>

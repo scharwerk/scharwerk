@@ -14,9 +14,14 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   }
   
   var submitModal = function() {
-    $modal.open({templateUrl: 'submitModal.html'}).result.then(function () {
-      tasks.finish().success(function () {
-        $state.go('index');
+    $modal.open({templateUrl: 'submitModal.html'}).result.then(function (getNext) {
+      tasks.finish(getNext).success(function () {
+        if (!tasks.current.exists) {
+          $state.go('index');
+          return ;
+        };
+
+        updatePage(tasks.current.current_page);
       });
     }, function () {
       $scope.goto(tasks.current.pages[0].id);

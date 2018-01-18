@@ -17,7 +17,7 @@ class TasksController < ApplicationController
     stage = Task.stages[params['stage']]
     task = Task.first_free(stage, current_user)
     task.assign(current_user)
-    respond_with task
+    respond_with task, json: task
   end
 
   # mark task as completed
@@ -28,8 +28,11 @@ class TasksController < ApplicationController
       task.finish
       GitWorker.perform_async(task.id)
     end
-
-    render json: { status: 'done' }, status: :ok
+    if params['next']
+      create
+    else
+      render json: { status: 'done' }, status: :ok  
+    end
   end
 
   # free task from user

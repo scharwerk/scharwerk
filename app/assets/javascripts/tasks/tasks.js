@@ -43,10 +43,13 @@ angular.module('scharwerk')
     return $http.delete('/task.json').success(s.clearCurrent);
   };
 
-  s.finish = function() {
+  s.finish = function(getNext) {
     ga('send', 'event', 'Tasks', 'finish');
     fbq('track', 'finish');
-    return $http.put('/task.json', {done: true});
+    return $http.put(
+      '/task.json', 
+      {done: true, next: getNext, stage: s.current.stage}
+      ).success(s.setCurrent);
   };
 
   return s;
