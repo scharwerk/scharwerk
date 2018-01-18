@@ -44,13 +44,14 @@
           </textarea>
           <div class="row collapse">
             <div class="small-4 columns">
-              <ul class="pagination">
+              <ul class="pagination" ng-if="task.pages.length > 1">
                 <li 
                   ng-repeat="page in task.pages" 
                   ng-class="{done: page.status == 'done', cur: page.id == id}">
                     <a ng-click="goto(page.id);">{{ $index + 1}}</a>
                 </li>
               </ul>
+              <a class="button secondary hollow" ng-click="releaseModal()">Відмовитись від фрагменту</a>
             </div>
             <div class="small-3 columns">
               <a class="button secondary hollow" ng-click="save()">Зберегти</a>
@@ -59,7 +60,7 @@
             </div>
             <div class="small-4 columns">
               <a class="button large expanded success" ng-click="saveAndContinue()">Завершити сторінку</a>
-              <p><small>Відмітити поточну сторінку як завершену і перейти до наступної</small></p>
+              <p><small>Відмітити поточну сторінку як завершену</small></p>
             </div>
           </div>
         </div>
@@ -71,8 +72,17 @@
 <script type="text/ng-template" id="submitModal.html">
   <h3>Відправити фрагмент?</h3>
   <p>Дякуємо, ви завершили поточний фрагмент і готові відправити його на наступний етап.</p>
-  <a class="button large secondary hollow" ng-click="$dismiss()">Почитати ще раз</a>
   <button class="button large success float-right" ng-click="$close()">Відправити</button>
+  <button class="close-button" type="button" ng-click="$dismiss()">
+    &times;
+  </button>
+</script>
+
+<script type="text/ng-template" id="releaseModal.html">
+  <h3>Ви впевнені?</h3>
+  <p>Відмовитись від сторінки.</p>
+  <a class="button large secondary hollow" ng-click="$dismiss()">Повернутися</a>
+  <button class="button large success float-right" ng-click="$close()">Відмовитись</button>
   <button class="close-button" type="button" ng-click="$dismiss()">
     &times;
   </button>

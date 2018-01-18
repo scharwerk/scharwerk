@@ -23,6 +23,14 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     });
   }
 
+  $scope.releaseModal = function () {
+    $modal.open({templateUrl: 'releaseModal.html'}).result.then(function () {
+      tasks.release().success(function () {
+        $state.go('index');
+      });
+    });    
+  }
+
   var updatePage = function(page) {
     if (!page) {
       return submitModal();
