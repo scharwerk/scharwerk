@@ -49,7 +49,13 @@ angular.module('scharwerk')
     return $http.put(
       '/task.json', 
       {done: true, next: getNext, stage: s.current.stage}
-      ).success(s.setCurrent);
+      ).success(function(data){
+        if (getNext) {
+          s.setCurrent(data);
+        } else {
+          s.clearCurrent();
+        }
+      });
   };
 
   return s;

@@ -16,7 +16,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   var submitModal = function() {
     $modal.open({templateUrl: 'submitModal.html'}).result.then(function (getNext) {
       tasks.finish(getNext).success(function () {
-        if (!tasks.current.exists) {
+        if (!getNext) {
           $state.go('index');
           return ;
         };
