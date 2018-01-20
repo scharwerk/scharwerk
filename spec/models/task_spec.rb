@@ -12,7 +12,7 @@ RSpec.describe Task, type: :model do
 
   it 'shows text' do
     task = Task.create(stage: :first_proof, part: :book_1)
-    expect(task.description).to eq('Капітал, том І. Перша корректура')
+    expect(task.description).to eq('Капітал, том І. Перша коректура')
   end
 
   it 'calculates progress' do
