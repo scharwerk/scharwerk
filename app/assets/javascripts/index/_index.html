@@ -19,7 +19,7 @@
 
   <div class="right-column" ng-show="!isAuthenticated">
     <h4>Отримати фрагмент</h4>
-    <p>Щоби отримати новий фрагмент або повернутися до поточного увійдіть через facebook</p>
+    <p>Щоб отримати новий фрагмент або повернутися до поточного, увійдіть через facebook</p>
     <a ng-click="login();" class="button large primary expand">увійти через facebook</a>
     <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
   </div>
@@ -66,11 +66,11 @@
   <div class="columns smalĺ-12 large-6">
     <h2>Подяка!</h2>
     <p>Цей проект був би неможливий без тих, хто долучився до спільної роботи.
-      Наразі до спільної підготовки видання Марксового «Капіталу» вже 
+      Наразі до спільної підготовки видання Марксового «Капіталу»  
         <b><ng-pluralize count="usersCount"
-              when="{'one': 'долучилась {} людина',
-                     'few': 'долучилось {} людини',
-                     'many': 'долучилось {} людей'}"></ng-pluralize>.</b>
+              when="{'one': 'долучилась вже {} людина',
+                     'few': 'долучилось вже {} людини',
+                     'many': 'долучилось вже {} людей'}"></ng-pluralize>.</b>
       {{ top.length }} — завершили хоча б один фрагмент (за кількістю завершених сторінок):</p>
     <p class="top-list">
       <span ng-repeat="user in top">{{ user.name }}&nbsp;<sup>{{ user.tasks }}</sup></span>
@@ -168,7 +168,7 @@
         з {{ graphs.second_proof[0].total }}</b>.
       </p>
       <div ng-show="!isAuthenticated">
-        <p>Щоби отримати новий фрагмент увійдіть через facebook</p>
+        <p>Щоб отримати новий фрагмент, увійдіть через facebook</p>
         <a ng-click="login();" class="button large success expand">увійти через facebook</a>
         <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
       </div>
