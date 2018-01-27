@@ -46,6 +46,14 @@
     <div id="bottom" class="column row">
       <div class="grid-content edit-content">
         <div class="textarea-page">
+          <div class="row collapse">
+            <div class="small-21 columns">
+                <a class="button secondary hollow" ng-click="skipModal()">Замінити фрагмент</a>
+                <small>
+                  Якщо вам поточний фрагмент видається складним, ви можете відмовитись від нього і отримати інший.
+                </small>
+            </div>
+          </div>
           <a id="text-top"></a>
           <textarea id="main-text" data-gramm_editor="false" class="msd-elastic: \n;" ng-model="text">
           </textarea>
@@ -92,6 +100,16 @@
   <p>Відмовитись від сторінки.</p>
   <a class="button large secondary hollow" ng-click="$dismiss()">Повернутися</a>
   <button class="button large success float-right" ng-click="$close()">Відмовитись</button>
+  <button class="close-button" type="button" ng-click="$dismiss()">
+    &times;
+  </button>
+</script>
+
+<script type="text/ng-template" id="skipModal.html">
+  <h3>Ви впевнені?</h3>
+  <p>Пропустити поточну сторінку і перейти до наступної?</p>
+  <a class="button large secondary hollow" ng-click="$dismiss()">Повернутися</a>
+  <button class="button large success float-right" ng-click="$close()">Пропустити</button>
   <button class="close-button" type="button" ng-click="$dismiss()">
     &times;
   </button>

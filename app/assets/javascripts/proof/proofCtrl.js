@@ -36,6 +36,15 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     });    
   }
 
+
+  $scope.skipModal = function () {
+    $modal.open({templateUrl: 'skipModal.html'}).result.then(function () {
+      tasks.release(true).success(function () {
+        updatePage(tasks.current.current_page);
+      });
+    });    
+  }
+
   var updatePage = function(page) {
     if (!page) {
       return submitModal();

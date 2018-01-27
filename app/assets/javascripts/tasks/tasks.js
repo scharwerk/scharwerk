@@ -39,8 +39,15 @@ angular.module('scharwerk')
     return $http.get('/task/pages/' + id + '.json');
   };
 
-  s.release = function() {
-    return $http.delete('/task.json').success(s.clearCurrent);
+  s.release = function(getNext) {
+    var url = '/task.json' + (getNext ? '?next=True' : '');
+    return $http.delete(url).success(function(data){
+        if (getNext) {
+          s.setCurrent(data);
+        } else {
+          s.clearCurrent();
+        }
+      });
   };
 
   s.finish = function(getNext) {
