@@ -28,21 +28,28 @@ class TasksController < ApplicationController
       task.finish
       GitWorker.perform_async(task.id)
     end
-    if params['next']
-      create
-    else
-      render json: { status: 'done' }, status: :ok  
-    end
+    return create if params['next']
+
+    render json: { status: 'done' }, status: :ok
   end
 
   # free task from user
   def destroy
     task_missing && return
-    current_user.active_task.release
+    task = current_user.active_task
+    task.release
+    return skip_task(task) if params['next']
+
     render json: { status: 'released' }, status: :ok
   end
 
   private
+
+  def skip_task(old)
+    task = Task.first_free(Task.stages[old.stage], current_user, old.id)
+    task.assign(current_user)
+    respond_with task, json: task
+  end
 
   def task_missing
     current_user.active_task && return

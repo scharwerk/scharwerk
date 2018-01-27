@@ -79,9 +79,10 @@ class Task < ActiveRecord::Base
                         include: [pages: { only: [:id, :status] }]))
   end
 
-  def self.first_free(stage, user)
-    free = Task.where(stage: stage).free
-    free.where('restricted_user_id != ? OR restricted_user_id IS NULL', user.id).first
+  def self.first_free(stage, user, min_id=0)
+    free = Task.where(stage: stage).where("id > ?", min_id).free
+    tasks = free.where('restricted_user_id != ? OR restricted_user_id IS NULL', user.id)
+    tasks.order(:id).first
   end
 
   # what user worked on page on stage

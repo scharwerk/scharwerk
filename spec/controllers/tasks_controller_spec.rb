@@ -27,5 +27,15 @@ RSpec.describe TasksController, type: :controller do
       delete :destroy, format: :json
       expect(user.active_task).to eq(nil)
     end
+
+    it 'releases task and assign next' do
+      user = User.create
+      sign_in user
+      Task.create(stage: :test, status: :free)
+      Task.create(stage: :test, status: :active, user: user)
+      task = Task.create(stage: :test, status: :free)
+      delete :destroy, next: true, format: :json
+      expect(user.active_task).to eq(task)
+    end
   end
 end
