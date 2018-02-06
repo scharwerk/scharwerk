@@ -57,6 +57,24 @@ RSpec.describe Task, type: :model do
     expect(task.latest_commit).to eq(g.log[0].to_s)
   end
 
+  it 'show number of changes' do
+    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+
+    task = Task.create(status: :done, user: User.create)
+    page = task.pages.create(
+      status: :done,
+      path: 'test/1',
+      text: "one two next\nthree")
+    task.commit
+
+    task.status = :done
+    page.text = "onetwo next\nfour"
+    task.commit
+
+    expect(task.last_changes[0]).to eq("-one two")
+    expect(task.last_changes_count).to eq(4)
+  end
+
   it 'commit files' do
     g = Git.init(Rails.configuration.x.data.git_path.to_s)
 

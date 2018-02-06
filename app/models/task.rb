@@ -79,6 +79,15 @@ class Task < ActiveRecord::Base
     git.log(1).object(path).first.to_s
   end
 
+  def last_changes
+    lines = git.lib.diff_full(latest_commit + '^!', '--word-diff=porcelain')
+    lines.split(/\n+/).grep(/^[\+\-][^\+\-]/)
+  end
+
+  def last_changes_count
+    last_changes.count
+  end
+
   def current_page
     pages.free.first
   end
