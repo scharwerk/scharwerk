@@ -46,12 +46,16 @@ class Task < ActiveRecord::Base
     stage.to_s + ' T' + id.to_s + ' U' + user.id.to_s
   end
 
+  def git
+    Git.open(Rails.configuration.x.data.git_path.to_s)
+  end
+
   def commit
     return if not done?
 
     pages.each(&:fix_white_space)
     pathes = pages.collect(&:text_file_name)
-    g = Git.open(Rails.configuration.x.data.git_path.to_s)
+    g = git
     g.add(pathes)
     g.commit(commit_message)
     update(status: :commited)
@@ -68,6 +72,11 @@ class Task < ActiveRecord::Base
   def progress
     total = (pages.free.size + pages.done.size)
     total ? BigDecimal.new(pages.done.size) / total : 1
+  end
+
+  def latest_commit
+    path = pages.first.text_file_name
+    git.log(1).object(path).first.to_s
   end
 
   def current_page

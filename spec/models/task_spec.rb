@@ -15,6 +15,11 @@ RSpec.describe Task, type: :model do
     expect(task.description).to eq('Капітал, том І. Перша коректура')
   end
 
+  it 'shows last commit' do
+    task = Task.create(stage: :first_proof, part: :book_1)
+    expect(task.description).to eq('Капітал, том І. Перша коректура')
+  end
+
   it 'calculates progress' do
     task = Task.create
     task.pages.create(status: :free)
@@ -40,6 +45,16 @@ RSpec.describe Task, type: :model do
 
   it 'not blames user' do
     expect(Task.blame(:first_proof, 'test/1.txt')).to eq(nil)
+  end
+
+  it 'show last commit' do
+    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+
+    task = Task.create(status: :done, user: User.create)
+    task.pages.create(status: :done, path: 'test/1', text: '1')
+    task.commit
+
+    expect(task.latest_commit).to eq(g.log[0].to_s)
   end
 
   it 'commit files' do
