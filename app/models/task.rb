@@ -14,7 +14,9 @@
 # add top level class documentation
 class Task < ActiveRecord::Base
   belongs_to :user
-  belongs_to :restricted_user, class_name: "User"
+  # belongs_to :restricted_user, class_name: "User"
+  has_many :restrictions
+  has_many :users, through: :restrictions
   has_many :pages, -> { order(:id) }
 
   attr_accessor :progress
