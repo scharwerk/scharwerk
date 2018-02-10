@@ -55,15 +55,15 @@ class Task < ActiveRecord::Base
 
     pages.each(&:fix_white_space)
     pathes = pages.collect(&:text_file_name)
-    g = git
-    g.add(pathes)
-    g.commit(commit_message)
-    update(status: :commited)
-  rescue Git::GitExecuteError => e
-    if e.message.include? 'nothing to commit'
+    status = GitDb.new.commit(pathes, commit_message)
+
+    if status == :unchanged
       update(status: :unchanged)
       return
     end
+
+    update(status: :commited)
+  rescue Git::GitExecuteError => e
 
     update(status: :error)
     raise
