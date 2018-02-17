@@ -110,15 +110,15 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe '.generate_tasks_2' do
-    it 'generate tasks' do
-      page = Page.create(status: :free)
-      task = Task.generate_task2(page, 'book_3_2')
+  # describe '.generate_tasks_2' do
+  #   it 'generate tasks' do
+  #     page = Page.create(status: :free)
+  #     task = Task.generate_task2(page, 'book_3_2')
 
-      expect(task.pages.count).to eq 1
-      expect(task.restricted_user).to eq nil
-    end
-  end
+  #     expect(task.pages.count).to eq 1
+  #     expect(task.restricted_user).to eq nil
+  #   end
+  # end
 
   describe '.release' do
     it 'change status to :free' do
@@ -193,6 +193,17 @@ RSpec.describe Task, type: :model do
 
         expect(Task.last.status).to eq('commited')
       end
+    end
+  end
+
+  describe '.first_free' do
+    it 'do not return resticted tasks' do
+      task1 = Task.create(stage: 2)
+      task2 = Task.create(stage: 2)
+      user = User.create
+      restriction = Restriction.create(user: user, task: task1)
+
+      expect(Task.first_free(2, user, min_id=0)).to eq(task2)
     end
   end
 end
