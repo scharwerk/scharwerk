@@ -31,7 +31,6 @@ RSpec.describe TasksController, type: :controller do
     it 'releases task and assign next' do
       user = User.create
       sign_in user
-      Task.create(stage: :test, status: :free)
       Task.create(stage: :test, status: :active, user: user)
       task = Task.create(stage: :test, status: :free)
       delete :destroy, next: true, format: :json

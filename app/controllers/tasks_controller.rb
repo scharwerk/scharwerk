@@ -38,15 +38,15 @@ class TasksController < ApplicationController
     task_missing && return
     task = current_user.active_task
     task.release
-    return skip_task(task) if params['next']
+    return next_task(task) if params['next']
 
     render json: { status: 'released' }, status: :ok
   end
 
   private
 
-  def skip_task(old)
-    task = Task.first_free(Task.stages[old.stage], current_user, old.id)
+  def next_task(old)
+    task = Task.first_free(Task.stages[old.stage], current_user)
     task.assign(current_user)
     respond_with task, json: task
   end
