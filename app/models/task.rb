@@ -82,9 +82,8 @@ class Task < ActiveRecord::Base
                         include: [pages: { only: [:id, :status] }]))
   end
 
-  def self.first_free(stage, user, min_id=0)
-    free = Task.where(stage: stage).where("id > ?", min_id).free
-    # tasks = free.where('restricted_user_id != ? OR restricted_user_id IS NULL', user.id)
+  def self.first_free(stage, user)
+    free = Task.where(stage: stage).free
     free.order(:id).each do |task|
       if Restriction.find_by(task_id: task.id, user_id: user.id).blank?
         return task

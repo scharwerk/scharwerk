@@ -189,7 +189,7 @@ RSpec.describe Task, type: :model do
       user = User.create
       restriction = Restriction.create(user: user, task: task1)
 
-      expect(Task.first_free(2, user, min_id=0)).to eq(task2)
+      expect(Task.first_free(2, user)).to eq(task2)
     end
   end
 end
