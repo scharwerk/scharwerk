@@ -46,10 +46,6 @@ class Task < ActiveRecord::Base
     stage.to_s + ' T' + id.to_s + ' U' + user.id.to_s
   end
 
-  def git
-    Git.open(Rails.configuration.x.data.git_path.to_s)
-  end
-
   def commit
     return if not done?
 
@@ -57,12 +53,7 @@ class Task < ActiveRecord::Base
     pathes = pages.collect(&:text_file_name)
     status = GitDb.new.commit(pathes, commit_message)
 
-    if status == :unchanged
-      update(status: :unchanged)
-      return
-    end
-
-    update(status: :commited)
+    update(status: status)
   rescue Git::GitExecuteError => e
 
     update(status: :error)
@@ -74,18 +65,9 @@ class Task < ActiveRecord::Base
     total ? BigDecimal.new(pages.done.size) / total : 1
   end
 
-  def latest_commit
-    path = pages.first.text_file_name
-    git.log(1).object(path).first.to_s
-  end
-
-  def last_changes
-    lines = git.lib.diff_full(latest_commit + '^!', '--word-diff=porcelain')
-    lines.split(/\n+/).grep(/^[\+\-][^\+\-]/)
-  end
-
   def last_changes_count
-    last_changes.count
+    path = pages.first.text_file_name
+    GitDb.new.last_changes(path).count
   end
 
   def current_page
