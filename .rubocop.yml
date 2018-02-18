@@ -3,4 +3,8 @@ AllCops:
     - db/schema.rb
     - db/**/*
     - config/locales/*
+
+Style/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
     
