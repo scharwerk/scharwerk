@@ -14,9 +14,9 @@
 # add top level class documentation
 class Task < ActiveRecord::Base
   belongs_to :user
-  # belongs_to :restricted_user, class_name: "User"
+
   has_many :restrictions
-  has_many :users, through: :restrictions
+  has_many :restricted_users, through: :restrictions, source: :user
   has_many :pages, -> { order(:id) }
 
   attr_accessor :progress
@@ -36,6 +36,7 @@ class Task < ActiveRecord::Base
   end
 
   def release
+    restrictions.create(user: user)
     update(status: :free, user: nil)
     pages.update_all(status: 0)
   end
@@ -116,7 +117,8 @@ class Task < ActiveRecord::Base
   # generate tasks for second proof
   def self.generate_task2(page, part)
     blame = self.blame(:first_proof, page.path)
-    task = Task.create(stage: :second_proof, part: part, restricted_user: blame)
+    task = Task.create(stage: :second_proof, part: part)
+    task.restrictions.create(user: blame) if blame
     task.pages << page
     task
   end

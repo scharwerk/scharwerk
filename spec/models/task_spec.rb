@@ -110,38 +110,24 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  # describe '.generate_tasks_2' do
-  #   it 'generate tasks' do
-  #     page = Page.create(status: :free)
-  #     task = Task.generate_task2(page, 'book_3_2')
+  describe '.generate_tasks_2' do
+    it 'generate tasks' do
+      page = Page.create(status: :free)
+      task = Task.generate_task2(page, 'book_3_2')
 
-  #     expect(task.pages.count).to eq 1
-  #     expect(task.restricted_user).to eq nil
-  #   end
-  # end
+      expect(task.pages.count).to eq 1
+      expect(task.restrictions.empty?).to eq true
+    end
+  end
 
   describe '.release' do
-    it 'change status to :free' do
-      task = Task.new
-      task.assign(User.last)
-      task.release
-
-      expect(task.status).to eq 'free'
-    end
-
-    it 'change user_id to nil' do
-      task = Task.new
-      task.assign(User.last)
-      task.release
-
-      expect(task.user_id).to eq nil
-    end
-
     it 'releses task page' do
-	  task = Task.create(user: User.create, status: :active)
+      user = User.create
+      task = Task.create(user: user, status: :active)
       task.release
       expect(task.status).to eq('free')
       expect(task.user).to eq(nil)
+      expect(task.restricted_users.exists?(user.id)).to eq(true)
     end
 
     it 'frees pages on task release' do
