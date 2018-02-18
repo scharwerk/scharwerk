@@ -14,7 +14,9 @@
 # add top level class documentation
 class Task < ActiveRecord::Base
   belongs_to :user
-  belongs_to :restricted_user, class_name: "User"
+  # belongs_to :restricted_user, class_name: "User"
+  has_many :restrictions
+  has_many :users, through: :restrictions
   has_many :pages, -> { order(:id) }
 
   attr_accessor :progress
@@ -81,8 +83,12 @@ class Task < ActiveRecord::Base
 
   def self.first_free(stage, user, min_id=0)
     free = Task.where(stage: stage).where("id > ?", min_id).free
-    tasks = free.where('restricted_user_id != ? OR restricted_user_id IS NULL', user.id)
-    tasks.order(:id).first
+    # tasks = free.where('restricted_user_id != ? OR restricted_user_id IS NULL', user.id)
+    free.order(:id).each do |task|
+      if Restriction.find_by(task_id: task.id, user_id: user.id).blank?
+        return task
+      end
+    end
   end
 
   # what user worked on page on stage

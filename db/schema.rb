@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180107172830) do
+ActiveRecord::Schema.define(version: 20180204115304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,17 +27,23 @@ ActiveRecord::Schema.define(version: 20180107172830) do
 
   add_index "pages", ["task_id"], name: "index_pages_on_task_id", using: :btree
 
-  create_table "tasks", force: :cascade do |t|
-    t.integer  "status",             default: 0, null: false
-    t.integer  "stage",              default: 0, null: false
-    t.integer  "part",               default: 0, null: false
-    t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "restricted_user_id"
+  create_table "restrictions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "task_id"
   end
 
-  add_index "tasks", ["restricted_user_id"], name: "index_tasks_on_restricted_user_id", using: :btree
+  add_index "restrictions", ["task_id"], name: "index_restrictions_on_task_id", using: :btree
+  add_index "restrictions", ["user_id"], name: "index_restrictions_on_user_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "status",     default: 0, null: false
+    t.integer  "stage",      default: 0, null: false
+    t.integer  "part",       default: 0, null: false
+    t.integer  "user_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -59,5 +65,4 @@ ActiveRecord::Schema.define(version: 20180107172830) do
 
   add_foreign_key "pages", "tasks"
   add_foreign_key "tasks", "users"
-  add_foreign_key "tasks", "users", column: "restricted_user_id"
 end
