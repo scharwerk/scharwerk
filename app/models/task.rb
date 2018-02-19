@@ -82,6 +82,14 @@ class Task < ActiveRecord::Base
                         include: [pages: { only: [:id, :status] }]))
   end
 
+  def duplicate
+    task = Task.create(stage: stage, part: part, order: order)
+    pages.each { |p| task.pages.create(path: p.path) }
+    restrictions.each{ |r| task.restrictions.create(user: r.user) }
+    task.restrictions.create(user: user)
+    task
+  end
+
   def self.first_free(stage, user)
     free = Task.where(stage: stage).free
     free.order(:id).each do |task|

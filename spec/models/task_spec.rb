@@ -82,6 +82,23 @@ RSpec.describe Task, type: :model do
     expect(page.text).to eq "    text\n\nnew paragraph\n"
   end
 
+
+  it 'duplicates task' do
+    u1 = User.create
+    u2 = User.create
+
+    task = Task.create(status: :done, user: u2, order: 10, part: :book_1)
+    task.restrictions.create(user: u1)
+    task.pages.create(status: :done, path: 'test/1')
+
+    task2 = task.duplicate
+
+    expect(task2.order).to eq task.order
+    expect(task2.restrictions.count).to eq 2
+    expect(task2.pages.first.path).to eq 'test/1'
+  end
+
+
   describe '.generate_tasks' do
     it 'generate tasks' do
       task_count = Task.count
