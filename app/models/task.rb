@@ -23,7 +23,8 @@ class Task < ActiveRecord::Base
   attr_accessor :current_page
   attr_accessor :description
 
-  enum status: { free: 0, active: 1, done: 2, commited: 3, error: 4, unchanged: 5 }
+  enum status: { free: 0, active: 1, done: 2,
+                 commited: 3, error: 4, unchanged: 5 }
   enum stage: { test: 0, first_proof: 1, second_proof: 2 }
   enum part: { book_1: 1, book_2: 2, book_3_1: 3, book_3_2: 4, franko: 5 }
 
@@ -50,15 +51,14 @@ class Task < ActiveRecord::Base
   end
 
   def commit
-    return if not done?
+    return unless done?
 
     pages.each(&:fix_white_space)
     pathes = pages.collect(&:text_file_name)
     status = GitDb.new.commit(pathes, commit_message)
 
     update(status: status)
-  rescue Git::GitExecuteError => e
-
+  rescue Git::GitExecuteError
     update(status: :error)
     raise
   end
@@ -78,14 +78,14 @@ class Task < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(methods: [:description, :progress, :current_page],
-                        include: [pages: { only: [:id, :status] }]))
+    super(options.merge(methods: %i[description progress current_page],
+                        include: [pages: { only: %i[id status] }]))
   end
 
   def duplicate
     task = Task.create(stage: stage, part: part, order: order)
     pages.each { |p| task.pages.create(path: p.path) }
-    restrictions.each{ |r| task.restrictions.create(user: r.user) }
+    restrictions.each { |r| task.restrictions.create(user: r.user) }
     task.restrictions.create(user: user)
     task
   end
