@@ -8,7 +8,7 @@ angular.module('scharwerk')
     return $http.get('/stats/tasks.json').success(function(data){
       angular.forEach(data, function(stage, key) {
         // check if undefined and summ
-        finished = (stage.commited || 0) + (stage.unchanged || 0);
+        finished = (stage.commited || 0) + (stage.unchanged || 0) + (stage.reproof || 0);
         console.log(finished);
         s.graphs[key] =
         [{
