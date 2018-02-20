@@ -25,15 +25,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :rememberable, :trackable
   has_many :tasks
 
-  def tasks_done
-    tasks.commited.count
+  def done_tasks
+    done_statuses = [Task.statuses[:commited], 
+                     Task.statuses[:unchanged],
+                     Task.statuses[:reproof]]
+    tasks.where("status IN (?)", done_statuses)
   end
 
   def total_pages_done
     done_statuses = [Task.statuses[:commited], 
                      Task.statuses[:unchanged],
                      Task.statuses[:reproof]]
-    tasks_ids = tasks.where("status IN (?)", done_statuses).pluck(:id)
+    tasks_ids = done_tasks.pluck(:id)
     Page.where(task_id: tasks_ids).count
   end
 

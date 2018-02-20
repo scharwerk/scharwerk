@@ -25,7 +25,7 @@ class StatsController < ApplicationController
     result = { top: [] }
 
     User.all.each do |user|
-      if user.tasks_done > 0
+      if user.done_tasks.count > 0
         result[:top] << { name: user.name, tasks: user.total_pages_done }
       end
     end
