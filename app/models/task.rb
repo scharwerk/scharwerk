@@ -101,7 +101,7 @@ class Task < ActiveRecord::Base
 
   def self.first_free(stage, user)
     free = Task.where(stage: stage).free
-    free.order(:id).each do |task|
+    free.order(:order, :id).each do |task|
       if Restriction.find_by(task_id: task.id, user_id: user.id).blank?
         return task
       end
