@@ -24,7 +24,8 @@ class Task < ActiveRecord::Base
   attr_accessor :description
 
   enum status: { free: 0, active: 1, done: 2,
-                 commited: 3, error: 4, unchanged: 5 }
+                 commited: 3, error: 4, unchanged: 5,
+                 reproof: 6 }
   enum stage: { test: 0, first_proof: 1, second_proof: 2 }
   enum part: { book_1: 1, book_2: 2, book_3_1: 3, book_3_2: 4, franko: 5 }
 
@@ -58,9 +59,16 @@ class Task < ActiveRecord::Base
     status = GitDb.new.commit(pathes, commit_message)
 
     update(status: status)
+    validate
   rescue Git::GitExecuteError
     update(status: :error)
     raise
+  end
+
+  def validate
+    return if last_changes_count < 11
+    update(status: :reproof)
+    duplicate
   end
 
   def progress
@@ -69,6 +77,7 @@ class Task < ActiveRecord::Base
   end
 
   def last_changes_count
+    return 0 unless commited?
     path = pages.first.text_file_name
     GitDb.new.last_changes(path).count
   end

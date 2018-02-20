@@ -98,6 +98,21 @@ RSpec.describe Task, type: :model do
     expect(task2.pages.first.path).to eq 'test/1'
   end
 
+  it 'creates reproof task' do
+    task = Task.create(status: :done, user: User.create, part: :book_1, order: 100)
+    page = task.pages.create(status: :done, path: 'test/1')
+    # try to create 11 words diff
+    page.text = 'w1 w2 w3 w4 w6 w7 w8 w9 w10 w5 w7 w13 w15'
+    task.commit
+    task.update(status: :done)
+    page.text = 'w1 w8 w3 w6 w5 w7 w9 w11 w10 w12 w7 w11 w15 w17'
+    task2 = task.commit
+
+    expect(task.status).to eq "reproof"
+    expect(task2.status).to eq "free"
+    expect(task2.order).to eq 100
+    expect(task2.user).to eq nil
+  end
 
   describe '.generate_tasks' do
     it 'generate tasks' do
