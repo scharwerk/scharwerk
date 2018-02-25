@@ -19,7 +19,7 @@ class TextProcessing
   end
 
   def remove_bom
-    @text.gsub(/\uFEFF/, '')
+    @text.delete(/\uFEFF/)
   end
 
   def replace_tabs_with_spaces
@@ -130,7 +130,7 @@ class TextProcessing
     @text = @text.gsub(/\?[^\S\n]*([^\s\.\*])/, "\? \\1")
     @text = @text.gsub(/\![^\S\n]*([^\s\.\*])/, "\! \\1")
 
-    #add space after if next char is not number or dot
+    # add space after if next char is not number or dot
     @text = @text.gsub(/\.[^\S\n]*([^\s\d\.\*])/, "\. \\1")
     @text = @text.gsub(/\,[^\S\n]*([^\s\d\.\*])/, "\, \\1")
 
@@ -138,7 +138,7 @@ class TextProcessing
     '([{„«'.each_char { |c| remove_space_after(c) }
 
     # remove space before dot, if previous char is not dor
-    @text = @text.gsub(/([^\s\.])[^\S\n]*\./, "\\1.")
+    @text = @text.gsub(/([^\s\.])[^\S\n]*\./, '\\1.')
     @text
   end
 
