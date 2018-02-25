@@ -194,7 +194,7 @@ describe TextProcessing do
         it 'add`s an empty line at the end of a file' do
           text1 = "на найманих робітників.\n\n"\
             "Подруге. Товари, що входять у процес циркуляції промислового\n"\
-            "капіталу (доконечні засоби існування, що на них пере-"
+            'капіталу (доконечні засоби існування, що на них пере-'
 
           text2 = "на найманих робітників.\n\n"\
             "Подруге. Товари, що входять у процес циркуляції промислового\n"\
@@ -229,8 +229,8 @@ describe TextProcessing do
 
   describe '#fix_ndash' do
     it 'works' do
-      text = "робіт- ників слово -дефіс і 1 - 10 88* - 90"
-      result = "робіт-ників слово-дефіс і 1—10 88*—90"
+      text = 'робіт- ників слово -дефіс і 1 - 10 88* - 90'
+      result = 'робіт-ників слово-дефіс і 1—10 88*—90'
       p = TextProcessing.new(text)
       expect(p.fix_ndash).to eq result
     end
@@ -243,11 +243,10 @@ describe TextProcessing do
     end
   end
 
-
   describe '#fix_space_in_math' do
     it 'works' do
-      text = "P+D×Y=0"
-      result = "P + D × Y = 0"
+      text = 'P+D×Y=0'
+      result = 'P + D × Y = 0'
       p = TextProcessing.new(text)
       expect(p.fix_space_in_math).to eq result
     end
@@ -262,7 +261,7 @@ describe TextProcessing do
         expect(text_proc.add_spaces_around_dash). to eq text2
       end
     end
-    
+
     context 'with one space before dash' do
       it 'add space after' do
         text1 = "циркуляції є Г — Т... Т' —Г' — Г — Т — Г. При"
@@ -271,8 +270,8 @@ describe TextProcessing do
         expect(text_proc.add_spaces_around_dash). to eq text2
       end
     end
-    
-    context 'with spece after dash only ' do
+
+    context 'with spece after dash only' do
       it 'add spece before' do
         text1 = "циркуляції є Г — Т... Т'— Г' — Г — Т — Г. При"
         text2 = "циркуляції є Г — Т... Т' — Г' — Г — Т — Г. При"

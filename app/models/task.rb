@@ -87,8 +87,8 @@ class Task < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(methods: %i[description progress current_page],
-                        include: [pages: { only: %i[id status] }]))
+    super(options.merge(methods: %i(description progress current_page),
+                        include: [pages: { only: %i(id status) }]))
   end
 
   def duplicate
