@@ -19,7 +19,7 @@ class TextProcessing
   end
 
   def remove_bom
-    @text.delete(/\uFEFF/)
+    @text.delete('\uFEFF')
   end
 
   def replace_tabs_with_spaces
