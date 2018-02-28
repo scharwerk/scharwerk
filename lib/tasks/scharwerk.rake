@@ -22,7 +22,7 @@ namespace :scharwerk do
 
   desc 'Create tasks for second proof'
   task :generate_tasks_2, [:pattern,
-                         :part] => :environment do |_t, args|
+                           :part] => :environment do |_t, args|
     pages = Page.create_pages(args[:pattern])
 
     pages.each do |page|
@@ -48,7 +48,7 @@ namespace :scharwerk do
       next if user.notification_message.blank?
 
       params[:ref], msg = user.notification_message
-      params[:template] = format('%2$s', user.facebook_id, msg)
+      params[:template] = format('%s%s', user.facebook_id, msg)
       puts params
 
       # if no key continue

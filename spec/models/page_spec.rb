@@ -14,7 +14,7 @@ RSpec.describe Page, type: :model do
   end
 
   it 'saves text to file on set' do
-    page = Page.create(path: 'test/4', text: 'book 4')
+    Page.create(path: 'test/4', text: 'book 4')
     expect(File.read(Page.text_path('test/4.txt'))).to eq('book 4')
   end
 

@@ -54,7 +54,7 @@ RSpec.describe Task, type: :model do
   end
 
   it 'commit only done' do
-    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+    Git.init(Rails.configuration.x.data.git_path.to_s)
 
     task = Task.create(status: :free)
     task.commit
@@ -63,7 +63,7 @@ RSpec.describe Task, type: :model do
   end
 
   it 'set status to unchanged' do
-    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+    Git.init(Rails.configuration.x.data.git_path.to_s)
 
     task = Task.create(status: :done, user: User.create)
     task.commit
@@ -72,16 +72,15 @@ RSpec.describe Task, type: :model do
   end
 
   it 'fixes whitespce before commit' do
-    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+    Git.init(Rails.configuration.x.data.git_path.to_s)
 
     task = Task.create(status: :done, user: User.create)
-    text =  "\ttext\n\nnew paragraph "
+    text = "\ttext\n\nnew paragraph "
     page = task.pages.create(status: :done, path: 'test/1', text: text)
     task.commit
 
     expect(page.text).to eq "    text\n\nnew paragraph\n"
   end
-
 
   it 'duplicates task' do
     u1 = User.create
@@ -99,7 +98,10 @@ RSpec.describe Task, type: :model do
   end
 
   it 'creates reproof task' do
-    task = Task.create(status: :done, user: User.create, part: :book_1, order: 100)
+    task = Task.create(status: :done,
+                       user: User.create,
+                       part: :book_1,
+                       order: 100)
     page = task.pages.create(status: :done, path: 'test/1')
     # try to create 11 words diff
     page.text = 'w1 w2 w3 w4 w6 w7 w8 w9 w10 w5 w7 w13 w15'
@@ -108,8 +110,8 @@ RSpec.describe Task, type: :model do
     page.text = 'w1 w8 w3 w6 w5 w7 w9 w11 w10 w12 w7 w11 w15 w17'
     task2 = task.commit
 
-    expect(task.status).to eq "reproof"
-    expect(task2.status).to eq "free"
+    expect(task.status).to eq 'reproof'
+    expect(task2.status).to eq 'free'
     expect(task2.order).to eq 100
     expect(task2.user).to eq nil
   end
@@ -169,16 +171,14 @@ RSpec.describe Task, type: :model do
       task.release
       expect(Page.find(page.id).status).to eq('free')
     end
-
   end
-
 
   describe '.unassign_abandoned' do
     context 'with task, that havent been updated more than N days' do
       it 'change status to free ' do
         task = Task.new
         task.assign(User.create)
-        task.updated_at = "2009-08-15 18:05:44"
+        task.updated_at = '2009-08-15 18:05:44'
         task.save
 
         Task.unassign_tasks(60)
@@ -197,14 +197,13 @@ RSpec.describe Task, type: :model do
         Task.unassign_tasks(60)
 
         expect(Task.last.status).to eq 'active'
-
       end
     end
 
     context 'with tasks, thet have status commited' do
       it 'live without changes' do
         task = Task.create(user: User.create, status: :commited)
-        task.updated_at = "2009-08-15 18:05:44"
+        task.updated_at = '2009-08-15 18:05:44'
         task.save
 
         Task.unassign_tasks(60)
@@ -219,7 +218,7 @@ RSpec.describe Task, type: :model do
       task1 = Task.create(stage: 2)
       task2 = Task.create(stage: 2)
       user = User.create
-      restriction = Restriction.create(user: user, task: task1)
+      Restriction.create(user: user, task: task1)
 
       expect(Task.first_free(2, user)).to eq(task2)
     end
