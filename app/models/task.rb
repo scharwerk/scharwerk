@@ -99,6 +99,27 @@ class Task < ActiveRecord::Base
     task
   end
 
+  def self.tex_path(path)
+    File.join(
+      Rails.configuration.x.data.git_path,
+      Rails.configuration.x.data.tex_folder,
+      path
+    )
+  end
+
+  def tex_file_name
+    Task.tex_path(path + '.tex')
+  end
+
+  def tex=(tex)
+    File.write(tex_file_name, tex)
+  end
+
+  def tex
+    File.read(tex_file_name)
+  end
+
+
   def self.first_free(stage, user)
     free = Task.where(stage: stage).free
     free.order(:order, :id).each do |task|

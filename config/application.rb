@@ -35,8 +35,11 @@ module Scharwerk
     # Path to git repository with text and tex files
     config.x.data.git_path = Rails.root.join('db', 'git')
 
-    # Fonder in repo
+    # Text files folder in repo
     config.x.data.text_folder = 'text'
+
+    # Text files folder in repo
+    config.x.data.tex_folder = 'tex'
 
     # Path to scanned images etc.
     config.x.data.files_path = Rails.root.join('public', 'files')

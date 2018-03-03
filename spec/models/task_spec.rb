@@ -3,16 +3,23 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   before(:all) do
     FileUtils.mkdir_p(Page.text_path('test/'))
+    FileUtils.mkdir_p(Task.tex_path('test/'))
   end
 
   after(:all) do
     FileUtils.rm_r(Page.text_path('../.git/'))
     FileUtils.rm_rf(Dir.glob(Page.text_path('')))
+    FileUtils.rm_rf(Dir.glob(Task.tex_path('')))
   end
 
   it 'shows text' do
     task = Task.create(stage: :first_proof, part: :book_1)
     expect(task.description).to eq('Капітал, том І. Перша коректура')
+  end
+
+  it 'saves tex to file on set' do
+    Task.create(path: 'test/4', tex: '\\latex{}')
+    expect(File.read(Task.tex_path('test/4.tex'))).to eq('\\latex{}')
   end
 
   it 'calculates progress' do
