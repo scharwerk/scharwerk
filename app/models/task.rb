@@ -119,7 +119,6 @@ class Task < ActiveRecord::Base
     File.read(tex_file_name)
   end
 
-
   def self.first_free(stage, user)
     free = Task.where(stage: stage).free
     free.order(:order, :id).each do |task|
