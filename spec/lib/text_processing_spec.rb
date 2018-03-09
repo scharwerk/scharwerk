@@ -1,5 +1,5 @@
 # Replase test data from spec
-require 'spec_helper'
+require 'rails_helper'
 
 describe TextProcessing do
   describe '#change_quotes' do
