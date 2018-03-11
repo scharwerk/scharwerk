@@ -38,5 +38,12 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.footnote?(paragraph)).to eq true
       end
     end
+    context 'with heading' do
+      it 'return false' do
+        paragraph = '5. Боротьба за нормальний робочий день'
+
+        expect(TexProcessing.footnote?(paragraph)).to eq false
+      end
+    end
   end
 end
