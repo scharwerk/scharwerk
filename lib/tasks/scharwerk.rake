@@ -32,6 +32,14 @@ namespace :scharwerk do
     end
   end
 
+  desc 'Create tasks for markup'
+  task :generate_tasks_3, [:pattern,
+                           :part] => :environment do |_t, args|
+    TaskManager.generate_task3(args[:pattern],  args[:part]) do |t|
+      puts 'Task #' + t.id.to_s
+    end
+  end
+
   desc 'Send fb notifications'
   task :notify_fb, [:app_id,
                     :app_secret,
