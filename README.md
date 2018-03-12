@@ -56,7 +56,7 @@ Get new version:
 
 Update project:
 
-    bundle install --without development test
+    bundle install --deployment --without development test
     . /etc/default/unicorn
     RAILS_ENV=production rake db:migrate
 
