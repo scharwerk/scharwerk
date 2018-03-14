@@ -6,6 +6,19 @@ class TexProcessing
   end
 
   def self.fraction(text)
-    text.gsub(/(\d+)\s*\/\s*(\d+)/, '\sfrac{\\1}{\\2}')
+    text.gsub(%r{(\d+)\s*/\s*(\d+)}, '\sfrac{\\1}{\\2}')
+  end
+
+  def self.remove_end(text1, text2)
+    text1 = text1.gsub(/\s+\Z/, '')
+    text1 = text1.gsub(/-\z/) do
+      word = '-'
+      text2 = text2.gsub(/\A\s*(\S+)\s/) do
+        word = "#{$1}\n"
+        ''
+      end
+      word
+    end
+    return text1, text2
   end
 end

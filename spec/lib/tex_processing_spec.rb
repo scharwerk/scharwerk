@@ -26,4 +26,11 @@ RSpec.describe TexProcessing do
 
       expect(TexProcessing.fraction(source)).to eq result
   end
+
+  it 'removes end break' do
+      s1, s2 = "fir-\nst and seco- \n\n", "nd and other"
+      r1, r2 = "fir-\nst and second\n", "and other"
+
+      expect(TexProcessing.remove_end(s1, s2)).to eq [r1, r2]
+  end
 end
