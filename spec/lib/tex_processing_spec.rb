@@ -20,4 +20,10 @@ RSpec.describe TexProcessing do
       expect(TexProcessing.footnotes(source)).to eq result
   end
 
+  it 'makes fracs' do
+      source = 'sample 23/ 24 othe/12'
+      result = 'sample \sfrac{23}{24} othe/12'
+
+      expect(TexProcessing.fraction(source)).to eq result
+  end
 end

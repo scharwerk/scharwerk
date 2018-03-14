@@ -5,4 +5,7 @@ class TexProcessing
     text
   end
 
+  def self.fraction(text)
+    text.gsub(/(\d+)\s*\/\s*(\d+)/, '\sfrac{\\1}{\\2}')
+  end
 end
