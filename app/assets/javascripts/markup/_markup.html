@@ -1,0 +1,147 @@
+<div class="row expanded frame">
+  <div id="sidebar" class="column small-3">
+    <h1>Markup</h1>
+    <p><b>Текст після поточної коректури не повинен містити помилок.</b> Це — остання коректура перед версткою (оформленням). Звертайте, будь ласка, увагу на помилки в тексті, пробіли та особливо текст у таблицях, примітках і формулах. 
+    <a ng-click="manualModal()">Подробиці...</a></p>
+    <p>
+    Ми <b>залишаємо оригінальну орфографію (матеріял, вартости, ріжниця)</b>, але виправляємо очевидні помилки оригінального тексту.
+    <a ng-click="manualModal()">Подробиці...</a>
+    </p>
+
+    <p>Об'єднуємо слова, розділені пере- носами (переносами)</p>
+
+    <p><b>Пробіли ставляться після коми, крапки і інших розділових знаків</b> (. , ; ; !)</p>
+
+    <p>Уважно перевіряємо <b>текст і знаки у формулах, таблицях і примітках</b>.
+      У складних формулах перевіряйте лише цифри, літери та знаки —, =, + 
+     <a ng-click="manualModal()">Подробиці...</a>
+     </p>
+    <p>Аби відмінити останню дію, використовуйте комбінацію клавіш <strong>Ctrl + Z</strong></p>
+    <p><strong>Якщо у вас залишися питання, або ви зустріли незрозумілий фрагмент, запитайте нас у фейсбук у формі нижче</strong></p>
+
+    <div ng-if="task.pages.length > 1">
+      <h3>Завершено {{ task.progress * 100 | number:0 }}%</h3>
+      <div class="progress progress-proof" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-meter" style="width: {{ task.progress * 100 }}%"></div>
+      </div>
+
+      <p>Вам залишилось {{ 100 - task.progress * 100 | number:0 }}% поточного фрагменту «<strong>{{ task.description }}</strong>».</p>
+    </div>    
+
+
+    <h3>Спеціальні символи</h3>
+    <p>Ви можете вводити символи з екранної клавіатури</p>
+    <keyboard target-id="main-text" value="text"></keyboard>
+    <h3></h3>
+   
+    <chat></chat>
+  </div>
+  <div id="main" class="column small-9">
+    <div id="top" class="column row">
+      <div class="grid-content edit-content">
+        <a id="image-top"></a>
+        <img ng-src="{{ image }}">
+      </div>
+    </div>
+    <div id="bottom" class="column row">
+      <div class="grid-content edit-content">
+        <div class="textarea-page">
+          <div class="row collapse">
+            <div class="small-21 columns">
+                <a class="button secondary hollow" ng-click="skipModal()">Замінити фрагмент</a>
+                <small>
+                  Якщо вам поточний фрагмент видається складним, ви можете відмовитись від нього і отримати інший.
+                </small>
+            </div>
+          </div>
+          <a id="text-top"></a>
+          <textarea id="main-text" data-gramm_editor="false" class="msd-elastic: \n;" ng-model="text">
+          </textarea>
+          <div class="row collapse">
+            <div class="small-4 columns">
+              <ul class="pagination" ng-if="task.pages.length > 1">
+                <li 
+                  ng-repeat="page in task.pages" 
+                  ng-class="{done: page.status == 'done', cur: page.id == id}">
+                    <a ng-click="goto(page.id);">{{ $index + 1}}</a>
+                </li>
+              </ul>
+              <a class="button secondary hollow" ng-click="releaseModal()">Відмовитись від фрагменту</a>
+            </div>
+            <div class="small-3 columns">
+              <a class="button secondary hollow" ng-click="save()">Зберегти</a>
+              <p></p>
+              <p><small><b>{{ savedStatus }}</b>Зберегти сторінку, щоби повернутися до неї пізніше.</small></p>
+            </div>
+            <div class="small-4 columns">
+              <a class="button large expanded success" ng-click="saveAndContinue()">Завершити сторінку</a>
+              <p><small>Відмітити поточну сторінку як завершену</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="submitModal.html">
+  <h3>Відправити фрагмент?</h3>
+  <p>Дякуємо, ви завершили поточний фрагмент і готові відправити його на наступний етап.</p>
+
+  <button class="button large hollow" ng-click="$close()">Відправити і завершити</button>
+  <button class="button large success" ng-click="$close(true)">Відправити і отримати наступну сторінку</button>
+  <button class="close-button" type="button" ng-click="$dismiss()">
+    &times;
+  </button>
+</script>
+
+<script type="text/ng-template" id="releaseModal.html">
+  <h3>Ви впевнені?</h3>
+  <p>Відмовитись від сторінки.</p>
+  <a class="button large secondary hollow" ng-click="$dismiss()">Повернутися</a>
+  <button class="button large success float-right" ng-click="$close()">Відмовитись</button>
+  <button class="close-button" type="button" ng-click="$dismiss()">
+    &times;
+  </button>
+</script>
+
+<script type="text/ng-template" id="skipModal.html">
+  <h3>Ви впевнені?</h3>
+  <p>Пропустити поточну сторінку і перейти до наступної?</p>
+  <a class="button large secondary hollow" ng-click="$dismiss()">Повернутися</a>
+  <button class="button large success float-right" ng-click="$close()">Пропустити</button>
+  <button class="close-button" type="button" ng-click="$dismiss()">
+    &times;
+  </button>
+</script>
+
+<script type="text/ng-template" id="manualModal.html">
+  <h3>Будьте уважні та обережні!</h3>
+  <p><b>Текст після поточної коректури не повинен містити помилок.</b> Це — остання коректура перед версткою (оформленням). Звертайте, будь ласка, увагу на помилки в тексті, пробіли та особливо текст у таблицях, примітках і формулах.</p>
+  <p>
+  Ми <b>залишаємо оригінальну орфографію (матеріял, вартости, ріжниця)</b>, але виправляємо очевидні помилки оригінального тексту. А також:<br/>
+  — ПРОПИСНІ ЛІТЕРИ та слова набрані в р о з р я д к у, замінюємо на звичайні (Прописні літери, в розрядку)<br/>
+  — Видаляємо колонтитули та номера сторінок.</p>
+
+  <p>Абзаци розділяємо пустою стрічкою:<br>
+  — <b>Об'єднуємо слова, розділені пере- носами (переносами). </b><br>
+  — Cлова в кінці сторінки, що розділені переносами залишаємо як є. </b><br>
+  — Видаляємо символи, що дублюються при переносі (—, =, +)</p>
+
+  <p><b>Пробіли ставляться після коми, крапки і інших розділових знаків</b> (. , ; ; !), але:<br>
+  — Не ставиться навколо розділення розрядів у цифрах (100.00,5)<br>
+  — Не ставиться в середині лапок і дужок («зразок.»)<br>
+  — Навколо дефісу пробіли не ставлять (будь-якого), а навколо тире — ставлять. Крім випадків, коли тире позначає інтервал (10—20).</p>
+
+  <p>
+  Уважно перевіряємо <b>текст і знаки у формулах, таблицях і примітках</b>:<br />
+  — Навколо математичних знаків —, =, + ставиться пробіли (1 + 3 = 4)<br />
+  — У формулах використовується одинарна лапка (Т'), а у словах — знак апострофу (здоров’я).<br />
+  — У складних формулах перевіряйте лише цифри, літери та знаки —, =, + </p>
+  <a class="button large success float-right" ng-click="$dismiss()">ОК</a>
+  <h3>Успіхів і наснаги!</h3>
+  
+  <button class="close-button" type="button" ng-click="$dismiss()">
+    &times;
+  </button>
+</script>

@@ -18,6 +18,7 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
   $stateProvider
     .state('proof', {
       url: '/proof',
+      name: 'proof',
       templateUrl: 'proof/_proof.html',
       controller: 'ProofCtrl',
       resolve: {
@@ -27,8 +28,21 @@ function($stateProvider, $urlRouterProvider, ezfbProvider) {
       }
     })
 
+    .state('markup', {
+      url: '/markup',
+      name: 'markup',
+      templateUrl: 'markup/_markup.html',
+      controller: 'MarkupCtrl',
+      resolve: {
+        task: ['tasks', function(tasks){
+          return tasks.updateCurrent();
+        }]
+      }
+    })
+
     .state('index', {
       url: '/index',
+      name: 'index',
       templateUrl: 'index/_index.html',
       controller: 'IndexCtrl',
       resolve: {
