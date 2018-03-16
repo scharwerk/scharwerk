@@ -19,10 +19,6 @@ class Task < ActiveRecord::Base
   has_many :restricted_users, through: :restrictions, source: :user
   has_many :pages, -> { order(:id) }
 
-  attr_accessor :progress
-  attr_accessor :current_page
-  attr_accessor :description
-
   enum status: { free: 0, active: 1, done: 2,
                  commited: 3, error: 4, unchanged: 5,
                  reproof: 6 }
@@ -87,8 +83,13 @@ class Task < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(methods: %i(description progress current_page),
-                        include: [pages: { only: %i(id status) }]))
+    methods = if markup?
+                %i(tex)
+              else
+                %i(description progress current_page)
+              end
+    super(options.merge(methods: methods,
+                        include: [pages: { only: %i(id image status) }]))
   end
 
   def duplicate
