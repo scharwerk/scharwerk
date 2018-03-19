@@ -1,5 +1,5 @@
 angular.module('scharwerk')
-.controller('ProofCtrl', [
+.controller('MarkupCtrl', [
 '$scope',
 '$state',
 'tasks',
@@ -61,8 +61,8 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     $modal.open({templateUrl: 'manualModal.html', size: 'small'});
   };
 
-  $scope.task = tasks.current;
-  updatePage(tasks.current.current_page);
+  $scope.tex = tasks.current.tex;
+  // updatePage(tasks.current.current_page);
 
   $scope.save = function() {
     tasks.savePage($scope.id, $scope.text).success(function () {
