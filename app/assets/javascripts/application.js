@@ -5,7 +5,11 @@
 //= require angular-foundation-6/dist/angular-foundation
 //= require angular-easyfb/build/angular-easyfb.js
 //= require d3/d3.js
+//= require ace-builds/src-min-noconflict/ace.js
+//= require ace-builds/src-noconflict/mode-latex.js
+//= require ace-builds/src-noconflict/theme-iplastic.js
 //= require pie-chart/dist/pie-chart.js
 //= require angular-elastic/elastic.js
 //= require angular-i18n/angular-locale_uk.js
+//= require angular-ui-ace/ui-ace.js
 //= require_tree .

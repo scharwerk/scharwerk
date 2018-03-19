@@ -6,7 +6,8 @@ angular.module('scharwerk',
     'mm.foundation',
     'ezfb',
     'monospaced.elastic',
-    'n3-pie-chart'
+    'n3-pie-chart',
+    'ui.ace'
   ]
 )
 .config([
