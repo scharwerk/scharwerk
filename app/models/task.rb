@@ -84,7 +84,7 @@ class Task < ActiveRecord::Base
 
   def as_json(options = {})
     methods = if markup?
-                %i(tex)
+                %i(description tex)
               else
                 %i(description progress current_page)
               end
