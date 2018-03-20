@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
+  before(:each) do
+    FileUtils.mkdir_p(Task.tex_path('test/'))
+  end
+
+  after(:each) do
+    FileUtils.rm_rf(Dir.glob(Task.tex_path('')))
+  end
+
   describe 'POST #tasks' do
     it 'assign task' do
       user = User.create
@@ -16,6 +24,14 @@ RSpec.describe TasksController, type: :controller do
       Task.create(stage: :test, status: :active, user: user)
       post :create, stage: :test, format: :json
       expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'updates tex' do
+      user = User.create
+      sign_in user
+      Task.create(stage: :markup, path: 'test/1', status: :active, user: user)
+      post :update_tex, tex: '\LaTex{}', format: :json
+      expect(user.active_task.tex).to eq('\LaTex{}')
     end
   end
 

@@ -33,6 +33,13 @@ class TasksController < ApplicationController
     render json: { status: 'done' }, status: :ok
   end
 
+  def update_tex
+    task_missing && return
+    task = current_user.active_task
+    task.update(tex: params[:tex])
+    respond_with task, json: task
+  end
+
   # free task from user
   def destroy
     task_missing && return
