@@ -11,4 +11,16 @@ class Latex
   def self.pdf_to_png(source, out)
     check_all(['pdftoppm', source, out, '-png'])
   end
+
+  def self.prepare_tex(filename)
+    path = File.dirname(filename)
+    dir = File.join(path, File.basename(filename, File.extname(filename)))
+    FileUtils.mkdir_p(dir)
+    FileUtils.rm_r Dir.glob(dir + '/*')
+
+    content = '\begin{}'\
+              '\input(../' + File.basename(filename) +
+              '\end'
+    File.write(File.join(dir, 'main.tex'), content)
+  end
 end
