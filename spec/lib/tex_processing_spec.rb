@@ -23,6 +23,7 @@ RSpec.describe TexProcessing do
   describe '.footnote?' do
     context 'with footnote paragraphs' do
       it 'return true with number' do
+        # TODO: how to identify footnote thet, started on previous page?
         paragraph = '18   У деякому відношенні з людиною справа стоїть так, як із товаром.'\
                     'Через те, що вона родиться на світ ані з дзеркалом, ані як фіхтівський'\
                     'філософ: «Я є я», то людина спершу видивляється в іншу людину, як у'\
@@ -39,8 +40,13 @@ RSpec.describe TexProcessing do
       end
     end
     context 'with heading' do
-      it 'return false' do
+      it 'return false with one digit' do
         paragraph = '5. Боротьба за нормальний робочий день'
+
+        expect(TexProcessing.footnote?(paragraph)).to eq false
+      end
+      it 'return false with two digit' do
+        paragraph = '11. Боротьба за нормальний робочий день'
 
         expect(TexProcessing.footnote?(paragraph)).to eq false
       end
