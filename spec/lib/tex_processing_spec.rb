@@ -66,20 +66,20 @@ RSpec.describe TexProcessing do
       end
     end
   end
-  # describe '.footnotes_array' do
-  #   it 'return array of footnote' do
-  #     source = read_file('footnotes.simple.txt')
-  #     first_footnote = '18   У деякому відношенні з людиною справа стоїть так, як із товаром.'\
-  #                      'Через те, що вона родиться на світ ані з дзеркалом, ані як фіхтівський'\
-  #                      'філософ: «Я є я», то людина спершу видивляється в іншу людину, як у'\
-  #                      'дзеркало. Лише через відношення до людини Павла як до подібного до'\
-  #                      'себе, людина Петро відноситься й до себе самої як до людини. Але тим'\
-  #                      'самим і Павло з шкурою й волоссям, у його Павловій тілесності, стає для'\
-  #                      'нього за форму виявлення роду «людина».'
-  #     second_footnote = '* Париж таки вартий служби божої. Ред.'
+  describe '.footnotes_array' do
+    it 'return array of footnote' do
+      source = read_file('footnotes.simple.txt')
+      first_footnote = "18    У деякому відношенні з людиною справа стоїть так, як із товаром.\n"\
+                       "Через те, що вона родиться на світ ані з дзеркалом, ані як фіхтівський\n"\
+                       "філософ: «Я є я», то людина спершу видивляється в іншу людину, як у\n"\
+                       "дзеркало. Лише через відношення до людини Павла як до подібного до\n"\
+                       "себе, людина Петро відноситься й до себе самої як до людини. Але тим\n"\
+                       "самим і Павло з шкурою й волоссям, у його Павловій тілесності, стає для\n"\
+                       "нього за форму виявлення роду «людина»."
+      second_footnote = "* Париж таки вартий служби божої. Ред.\n"
 
-  #     result = [first_footnote, second_footnote]
-  #     expect(TexProcessing.footnotes_array(source)).to eq result
-  #   end
-  # end
+      result = [first_footnote, second_footnote]
+      expect(TexProcessing.footnotes_array(source)).to eq result
+    end
+  end
 end
