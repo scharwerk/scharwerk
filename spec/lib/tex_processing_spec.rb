@@ -83,25 +83,37 @@ RSpec.describe TexProcessing do
   #   end
   # end
   describe '.collect_footnotes' do
-    # context 'with real text' do
-    #   it 'return footnotes part of the text' do
-    #     source = read_file('footnotes.complex.txt')
+    context 'with real text' do
+      it 'return footnotes part of the text' do
+        source = read_file('footnotes.complex.txt')
 
-    #     result = read_file('footnotes.complex_clipped.txt')
+        result = read_file('footnotes.complex_clipped.txt')
 
-    #     expect(TexProcessing.collect_footnotes(source)).to eq result
-    #   end
-    # end
+        expect(TexProcessing.collect_footnotes(source)).to eq result
+      end
+    end
     context 'with a sample text' do
       it 'return footnote part of the text' do
         source = "Here is text line 0\n"\
                  "Here is text line 1\n"\
                  "Here is text line 2\n"\
                  "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2\n"
+                 "Here is footnote line 2"
         result = "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2\n"
+                 "Here is footnote line 2"
         expect(TexProcessing.collect_footnotes(source)).to eq result
+      end
+    end
+  end
+  describe '.first_footnote_index' do
+    context 'with a sample text' do
+      it 'return index of first footnote line' do
+        source = "Here is text line 0\n"\
+                 "Here is text line 1\n"\
+                 "Here is text line 2\n"\
+                 "24 Here is footnote line 1\n"\
+                 "Here is footnote line 2\n"
+        expect(TexProcessing.first_footnote_index(source)).to eq 3
       end
     end
   end
@@ -113,6 +125,19 @@ RSpec.describe TexProcessing do
 
         expect(TexProcessing.footnote_line?(line)).to eq true
       end
+    end
+  end
+
+  describe '.grab_footnote_paragraph' do
+    context 'with complex text' do
+      it 'return single footnote' do
+        source = read_file('footnotes.complex.txt')
+        result = read_file('footnotes.complex.result.txt')
+
+        expect(TexProcessing.footnotes(source)).to eq result
+
+      end
+  # end
     end
   end
 end
