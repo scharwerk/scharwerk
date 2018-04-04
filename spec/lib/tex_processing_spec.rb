@@ -82,18 +82,75 @@ RSpec.describe TexProcessing do
   #     expect(TexProcessing.footnotes_array(source)).to eq result
   #   end
   # end
-  describe '.collect_footnotes' do
-    context 'with real text' do
-      it 'return footnotes part of the text' do
-        source = read_file('footnotes.complex.txt')
+  # describe '.collect_footnotes' do
+  #   context 'with real text' do
+  #     it 'return footnotes part of the text' do
+  #       source = read_file('footnotes.complex.txt')
 
-        result = read_file('footnotes.complex_clipped.txt')
+  #       result = read_file('footnotes.complex_clipped.txt')
 
-        expect(TexProcessing.collect_footnotes(source)).to eq result
+  #       expect(TexProcessing.collect_footnotes(source)).to eq result
+  #     end
+  #   end
+  #   context 'with a sample text' do
+  #     it 'return footnote part of the text' do
+  #       source = "Here is text line 0\n"\
+  #                "Here is text line 1\n"\
+  #                "Here is text line 2\n"\
+  #                "24 Here is footnote line 1\n"\
+  #                "Here is footnote line 2"
+  #       result = "24 Here is footnote line 1\n"\
+  #                "Here is footnote line 2"
+  #       expect(TexProcessing.collect_footnotes(source)).to eq result
+  #     end
+  #   end
+  # end
+  # describe '.first_footnote_index' do
+  #   context 'with a sample text' do
+  #     it 'return index of first footnote line' do
+  #       source = "Here is text line 0\n"\
+  #                "Here is text line 1\n"\
+  #                "Here is text line 2\n"\
+  #                "24 Here is footnote line 1\n"\
+  #                "Here is footnote line 2\n"
+  #       expect(TexProcessing.first_footnote_index(source)).to eq 3
+  #     end
+  #   end
+  # end
+
+  # describe '.footnote_line?' do
+  #   context 'with footnonte line' do
+  #     it 'return true' do
+  #       line = "18    У деякому відношенні ... стоїть так, як із товаром.\n"\
+
+  #       expect(TexProcessing.footnote_line?(line)).to eq true
+  #     end
+  #   end
+  # end
+
+  describe '.grab_footnote_paragraph' do
+  #   context 'with complex text' do
+  #     it 'return single footnote' do
+  #       source = read_file('footnotes.complex.txt')
+  #       result = read_file('footnotes.complex.result.txt')
+
+  #       expect(TexProcessing.footnotes(source)).to eq result
+
+  #     end
+  # # end
+  #   end
+    context 'with a one single line footnote' do
+      it 'return single footnote paragraph' do
+        source = "Here is text line 0\n"\
+                 "Here is text line 1\n"\
+                 "Here is text line 2\n"\
+                 "24 Here is footnote line 1"
+        result = "24 Here is footnote line 1"
+        expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
       end
     end
-    context 'with a sample text' do
-      it 'return footnote part of the text' do
+    context 'with a one multiline footnote' do
+      it 'return single fotnote' do
         source = "Here is text line 0\n"\
                  "Here is text line 1\n"\
                  "Here is text line 2\n"\
@@ -101,43 +158,21 @@ RSpec.describe TexProcessing do
                  "Here is footnote line 2"
         result = "24 Here is footnote line 1\n"\
                  "Here is footnote line 2"
-        expect(TexProcessing.collect_footnotes(source)).to eq result
+        expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
       end
     end
-  end
-  describe '.first_footnote_index' do
-    context 'with a sample text' do
-      it 'return index of first footnote line' do
+    context 'with several multiline footnotes' do
+      it 'return single fotnote' do
         source = "Here is text line 0\n"\
                  "Here is text line 1\n"\
                  "Here is text line 2\n"\
                  "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2\n"
-        expect(TexProcessing.first_footnote_index(source)).to eq 3
+                 "Here is footnote line 2\n"\
+                 "* Here is new footnote"
+        result = "24 Here is footnote line 1\n"\
+                 "Here is footnote line 2"
+        expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
       end
-    end
-  end
-
-  describe '.footnote_line?' do
-    context 'with footnonte line' do
-      it 'return true' do
-        line = "18    У деякому відношенні ... стоїть так, як із товаром.\n"\
-
-        expect(TexProcessing.footnote_line?(line)).to eq true
-      end
-    end
-  end
-
-  describe '.grab_footnote_paragraph' do
-    context 'with complex text' do
-      it 'return single footnote' do
-        source = read_file('footnotes.complex.txt')
-        result = read_file('footnotes.complex.result.txt')
-
-        expect(TexProcessing.footnotes(source)).to eq result
-
-      end
-  # end
     end
   end
 end

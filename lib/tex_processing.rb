@@ -5,12 +5,12 @@ class TexProcessing
     text
   end
 
-  def self.collect_footnotes(text)
-    footnote_index = TexProcessing.first_footnote_index(text)
-    ar_tex = text.split(/\n/)
-    ar_tex.slice!(0..(footnote_index-1))
-    ar_tex.join("\n")
-  end
+  # def self.collect_footnotes(text)
+  #   footnote_index = TexProcessing.first_footnote_index(text)
+  #   ar_tex = text.split(/\n/)
+  #   ar_tex.slice!(0..(footnote_index-1))
+  #   ar_tex.join("\n")
+  # end
 
   def self.first_footnote_index(text)
     ar_text = text.split(/\n/)
@@ -26,8 +26,32 @@ class TexProcessing
     false
   end
 
-  def self.grab_footnote_paragraph(text)
+  # def self.grab_footnote_paragraph(text)
+  #   #find first footnote index
+  #   #iterate to next footnote, push lines to ar
+  #   #join array into footnote
 
+  #   # it collect footnote paragraph if any exist, and delete it
+  #   ar_text = text.split(/\n/)
+  #   ar_paragraph = []
+  #   ar_text.each do |line|
+  #     if TexProcessing.footnote_line?(line)
+
+  #       ar_paragraph << line
+  #       break
+  #     end
+  #   end
+  #   ar_paragraph.join("\n")
+  # end
+
+  def self.grab_footnote_paragraph(text)
+    line_number = TexProcessing.first_footnote_index(text)
+    ar_text = text.split(/\n/)
+    ar_footnonte_paragraph = [ar_text[line_number]]
+    ar_text[(line_number+1)..-1].each do |line|
+      ar_footnonte_paragraph << line if !TexProcessing.footnote_line?(line)
+    end
+    ar_footnonte_paragraph.join("\n")
   end
 
   # def self.footnote?(paragraph)
