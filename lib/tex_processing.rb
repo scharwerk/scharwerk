@@ -67,4 +67,12 @@ class TexProcessing
   #   end
   #   result
   # end
+  def self.all_footnote_line_numbers(text)
+    ar_footnote_line_numbers = []
+    ar_text = text.split(/\n/)
+    ar_text.each do |line|
+      ar_footnote_line_numbers << ar_text.find_index(line) if TexProcessing.footnote_line?(line)
+    end
+    ar_footnote_line_numbers
+  end
 end

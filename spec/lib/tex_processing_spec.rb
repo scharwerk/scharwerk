@@ -118,26 +118,25 @@ RSpec.describe TexProcessing do
   #   end
   # end
 
-  # describe '.footnote_line?' do
-  #   context 'with footnonte line' do
-  #     it 'return true' do
-  #       line = "18    У деякому відношенні ... стоїть так, як із товаром.\n"\
+  describe '.footnote_line?' do
+    context 'with footnonte line' do
+      it 'return true' do
+        line = "18    У деякому відношенні ... стоїть так, як із товаром.\n"\
 
-  #       expect(TexProcessing.footnote_line?(line)).to eq true
-  #     end
-  #   end
-  # end
+        expect(TexProcessing.footnote_line?(line)).to eq true
+      end
+    end
+  end
 
   describe '.grab_footnote_paragraph' do
-  #   context 'with complex text' do
-  #     it 'return single footnote' do
-  #       source = read_file('footnotes.complex.txt')
-  #       result = read_file('footnotes.complex.result.txt')
+    # context 'with complex text' do
+    #   it 'return single footnote' do
+    #     source = read_file('footnotes.complex.txt')
+    #     result = read_file('footnotes.complex.grab_footnote.txt')
 
-  #       expect(TexProcessing.footnotes(source)).to eq result
-
-  #     end
-  # # end
+    #     expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
+    #   end
+    # end
   #   end
     context 'with a one single line footnote' do
       it 'return single footnote paragraph' do
@@ -172,6 +171,19 @@ RSpec.describe TexProcessing do
         result = "24 Here is footnote line 1\n"\
                  "Here is footnote line 2"
         expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
+      end
+    end
+  end
+  describe '.all_footnote_line_numbers' do
+    context 'with a sample text' do
+      it 'return footnote`s line number array' do
+        source = "Here is text line 0\n"\
+                   "Here is text line 1\n"\
+                   "Here is text line 2\n"\
+                   "24 Here is footnote line 1\n"\
+                   "Here is footnote line 2\n"\
+                   "* Here is new footnote"
+        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [3,5]
       end
     end
   end
