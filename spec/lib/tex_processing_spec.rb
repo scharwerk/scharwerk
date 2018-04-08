@@ -129,14 +129,14 @@ RSpec.describe TexProcessing do
   end
 
   describe '.grab_footnote_paragraph' do
-    # context 'with complex text' do
-    #   it 'return single footnote' do
-    #     source = read_file('footnotes.complex.txt')
-    #     result = read_file('footnotes.complex.grab_footnote.txt')
+    context 'with complex text' do
+      it 'return single footnote' do
+        source = read_file('footnotes.simple.txt')
+        result = read_file('footnotes.simple.grab_footnote.txt')
 
-    #     expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
-    #   end
-    # end
+        expect(TexProcessing.grab_footnote_paragraph(source, 46)).to eq result
+      end
+    end
   #   end
     context 'with a one single line footnote' do
       it 'return single footnote paragraph' do
@@ -145,7 +145,7 @@ RSpec.describe TexProcessing do
                  "Here is text line 2\n"\
                  "24 Here is footnote line 1"
         result = "24 Here is footnote line 1"
-        expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
+        expect(TexProcessing.grab_footnote_paragraph(source, 3)).to eq result
       end
     end
     context 'with a one multiline footnote' do
@@ -157,7 +157,7 @@ RSpec.describe TexProcessing do
                  "Here is footnote line 2"
         result = "24 Here is footnote line 1\n"\
                  "Here is footnote line 2"
-        expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
+        expect(TexProcessing.grab_footnote_paragraph(source, 3)).to eq result
       end
     end
     context 'with several multiline footnotes' do
@@ -170,7 +170,7 @@ RSpec.describe TexProcessing do
                  "* Here is new footnote"
         result = "24 Here is footnote line 1\n"\
                  "Here is footnote line 2"
-        expect(TexProcessing.grab_footnote_paragraph(source)).to eq result
+        expect(TexProcessing.grab_footnote_paragraph(source, 3)).to eq result
       end
     end
   end

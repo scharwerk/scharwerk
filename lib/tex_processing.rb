@@ -44,8 +44,7 @@ class TexProcessing
   #   ar_paragraph.join("\n")
   # end
 
-  def self.grab_footnote_paragraph(text)
-    line_number = TexProcessing.first_footnote_index(text)
+  def self.grab_footnote_paragraph(text, line_number)
     ar_text = text.split(/\n/)
     ar_footnonte_paragraph = [ar_text[line_number]]
     ar_text[(line_number+1)..-1].each do |line|
