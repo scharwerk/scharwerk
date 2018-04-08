@@ -21,22 +21,40 @@ RSpec.describe TexProcessing do
   # end
 
 
-  # describe '.footnotes_array' do
-  #   it 'return array of footnote' do
-  #     source = read_file('footnotes.simple.txt')
-  #     first_footnote = "18    У деякому відношенні з людиною справа стоїть так, як із товаром.\n"\
-  #                      "Через те, що вона родиться на світ ані з дзеркалом, ані як фіхтівський\n"\
-  #                      "філософ: «Я є я», то людина спершу видивляється в іншу людину, як у\n"\
-  #                      "дзеркало. Лише через відношення до людини Павла як до подібного до\n"\
-  #                      "себе, людина Петро відноситься й до себе самої як до людини. Але тим\n"\
-  #                      "самим і Павло з шкурою й волоссям, у його Павловій тілесності, стає для\n"\
-  #                      "нього за форму виявлення роду «людина»."
-  #     second_footnote = "* Париж таки вартий служби божої. Ред.\n"
+  describe '.footnotes_array' do
+    context 'with a sample text' do
+      it 'return array of footnote' do
+        source = "Here is text line 0\n"\
+                 "Here is text line 1\n"\
+                 "Here is text line 2\n"\
+                 "24 Here is footnote line 1\n"\
+                 "Here is footnote line 2\n"\
+                 "* Here is new footnote"
+        first_footnote = "24 Here is footnote line 1\n"\
+                         "Here is footnote line 2"
+        second_footnote = "* Here is new footnote"
 
-  #     result = [first_footnote, second_footnote]
-  #     expect(TexProcessing.footnotes_array(source)).to eq result
-  #   end
-  # end
+        expect(TexProcessing.footnotes_array(source)).to eq [first_footnote, second_footnote]
+      end
+    end
+    context 'with a simple text' do
+      it 'return array of footnote' do
+        source = read_file('footnotes.simple.txt')
+
+        first_footnote = "18    У деякому відношенні з людиною справа стоїть так, як із товаром.\n"\
+                         "Через те, що вона родиться на світ ані з дзеркалом, ані як фіхтівський\n"\
+                         "філософ: «Я є я», то людина спершу видивляється в іншу людину, як у\n"\
+                         "дзеркало. Лише через відношення до людини Павла як до подібного до\n"\
+                         "себе, людина Петро відноситься й до себе самої як до людини. Але тим\n"\
+                         "самим і Павло з шкурою й волоссям, у його Павловій тілесності, стає для\n"\
+                         "нього за форму виявлення роду «людина».\n"
+
+        second_footnote = "* Париж таки вартий служби божої. Ред."
+
+        expect(TexProcessing.footnotes_array(source)).to eq [first_footnote, second_footnote]
+      end
+    end
+  end
   #
   # describe '.first_footnote_index' do
   #   context 'with a sample text' do

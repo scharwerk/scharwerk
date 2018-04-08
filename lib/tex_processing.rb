@@ -30,11 +30,12 @@ class TexProcessing
 
 
   def self.footnotes_array(text)
-  #   result = []
-  #   text.split(/\n\n/).each do |paragraph|
-  #     result << paragraph if footnote?(paragraph)
-  #   end
-  #   result
+    ar = []
+    footnotes_line_numbers = TexProcessing.all_footnote_line_numbers(text)
+    footnotes_line_numbers.each do |line_number|
+      ar << TexProcessing.grab_footnote_paragraph(text, line_number)
+    end
+    ar
   end
 
   def self.all_footnote_line_numbers(text)
