@@ -186,5 +186,20 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.all_footnote_line_numbers(source)).to eq [3,5]
       end
     end
+    context 'with a simple text' do
+      it 'return footnote`s line number array' do
+        source = read_file('footnotes.simple.txt')
+
+        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [46,54]
+      end
+    end
+    context 'with a coomplex text' do
+      it 'return footnote`s and mistakeline number array' do
+        # if line starts with number it recognised as footnote
+        source = read_file('footnotes.complex.txt')
+
+        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [26, 32, 56, 57]
+      end
+    end
   end
 end
