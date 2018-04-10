@@ -5,13 +5,13 @@ class TexProcessing
     text
   end
 
-  def self.insert_footnote(text, footnote)
-
-  end
-
-  # def self.footnote_id
+  # def self.insert_footnote(text, footnote)
 
   # end
+
+  def self.footnote_id(footnote)
+    footnote.split(' ').first
+  end
 
   def self.first_footnote_index(text)
     ar_text = text.split(/\n/)
