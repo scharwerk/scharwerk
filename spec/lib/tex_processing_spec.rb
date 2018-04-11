@@ -20,26 +20,26 @@ RSpec.describe TexProcessing do
   #     expect(TexProcessing.footnotes(source)).to eq result
   # end
 
-  # describe '.insert_footnote' do
-  #   context 'if footnote match' do
-  #     it 'insert single footnote in proper place' do
-  #       source = "Here is text line nil\n"\
-  #                "Here is text 24 line one\n"\
-  #                "Here is text line two"
-  #       footnote = "24 Here is footnote line 1\n"\
-  #                "Here is footnote line 2"
+  describe '.insert_footnote' do
+    context 'if footnote match' do
+      it 'insert single footnote in proper place' do
+        source = "Here is text line nil\n"\
+                 "Here is text 24 line one\n"\
+                 "Here is text line two"
+        footnote = "24 Here is footnote line 1\n"\
+                 "Here is footnote line 2"
 
-  #       result = "Here is text line nil\n"\
-  #                "Here is text \footnote{\n"\
-  #                "24 Here is footnote line 1\n"\
-  #                "Here is footnote line 2}\n"\
-  #                "line one\n"\
-  #                "Here is text line two"
+        result = "Here is text line nil\n"\
+                 "Here is text \footnote{\n"\
+                 "Here is footnote line 1\n"\
+                 "Here is footnote line 2}\n"\
+                 "line one\n"\
+                 "Here is text line two"
 
-  #       expect(TexProcessing.insert_footnote(source, footnote)).to eq result
-  #     end
-  #   end
-  # end
+        expect(TexProcessing.insert_footnote(source, footnote)).to eq result
+      end
+    end
+  end
 
   describe '.footnote_id' do
     context 'with two digit number' do

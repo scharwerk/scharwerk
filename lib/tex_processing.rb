@@ -5,9 +5,13 @@ class TexProcessing
     text
   end
 
-  # def self.insert_footnote(text, footnote)
-
-  # end
+  def self.insert_footnote(text, footnote)
+    f_id = TexProcessing.footnote_id(footnote)
+    f_index = text.index(f_id)
+    text.insert(f_index, "\footnote{\n#{footnote}} ")
+    text.gsub!(f_id, '')
+    text
+  end
 
   def self.footnote_id(footnote)
     footnote.split(' ').first
