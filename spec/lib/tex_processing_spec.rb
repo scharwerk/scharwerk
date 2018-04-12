@@ -39,6 +39,16 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.insert_footnote(source, footnote)).to eq result
       end
     end
+    context 'if mistaken footnote was find' do
+      it 'doesnt change text' do
+        source = "Here is text line nil\n"\
+                 "20 Here is text line, but look like footnote\n"\
+                 "Here is text line two"
+        footnote = "20 Here is text line, but look like footnote\n"\
+                   "Here is text line two"
+        expect(TexProcessing.insert_footnote(source, footnote)).to eq source
+      end
+    end
   end
 
   describe '.footnote_id' do

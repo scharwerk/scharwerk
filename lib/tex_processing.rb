@@ -7,10 +7,8 @@ class TexProcessing
 
   def self.insert_footnote(text, footnote)
     f_id = TexProcessing.footnote_id(footnote)
-    f_index = text.index(f_id)
-    text.insert(f_index, "\footnote{\n#{footnote}} ")
-    text.gsub!(f_id, '')
-    text
+    footnote.slice!("#{f_id} ")
+    text.gsub("#{f_id} ", "\footnote{\n#{footnote}}\n")
   end
 
   def self.footnote_id(footnote)
