@@ -9,6 +9,11 @@ class TexProcessing
     text.gsub(%r{(\d+)\s*/\s*(\d+)}, '\sfrac{\\1}{\\2}')
   end
 
+  def self.dots(text)
+    text = text.gsub(/\.{5,}/, '\dotfil')
+    text.gsub(/\.{3,}/, '\dots')
+  end
+
   def self.remove_end(text1, text2)
     text1 = text1.gsub(/\s+\Z/, '')
     text1 = text1.gsub(/-\z/) do

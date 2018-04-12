@@ -27,6 +27,13 @@ RSpec.describe TexProcessing do
       expect(TexProcessing.fraction(source)).to eq result
   end
 
+  it 'fixes dots' do
+      source = 'table ....... 1 not table.... \n not table 2...'
+      result = 'table \dotfil 1 not table\dots \n not table 2\dots'
+
+      expect(TexProcessing.dots(source)).to eq result
+  end
+
   it 'removes end break' do
       s1, s2 = "fir-\nst and seco- \n\n", "nd and other"
       r1, r2 = "fir-\nst and second\n", "and other"
