@@ -14,6 +14,11 @@ class TexProcessing
     text.gsub(/\.{3,}/, '\dots')
   end
 
+  def self.ndash(text)
+    text = text.gsub(/([\d\*])—([\d\*])/, '\\1--\\2')
+    text.gsub(/([IVX\*])—([\*IVX\*])/, '\\1--\\2')
+  end
+
   def self.remove_end(text1, text2)
     text1 = text1.gsub(/\s+\Z/, '')
     text1 = text1.gsub(/-\z/) do
