@@ -31,4 +31,9 @@ class TexProcessing
     end
     return text1, text2
   end
+
+  def self.join_text(text1, pref, text2, is_break)
+    text1, text2 = self.remove_end(text1, text2) unless is_break
+    text1 + pref + text2  
+  end
 end
