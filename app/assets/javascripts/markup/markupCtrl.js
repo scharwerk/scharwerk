@@ -63,7 +63,16 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
 
   $scope.tex = tasks.current.tex;
   // updatePage(tasks.current.current_page);
+  
+  $scope.preview = false;
+  $scope.showPreview = function () {
+    $scope.preview = true;
+  };
 
+  $scope.hidePreview = function () {
+    $scope.preview = false;
+  };
+  
   $scope.save = function() {
     tasks.savePage($scope.id, $scope.text).success(function () {
       $scope.savedStatus = 'Збережено. ';
@@ -81,5 +90,5 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     });
   }
 
-  $scope.manualModal();
+  // $scope.manualModal();
 }]);

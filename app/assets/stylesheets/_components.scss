@@ -35,6 +35,15 @@
 	padding: 1em;
 	@include scroll;
 }
+#middle,
+#middle-preview {
+	height: 10%;
+}
+
+#bottom-short,
+#bottom-preview {
+	height: 40%;
+}
 
 .edit-content {
 	padding: 1%;
@@ -96,4 +105,8 @@ keyboard .tabs-panel {
 	& .progress-meter {
 		background-color: $progress-color;
 	}
+}
+
+.ace_editor {
+	height: 100%;
 }
