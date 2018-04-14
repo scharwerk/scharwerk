@@ -116,6 +116,11 @@ class Task < ActiveRecord::Base
     File.write(tex_file_name, tex)
   end
 
+  def update_preview
+    Latex.prepare_tex(tex_file_name)
+    Latex.compile_tex(path)
+  end
+
   def tex
     File.read(tex_file_name)
   end

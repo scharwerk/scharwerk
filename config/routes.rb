@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :pages
   end
 
-  post 'tex' => 'tasks#update_tex'
+  put 'tex' => 'tasks#update_tex'
 
   post 'login' => 'users#login'
   get 'stats/tasks'

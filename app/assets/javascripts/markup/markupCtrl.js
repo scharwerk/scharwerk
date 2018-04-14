@@ -45,28 +45,24 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     });    
   }
 
-  var updatePage = function(page) {
-    if (!page) {
-      return submitModal();
-    }
-    $scope.id = page.id;
-    $scope.text = page.text;
-    $scope.image = page.image;
+  var updateTex = function(task) {
+    $scope.tex = tasks.current.tex;
 
-    $anchorScroll('text-top');
-    $anchorScroll('image-top');
+    // $anchorScroll('text-top');
+    // $anchorScroll('image-top');
   };
+
+  updateTex(tasks.current);
 
   $scope.manualModal = function () {
     $modal.open({templateUrl: 'manualModal.html', size: 'small'});
   };
 
-  $scope.tex = tasks.current.tex;
-  // updatePage(tasks.current.current_page);
   
   $scope.preview = false;
   $scope.showPreview = function () {
     $scope.preview = true;
+    tasks.updateTex($scope.tex, true);
   };
 
   $scope.hidePreview = function () {

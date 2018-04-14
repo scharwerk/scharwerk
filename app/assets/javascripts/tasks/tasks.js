@@ -50,6 +50,11 @@ angular.module('scharwerk')
       });
   };
 
+  s.updateTex = function (tex, preview) {
+    return $http.put('/tex.json', {tex: tex, preview: preview}
+      ).success(s.setCurrent(data));
+  }
+  
   s.finish = function(getNext) {
     ga('send', 'event', 'Tasks', 'finish');
     fbq('track', 'finish');

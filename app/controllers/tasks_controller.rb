@@ -37,6 +37,7 @@ class TasksController < ApplicationController
     task_missing && return
     task = current_user.active_task
     task.update(tex: params[:tex])
+    task.update_preview
     respond_with task, json: task
   end
 
