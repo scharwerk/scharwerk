@@ -21,6 +21,7 @@
 
 #Keep public folder
 /public/files/images/*
+/public/files/preview/*
 !/public/files/images/.keep
 
 public/assets/**
