@@ -13,7 +13,11 @@ class TexProcessing
   def self.insert_footnote(text, footnote)
     f_id = TexProcessing.footnote_id(footnote)
     footnote.slice!("#{f_id} ")
-    text.gsub("#{f_id} ", "\footnote{\n#{footnote}}\n")
+    if !f_id.include?('*')
+      return text.gsub("#{f_id} ", "\\footnote{\n#{footnote}}\n")
+    elsif f_id.include?('*')
+      return text.gsub("#{f_id} ", "\\footnote\*{\n#{footnote}}\n")
+    end
   end
 
   def self.footnote_id(footnote)
