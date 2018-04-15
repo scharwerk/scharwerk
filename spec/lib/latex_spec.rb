@@ -17,9 +17,10 @@ RSpec.describe Latex do
       out = File.join(path, 'out')
       Latex.pdf_to_png(source, out)
 
-      expect(File.exist?(path + '/out-1.png')).to be true
-      expect(File.exist?(path + '/out-2.png')).to be true
-    end
+      files = Dir[out + '/*'].collect { |f| File.basename(f) }
+
+      expect(files.length).to be 2
+   end
   end
 
   it 'creates temp latex file' do
