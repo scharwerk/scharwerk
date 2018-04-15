@@ -139,6 +139,7 @@ RSpec.describe TexProcessing do
         source = "Here is text line 0\n"\
                  "Here is text line 1\n"\
                  "Here is text line 2\n"\
+                 "\n"\
                  "24 Here is footnote line 1\n"\
                  "Here is footnote line 2\n"\
                  "* Here is new footnote"
@@ -281,17 +282,18 @@ RSpec.describe TexProcessing do
         source = "Here is text line 0\n"\
                    "Here is text line 1\n"\
                    "Here is text line 2\n"\
+                   "\n"\
                    "24 Here is footnote line 1\n"\
                    "Here is footnote line 2\n"\
                    "* Here is new footnote"
-        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [3,5]
+        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [2,4]
       end
     end
     context 'with a simple text' do
       it 'return footnote`s line number array' do
         source = read_file('footnotes.simple.txt')
 
-        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [46,54]
+        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [2,10]
       end
     end
     context 'with a coomplex text' do
@@ -299,7 +301,7 @@ RSpec.describe TexProcessing do
         # if line starts with number it recognised as footnote
         source = read_file('footnotes.complex.txt')
 
-        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [26, 32, 56, 57]
+        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [2, 26, 27]
       end
     end
   end

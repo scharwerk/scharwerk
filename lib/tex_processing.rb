@@ -40,17 +40,19 @@ class TexProcessing
 
 
   def self.footnotes_array(text)
+    footnote_text = TexProcessing.footnotes_only(text)
     ar = []
     footnotes_line_numbers = TexProcessing.all_footnote_line_numbers(text)
     footnotes_line_numbers.each do |line_number|
-      ar << TexProcessing.grab_footnote_paragraph(text, line_number)
+      ar << TexProcessing.grab_footnote_paragraph(footnote_text, line_number)
     end
     ar
   end
 
   def self.all_footnote_line_numbers(text)
+    footnote_text = TexProcessing.footnotes_only(text)
     ar_footnote_line_numbers = []
-    ar_text = text.split(/\n/)
+    ar_text = footnote_text.split(/\n/)
     ar_text.each do |line|
       ar_footnote_line_numbers << ar_text.find_index(line) if TexProcessing.footnote_line?(line)
     end
