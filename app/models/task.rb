@@ -84,7 +84,7 @@ class Task < ActiveRecord::Base
 
   def as_json(options = {})
     methods = if markup?
-                %i(description tex)
+                %i(description tex images)
               else
                 %i(description progress current_page)
               end
@@ -116,13 +116,23 @@ class Task < ActiveRecord::Base
     File.write(tex_file_name, tex)
   end
 
+  def images_path
+    File.join(Rails.configuration.x.data.preview_path, path)
+  end
+
   def update_preview
-    Latex.prepare_tex(tex_file_name)
-    Latex.compile_tex(path)
+    Latex.build(path, images_path, tex_file_name)
   end
 
   def tex
     File.read(tex_file_name)
+  end
+
+  def images
+    url = Rails.configuration.x.data.preview_url
+    Dir[images_path + '/*'].collect do |image|
+      url + path + '/' + File.basename(image)
+    end
   end
 
   def self.first_free(stage, user)

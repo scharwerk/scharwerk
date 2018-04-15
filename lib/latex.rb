@@ -9,7 +9,10 @@ class Latex
   end
 
   def self.pdf_to_png(source, out)
-    check_all(['pdftoppm', source, out, '-png'])
+    FileUtils.mkdir_p(out)
+    FileUtils.rm_r Dir.glob(out + '/*')
+    out = out + '/' + Time.now.to_i.to_s
+    check_all(['pdftoppm', source, out, '-png', '-r', '200'])
   end
 
   def self.compile_tex(path)
@@ -29,5 +32,13 @@ class Latex
               '\input{../' + File.basename(filename) + '}' +
               ' \end{document}'
     File.write(File.join(dir, 'main.tex'), content)
+    File.join(dir, 'main.pdf')
   end
+
+  def self.build(rel_path, images_path, path)
+    pdf = self.prepare_tex(path)
+    self.compile_tex(rel_path)
+    self.pdf_to_png(pdf, images_path)
+  end
+
 end

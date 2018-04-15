@@ -41,11 +41,11 @@ module Scharwerk
     # Text files folder in repo
     config.x.data.tex_folder = 'tex'
 
-    # Path to scanned images etc.
-    config.x.data.files_path = Rails.root.join('public', 'files')
+    # Path to generated images etc.
+    config.x.data.preview_path = Rails.root.join('public', 'files', 'preview')
 
-    # Folder in files
-    config.x.data.images_folder = 'images'
+    # Url for generated images
+    config.x.data.preview_url = '/files/preview/'
 
     # Path to scanned images etc.
     config.x.data.images_url = '/files/images/'
