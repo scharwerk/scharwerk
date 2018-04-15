@@ -20,6 +20,27 @@ RSpec.describe TexProcessing do
   #     expect(TexProcessing.footnotes(source)).to eq result
   # end
 
+  describe '.footnotes' do
+    context 'with a sample text' do
+      it 'insert footnote in proper places' do
+        source = "Here is text line nil\n"\
+                 "Here is text 24 line one\n"\
+                 "Here is text line two\n"\
+                 "\n"\
+                 "24 Here is footnote line 1\n"\
+                 "Here is footnote line 2"
+
+        result = "Here is text line nil\n"\
+                 "Here is text \footnote{\n"\
+                 "Here is footnote line 1\n"\
+                 "Here is footnote line 2}\n"\
+                 "line one\n"\
+                 "Here is text line two"
+        expect(TexProcessing.footnotes(source)).to eq result
+      end
+    end
+  end
+
   describe '.insert_footnote' do
     context 'if footnote match' do
       it 'insert single footnote in proper place' do
@@ -167,58 +188,7 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.footnotes_array(source)).to eq [first_footnote, second_footnote]
       end
     end
-#     context 'with a complex text' do
-#       it 'return array of footnote' do
-#         source = read_file('footnotes.complex.txt')
-
-#         mistake_footnote = "20 метрів полотна = 20 метрам полотна — тавтологію, де не виражено\n"\
-# "ні вартости, ані величини вартости. Щоб виразити відносну\n"\
-# "вартість загального еквіваленту, ми скорше мусимо обернути\n"\
-# "форму С. Він не має спільної з іншими товарами відносної\n"\
-# "форми вартости, але його вартість відносно виражається у без-\n"
-
-#         first_footnote = "24 В дійсності на перший погляд з форми загальної безпосередньої\n"\
-# "вимінности ніяк не пізнати, що вона є суперечна товарова форма, так\n"\
-# "само невіддільна від протилежної форми, що в ній неможлива безпосередня\n"\
-# "вимінність, як позитивний полюс магнету від його негативного полюса.\n"\
-# "Тим то уявити собі, що на всі товари можна одночасно наложити печать\n"\
-# "безпосередньої вимінности можна з таким самим успіхом, як можна\n"\
-# "уявити собі, що всіх католиків можна одночасно поробити папами. Для\n"\
-# "дрібного буржуа, який у товаровій продукції бачить nec plus ultra *\n"\
-# "людської волі й індивідуальної незалежности, було б, натурально, дуже\n"\
-# "бажано позбавитись невигід, зв’язаних з цією формою, особливо ж тієї, що\n"\
-# "товари не можуть вимінюватись безпосередньо. Розмальовування цієї філістерської\n"\
-# "утопії становить прудонівський соціялізм, який, як я це показав\n"\
-# "в іншому місці, не має в собі навіть нічого ориґінального і який далеко\n"\
-# "раніш значно краще розвинули були Gray, Bray і ін. Та це не заважає\n"\
-# "отакій мудрості ще й нині, як якійсь пошесті, ширитися в певних колах\n"\
-# "під ім’ям «science».** Жодна школа не панькалась так із словом «science»,\n"\
-# "як прудонівська, бо\n"\
-# "«Wo Begriffe fehlen,\n"\
-# "da stellt zur rechten Zeit ein Wort sich ein»\n"\
-# "(«Де бракує понять, там саме в пору з’являється слово»).\n"
-
-#         second_footnote = "* — вершину. Ред"
-
-#         third_footnote = "** — «наука». Ред."
-
-#         expect(TexProcessing.footnotes_array(source)).to eq [mistake_footnote, first_footnote, second_footnote, third_footnote]
-#       end
-#     end
   end
-  #
-  # describe '.first_footnote_index' do
-  #   context 'with a sample text' do
-  #     it 'return index of first footnote line' do
-  #       source = "Here is text line 0\n"\
-  #                "Here is text line 1\n"\
-  #                "Here is text line 2\n"\
-  #                "24 Here is footnote line 1\n"\
-  #                "Here is footnote line 2\n"
-  #       expect(TexProcessing.first_footnote_index(source)).to eq 3
-  #     end
-  #   end
-  # end
 
   describe '.footnote_line?' do
     context 'with footnonte line' do

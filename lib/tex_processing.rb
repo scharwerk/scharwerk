@@ -2,6 +2,11 @@
 class TexProcessing
 
   def self.footnotes(text)
+    ar_footnotes = TexProcessing.footnotes_array(text)
+    text = TexProcessing.text_only(text)
+    ar_footnotes.each do |footnote|
+      text = TexProcessing.insert_footnote(text, footnote)
+    end
     text
   end
 
@@ -62,12 +67,14 @@ class TexProcessing
   def self.text_only(text)
     m_point = /\n\n\d/ =~ text
     m_point ||= /\n\n\*/ =~ text
-    text[0..m_point]
+    return text[0..m_point] if m_point
+    text
   end
 
   def self.footnotes_only(text)
     m_point = /\n\n\d/ =~ text
     m_point ||= /\n\n\*/ =~ text
-    text[m_point..-1]
+    return text[m_point..-1] if m_point
+    text
   end
 end
