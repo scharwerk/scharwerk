@@ -61,20 +61,35 @@ RSpec.describe TexProcessing do
     end
   end
 
-  describe '.remove_footnotes' do
+  describe '.text_only' do
     context 'with a sample text' do
-      it 'remove_footnotes' do
-        source = "Here is text line one\n"\
-                 "Here is text line two\n"\
-                 "Here is text line three\n"\
-                 "\n"\
-                 "24 Here is footnote line one\n"\
-                 "Here is footnote line two\n"\
-                 "* Here is new footnote"
-        result = "Here is text line one\n"\
-                 "Here is text line two\n"\
-                 "Here is text line three\n"
-        expect(TexProcessing.remove_footnotes(source)).to eq result
+      context 'with number footnote' do
+        it 'remove_footnotes' do
+          source = "Here is text line one\n"\
+                   "Here is text line two\n"\
+                   "Here is text line three\n"\
+                   "\n"\
+                   "24 Here is footnote line one\n"\
+                   "Here is footnote line two\n"\
+                   "* Here is new footnote"
+          result = "Here is text line one\n"\
+                   "Here is text line two\n"\
+                   "Here is text line three\n"
+          expect(TexProcessing.text_only(source)).to eq result
+        end
+      end
+      context 'with asteriks footnote' do
+        it 'remove_footnotes' do
+          source = "Here is text line one\n"\
+                   "Here is text line two\n"\
+                   "Here is text line three\n"\
+                   "\n"\
+                   "* Here is new footnote"
+          result = "Here is text line one\n"\
+                   "Here is text line two\n"\
+                   "Here is text line three\n"
+          expect(TexProcessing.text_only(source)).to eq result
+        end
       end
     end
     context 'with a complex text' do
@@ -82,12 +97,41 @@ RSpec.describe TexProcessing do
         source = read_file('footnotes.complex.txt')
         result = read_file('footnotes.complex.no_footnote.txt')
 
-        expect(TexProcessing.remove_footnotes(source)).to eq result
+        expect(TexProcessing.text_only(source)).to eq result
       end
     end
   end
 
-
+  describe '.footnotes_only' do
+    context 'with a sample text' do
+      context 'with number footnote' do
+        it 'remove_footnotes' do
+          source = "Here is text line one\n"\
+                   "Here is text line two\n"\
+                   "Here is text line three\n"\
+                   "\n"\
+                   "24 Here is footnote line one\n"\
+                   "Here is footnote line two\n"\
+                   "* Here is new footnote"
+          result = "\n\n24 Here is footnote line one\n"\
+                   "Here is footnote line two\n"\
+                   "* Here is new footnote"
+          expect(TexProcessing.footnotes_only(source)).to eq result
+        end
+      end
+      context 'with asteriks footnote' do
+        it 'remove_footnotes' do
+          source = "Here is text line one\n"\
+                   "Here is text line two\n"\
+                   "Here is text line three\n"\
+                   "\n"\
+                   "* Here is new footnote"
+          result = "\n\n* Here is new footnote"
+          expect(TexProcessing.footnotes_only(source)).to eq result
+        end
+      end
+    end
+  end
 
   describe '.footnotes_array' do
     context 'with a sample text' do
