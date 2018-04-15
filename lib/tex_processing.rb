@@ -56,4 +56,9 @@ class TexProcessing
     end
     ar_footnote_line_numbers
   end
+
+  def self.remove_footnotes(text)
+    m_point = /\d/ =~ text
+    text[0...m_point]
+  end
 end

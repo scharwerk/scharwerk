@@ -39,16 +39,16 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.insert_footnote(source, footnote)).to eq result
       end
     end
-    context 'if mistaken footnote was find' do
-      it 'doesnt change text' do
-        source = "Here is text line nil\n"\
-                 "20 Here is text line, but look like footnote\n"\
-                 "Here is text line two"
-        footnote = "20 Here is text line, but look like footnote\n"\
-                   "Here is text line two"
-        expect(TexProcessing.insert_footnote(source, footnote)).to eq source
-      end
-    end
+    # context 'if mistaken footnote was find' do
+    #   it 'doesnt change text' do
+    #     source = "Here is text line nil\n"\
+    #              "20 Here is text line, but look like footnote\n"\
+    #              "Here is text line two"
+    #     footnote = "20 Here is text line, but look like footnote\n"\
+    #                "Here is text line two"
+    #     expect(TexProcessing.insert_footnote(source, footnote)).to eq source
+    #   end
+    # end
   end
 
   describe '.footnote_id' do
@@ -58,6 +58,23 @@ RSpec.describe TexProcessing do
                    "Here is footnote line 2"
         expect(TexProcessing.footnote_id(footnote)).to eq "24"
       end
+    end
+  end
+
+  describe '.remove_footnotes' do
+    it 'remove_footnotes' do
+      source = "Here is text line one\n"\
+               "Here is text line two\n"\
+               "Here is text line three\n"\
+               "\n"\
+               "24 Here is footnote line one\n"\
+               "Here is footnote line two\n"\
+               "* Here is new footnote"
+      result = "Here is text line one\n"\
+               "Here is text line two\n"\
+               "Here is text line three\n"\
+               "\n"
+      expect(TexProcessing.remove_footnotes(source)).to eq result
     end
   end
 
