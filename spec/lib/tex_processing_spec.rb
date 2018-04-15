@@ -62,19 +62,28 @@ RSpec.describe TexProcessing do
   end
 
   describe '.remove_footnotes' do
-    it 'remove_footnotes' do
-      source = "Here is text line one\n"\
-               "Here is text line two\n"\
-               "Here is text line three\n"\
-               "\n"\
-               "24 Here is footnote line one\n"\
-               "Here is footnote line two\n"\
-               "* Here is new footnote"
-      result = "Here is text line one\n"\
-               "Here is text line two\n"\
-               "Here is text line three\n"\
-               "\n"
-      expect(TexProcessing.remove_footnotes(source)).to eq result
+    context 'with a sample text' do
+      it 'remove_footnotes' do
+        source = "Here is text line one\n"\
+                 "Here is text line two\n"\
+                 "Here is text line three\n"\
+                 "\n"\
+                 "24 Here is footnote line one\n"\
+                 "Here is footnote line two\n"\
+                 "* Here is new footnote"
+        result = "Here is text line one\n"\
+                 "Here is text line two\n"\
+                 "Here is text line three\n"
+        expect(TexProcessing.remove_footnotes(source)).to eq result
+      end
+    end
+    context 'with a complex text' do
+      it 'remove footnotes' do
+        source = read_file('footnotes.complex.txt')
+        result = read_file('footnotes.complex.no_footnote.txt')
+
+        expect(TexProcessing.remove_footnotes(source)).to eq result
+      end
     end
   end
 

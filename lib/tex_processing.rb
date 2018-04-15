@@ -58,7 +58,7 @@ class TexProcessing
   end
 
   def self.remove_footnotes(text)
-    m_point = /\d/ =~ text
-    text[0...m_point]
+    m_point = /\n\n\d/ =~ text
+    text[0..m_point]
   end
 end
