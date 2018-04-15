@@ -34,8 +34,8 @@ RSpec.describe TexProcessing do
                  "Here is text \\footnote{\n"\
                  "Here is footnote line 1\n"\
                  "Here is footnote line 2}\n"\
-                 "line one\n"\
-                 "Here is text line two\n"
+                 " line one\n"\
+                 "Here is text line two"
         expect(TexProcessing.footnotes(source)).to eq result
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe TexProcessing do
                  "Here is text \\footnote{\n"\
                  "Here is footnote line 1\n"\
                  "Here is footnote line 2}\n"\
-                 "line one\n"\
+                 " line one\n"\
                  "Here is text line two"
 
         expect(TexProcessing.insert_footnote(source, footnote)).to eq result
@@ -88,7 +88,7 @@ RSpec.describe TexProcessing do
                  "Here is text \\footnote*{\n"\
                  "Here is footnote line 1\n"\
                  "Here is footnote line 2}\n"\
-                 "line one\n"\
+                 " line one\n"\
                  "Here is text line two"
         expect(TexProcessing.insert_footnote(source, footnote)).to eq result
       end
@@ -111,78 +111,6 @@ RSpec.describe TexProcessing do
         footnote = "24 Here is footnote line 1\n"\
                    "Here is footnote line 2"
         expect(TexProcessing.footnote_id(footnote)).to eq "24"
-      end
-    end
-  end
-
-  describe '.text_only' do
-    context 'with a sample text' do
-      context 'with number footnote' do
-        it 'remove_footnotes' do
-          source = "Here is text line one\n"\
-                   "Here is text line two\n"\
-                   "Here is text line three\n"\
-                   "\n"\
-                   "24 Here is footnote line one\n"\
-                   "Here is footnote line two\n"\
-                   "* Here is new footnote"
-          result = "Here is text line one\n"\
-                   "Here is text line two\n"\
-                   "Here is text line three\n"
-          expect(TexProcessing.text_only(source)).to eq result
-        end
-      end
-      context 'with asteriks footnote' do
-        it 'remove_footnotes' do
-          source = "Here is text line one\n"\
-                   "Here is text line two\n"\
-                   "Here is text line three\n"\
-                   "\n"\
-                   "* Here is new footnote"
-          result = "Here is text line one\n"\
-                   "Here is text line two\n"\
-                   "Here is text line three\n"
-          expect(TexProcessing.text_only(source)).to eq result
-        end
-      end
-    end
-    context 'with a complex text' do
-      it 'remove footnotes' do
-        source = read_file('footnotes.complex.txt')
-        result = read_file('footnotes.complex.no_footnote.txt')
-
-        expect(TexProcessing.text_only(source)).to eq result
-      end
-    end
-  end
-
-  describe '.footnotes_only' do
-    context 'with a sample text' do
-      context 'with number footnote' do
-        it 'remove_footnotes' do
-          source = "Here is text line one\n"\
-                   "Here is text line two\n"\
-                   "Here is text line three\n"\
-                   "\n"\
-                   "24 Here is footnote line one\n"\
-                   "Here is footnote line two\n"\
-                   "* Here is new footnote"
-          result = "\n\n24 Here is footnote line one\n"\
-                   "Here is footnote line two\n"\
-                   "* Here is new footnote"
-          expect(TexProcessing.footnotes_only(source)).to eq result
-        end
-      end
-      context 'with asteriks footnote' do
-        it 'remove_footnotes' do
-          source = "Here is text line one\n"\
-                   "Here is text line two\n"\
-                   "Here is text line three\n"\
-                   "\n"\
-                   "* Here is new footnote"
-          result = "\n\n* Here is new footnote"
-          expect(TexProcessing.footnotes_only(source)).to eq result
-        end
       end
     end
   end
@@ -230,18 +158,19 @@ RSpec.describe TexProcessing do
   describe '.footnotes_array' do
     context 'with a sample text' do
       it 'return array of footnote' do
-        source = "Here is text line 0\n"\
+        text = "Here is text line 0\n"\
                  "Here is text line 1\n"\
-                 "Here is text line 2\n"\
-                 "\n"\
+                 "Here is text line 2"
+
+        source = text + "\n\n"\
                  "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2\n"\
+                 "Here is footnote line 2\n\n"\
                  "* Here is new footnote"
         first_footnote = "24 Here is footnote line 1\n"\
                          "Here is footnote line 2"
         second_footnote = "* Here is new footnote"
 
-        expect(TexProcessing.footnotes_array(source)).to eq [first_footnote, second_footnote]
+        expect(TexProcessing.footnotes_array(source)).to eq [text, first_footnote,  second_footnote]
       end
     end
     context 'with a simple text' do
@@ -254,11 +183,12 @@ RSpec.describe TexProcessing do
                          "дзеркало. Лише через відношення до людини Павла як до подібного до\n"\
                          "себе, людина Петро відноситься й до себе самої як до людини. Але тим\n"\
                          "самим і Павло з шкурою й волоссям, у його Павловій тілесності, стає для\n"\
-                         "нього за форму виявлення роду «людина».\n"
+                         "нього за форму виявлення роду «людина»."
 
-        second_footnote = "* Париж таки вартий служби божої. Ред."
+        second_footnote = "* Париж таки вартий служби божої. Ред.\n"
 
-        expect(TexProcessing.footnotes_array(source)).to eq [first_footnote, second_footnote]
+        expect(TexProcessing.footnotes_array(source)[1]).to eq first_footnote
+        expect(TexProcessing.footnotes_array(source)[2]).to eq second_footnote
       end
     end
   end
@@ -316,35 +246,6 @@ RSpec.describe TexProcessing do
         result = "24 Here is footnote line 1\n"\
                  "Here is footnote line 2"
         expect(TexProcessing.grab_footnote_paragraph(source, 3)).to eq result
-      end
-    end
-  end
-  describe '.all_footnote_line_numbers' do
-    context 'with a sample text' do
-      it 'return footnote`s line number array' do
-        source = "Here is text line 0\n"\
-                   "Here is text line 1\n"\
-                   "Here is text line 2\n"\
-                   "\n"\
-                   "24 Here is footnote line 1\n"\
-                   "Here is footnote line 2\n"\
-                   "* Here is new footnote"
-        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [2,4]
-      end
-    end
-    context 'with a simple text' do
-      it 'return footnote`s line number array' do
-        source = read_file('footnotes.simple.txt')
-
-        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [2,10]
-      end
-    end
-    context 'with a coomplex text' do
-      it 'return footnote`s and mistakeline number array' do
-        # if line starts with number it recognised as footnote
-        source = read_file('footnotes.complex.txt')
-
-        expect(TexProcessing.all_footnote_line_numbers(source)).to eq [2, 26, 27]
       end
     end
   end

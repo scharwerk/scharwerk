@@ -2,9 +2,8 @@
 class TexProcessing
 
   def self.footnotes(text)
-    ar_footnotes = TexProcessing.footnotes_array(text)
-    text = TexProcessing.text_only(text)
-    ar_footnotes.each do |footnote|
+    text, *notes = TexProcessing.footnotes_array(text)
+    notes.each do |footnote|
       text = TexProcessing.insert_footnote(text, footnote)
     end
     text
@@ -42,18 +41,23 @@ class TexProcessing
     text1 + pref + text2  
   end
 
+  def self.footnote_type(id)
+    return '\footnote*' if id.include?('*')
+    '\footnote'
+  end
+
   def self.insert_footnote(text, footnote)
-    f_id = TexProcessing.footnote_id(footnote)
-    footnote.slice!("#{f_id} ")
-    if !f_id.include?('*')
-      return text.gsub("#{f_id} ", "\\footnote{\n#{footnote}}\n")
-    elsif f_id.include?('*')
-      return text.gsub("#{f_id} ", "\\footnote\*{\n#{footnote}}\n")
+    f_id = footnote_id(footnote)
+    return text + "\n\n" + footnote unless text.scan(f_id).count == 1
+
+    text.gsub(f_id) do |mark|
+      note = footnote.gsub(/\A\s*[\d\*]+\s*/, '')
+      footnote_type(f_id) + "{\n#{note}}\n"
     end
   end
 
   def self.footnote_id(footnote)
-    footnote.split(' ').first
+    footnote[/[\d\*]+/]
   end
 
   def self.first_footnote_index(text)
@@ -81,13 +85,7 @@ class TexProcessing
 
 
   def self.footnotes_array(text)
-    footnote_text = TexProcessing.footnotes_only(text)
-    ar = []
-    footnotes_line_numbers = TexProcessing.all_footnote_line_numbers(text)
-    footnotes_line_numbers.each do |line_number|
-      ar << TexProcessing.grab_footnote_paragraph(footnote_text, line_number)
-    end
-    ar
+    text.split(/(?=\n\n[\d\*]+)\s*/)
   end
 
   def self.all_footnote_line_numbers(text)
@@ -98,19 +96,5 @@ class TexProcessing
       ar_footnote_line_numbers << ar_text.find_index(line) if TexProcessing.footnote_line?(line)
     end
     ar_footnote_line_numbers
-  end
-
-  def self.text_only(text)
-    m_point = /\n\n\d/ =~ text
-    m_point ||= /\n\n\*/ =~ text
-    return text[0..m_point] if m_point
-    text
-  end
-
-  def self.footnotes_only(text)
-    m_point = /\n\n\d/ =~ text
-    m_point ||= /\n\n\*/ =~ text
-    return text[m_point..-1] if m_point
-    text
   end
 end
