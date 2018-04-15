@@ -47,7 +47,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
 
   var updateTex = function(task) {
     $scope.tex = tasks.current.tex;
-
+    $scope.images = tasks.current.images;
     // $anchorScroll('text-top');
     // $anchorScroll('image-top');
   };
@@ -60,9 +60,15 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
 
   
   $scope.preview = false;
+  $scope.loading = false;
+  
   $scope.showPreview = function () {
     $scope.preview = true;
-    tasks.updateTex($scope.tex, true);
+    $scope.loading = true;
+    tasks.updateTex($scope.tex, true).success(function () {
+      $scope.images = tasks.current.images;
+      $scope.loading = false;
+    });
   };
 
   $scope.hidePreview = function () {

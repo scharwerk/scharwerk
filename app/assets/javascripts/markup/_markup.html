@@ -48,7 +48,7 @@
       <a ng-click="hidePreview();" class="button success">Назад</a>
     </div>
     <div id="bottom-preview" class="column row" ng-show="preview">
-      <div class="sk-fading-circle">
+      <div class="sk-fading-circle" ng-show="loading">
         <div class="sk-circle1 sk-circle"></div>
         <div class="sk-circle2 sk-circle"></div>
         <div class="sk-circle3 sk-circle"></div>
@@ -61,6 +61,10 @@
         <div class="sk-circle10 sk-circle"></div>
         <div class="sk-circle11 sk-circle"></div>
         <div class="sk-circle12 sk-circle"></div>
+      </div>
+
+      <div ng-repeat="image in images" class="preview-images" ng-hide="loading">
+        <img src="{{ image }}">
       </div>
     </div>
 

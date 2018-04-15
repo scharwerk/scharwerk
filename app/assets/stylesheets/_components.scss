@@ -44,6 +44,10 @@
 #bottom-preview {
 	height: 40%;
 }
+#bottom-preview {
+	padding: 1em;
+	@include scroll;
+}
 
 .edit-content {
 	padding: 1%;

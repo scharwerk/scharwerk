@@ -52,7 +52,7 @@ angular.module('scharwerk')
 
   s.updateTex = function (tex, preview) {
     return $http.put('/tex.json', {tex: tex, preview: preview}
-      ).success(s.setCurrent(data));
+      ).success(s.setCurrent);
   }
   
   s.finish = function(getNext) {
