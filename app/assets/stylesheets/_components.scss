@@ -37,12 +37,12 @@
 }
 #middle,
 #middle-preview {
-	height: 10%;
+	height: 3em;
 }
 
 #bottom-short,
 #bottom-preview {
-	height: 40%;
+	height: calc(50% - 3em);
 }
 #bottom-preview {
 	padding: 1em;

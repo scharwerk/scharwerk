@@ -28,7 +28,7 @@ class Latex
     FileUtils.mkdir_p(dir)
     FileUtils.rm_r Dir.glob(dir + '/*')
 
-    content = '\documentclass{article} \begin{document} '\
+    content = '\documentclass{kapital} \begin{document} '\
               '\input{../' + File.basename(filename) + '}' +
               ' \end{document}'
     File.write(File.join(dir, 'main.tex'), content)
