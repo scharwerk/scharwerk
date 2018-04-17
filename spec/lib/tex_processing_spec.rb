@@ -21,7 +21,7 @@ RSpec.describe TexProcessing do
   # end
 
   describe '.footnotes' do
-    context 'with a sample text' do
+    context 'with a sample text and one footnote' do
       it 'insert footnote in proper places' do
         source = "Here is text line nil\n"\
                  "Here is text 24 line one\n"\
@@ -39,6 +39,43 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.footnotes(source)).to eq result
       end
     end
+
+    context 'with a sample text and several footnotes' do
+      it 'insert footnote in proper places' do
+        source = "Here is text* line nil\n"\
+                 "Here is text 24 line one\n"\
+                 "Here is text line two\n"\
+                 "\n"\
+                 "24 Here is footnote line 1\n"\
+                 "Here is footnote line 2\n"\
+                 "\n"\
+                 "* Here is second footnote"
+
+        result = "Here is text\\footnote*{\nHere is second footnote}\nline nil\n"\
+                 "Here is text \\footnote{\n"\
+                 "Here is footnote line 1\n"\
+                 "Here is footnote line 2\n}\n"\
+                 "line one\n"\
+                 "Here is text line two\n"
+        expect(TexProcessing.footnotes(source)).to eq result
+      end
+    end
+
+    context 'with a real text' do
+      it 'insert footnote in proper places' do
+        source = "valer, valoir, висловлює, що порівняння товару В з товаром А є\n"\
+                 "вираз власної вартости товару A. Paris vaut bien une messe.*\n"\
+                 "\n"\
+                 "* Париж таки вартий служби божої. Ред."
+        result = "valer, valoir, висловлює, що порівняння товару В з товаром А є\n"\
+                 "вираз власної вартости товару A. Paris vaut bien une messe.\\footnote*{
+                  \nПариж таки вартий служби божої. Ред.
+                 }\n"\
+                 "\n"
+        expect(TexProcessing.footnotes(source)).to eq result
+      end
+    end
+
     # context 'with a simple text' do
     #   it 'insert footnotes in proper places' do
     #     source = read_file('footnotes.simple.txt')
@@ -208,7 +245,7 @@ RSpec.describe TexProcessing do
       it 'return array of footnote' do
         source = read_file('footnotes.simple.txt')
 
-        first_footnote = "18    У деякому відношенні з людиною справа стоїть так, як із товаром.\n"\
+        first_footnote = "18 У деякому відношенні з людиною справа стоїть так, як із товаром.\n"\
                          "Через те, що вона родиться на світ ані з дзеркалом, ані як фіхтівський\n"\
                          "філософ: «Я є я», то людина спершу видивляється в іншу людину, як у\n"\
                          "дзеркало. Лише через відношення до людини Павла як до подібного до\n"\

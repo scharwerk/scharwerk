@@ -2,6 +2,7 @@
 class TexProcessing
 
   def self.footnotes(text)
+    #it doesnt work if asteriks in the end of a line
     ar_footnotes = TexProcessing.footnotes_array(text)
     text = TexProcessing.text_only(text)
     ar_footnotes.each do |footnote|
