@@ -6,22 +6,22 @@ RSpec.describe TexProcessing do
     File.read(File.dirname(__FILE__) + '/../fixtures/' + path)
   end
 
-  # it 'easy footnotes' do
-  #     source = read_file('footnotes.simple.txt')
-  #     result = read_file('footnotes.simple.result.txt')
+  it 'easy footnotes' do
+      source = read_file('footnotes.simple.txt')
+      result = read_file('footnotes.simple.result.txt')
 
-  #     expect(TexProcessing.footnotes(source)).to eq result
-  # end
+      expect(TexProcessing.footnotes(source)).to eq result
+  end
 
-  # it 'complex footnotes' do
-  #     source = read_file('footnotes.complex.txt')
-  #     result = read_file('footnotes.complex.result.txt')
+  it 'complex footnotes' do
+      source = read_file('footnotes.complex.txt')
+      result = read_file('footnotes.complex.result.txt')
 
-  #     expect(TexProcessing.footnotes(source)).to eq result
-  # end
+      expect(TexProcessing.footnotes(source)).to eq result
+  end
 
   describe '.footnotes' do
-    context 'with a sample text' do
+    context 'with a sample text and one footnote' do
       it 'insert footnote in proper places' do
         source = "Here is text line nil\n"\
                  "Here is text 24 line one\n"\
@@ -31,78 +31,56 @@ RSpec.describe TexProcessing do
                  "Here is footnote line 2"
 
         result = "Here is text line nil\n"\
-                 "Here is text \\footnote{\n"\
+                 "Here is text\\footnote{\n"\
                  "Here is footnote line 1\n"\
-                 "Here is footnote line 2}\n"\
+                 "Here is footnote line 2\n}"\
                  " line one\n"\
                  "Here is text line two"
         expect(TexProcessing.footnotes(source)).to eq result
       end
     end
-    # context 'with a simple text' do
-    #   it 'insert footnotes in proper places' do
-    #     source = read_file('footnotes.simple.txt')
-    #     result = read_file('footnotes.simple.result.txt')
 
-    #     expect(TexProcessing.footnotes(source)).to eq result
-    #   end
-    # end
-    # context 'with a complex text' do
-    #   it 'insert footnotes in proper places' do
-    #     source = read_file('footnotes.complex.txt')
-    #     result = read_file('footnotes.complex.result.txt')
-
-    #     expect(TexProcessing.footnotes(source)).to eq result
-    #   end
-    # end
-  end
-
-  describe '.insert_footnote' do
-    context 'with number footnote' do
-      it 'insert single footnote in proper place' do
-        source = "Here is text line nil\n"\
+    context 'with a sample text and several footnotes' do
+      it 'insert footnote in proper places' do
+        source = "Here is text* line nil\n"\
                  "Here is text 24 line one\n"\
-                 "Here is text line two"
-        footnote = "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2"
+                 "Here is text line two\n"\
+                 "\n"\
+                 "24 Here is footnote line 1\n"\
+                 "Here is footnote line 2\n"\
+                 "\n"\
+                 "* Here is second footnote"
 
-        result = "Here is text line nil\n"\
-                 "Here is text \\footnote{\n"\
+        result = "Here is text\\footnote*{\nHere is second footnote\n} line nil\n"\
+                 "Here is text\\footnote{\n"\
                  "Here is footnote line 1\n"\
-                 "Here is footnote line 2}\n"\
+                 "Here is footnote line 2\n}"\
                  " line one\n"\
                  "Here is text line two"
-
-        expect(TexProcessing.insert_footnote(source, footnote)).to eq result
+        expect(TexProcessing.footnotes(source)).to eq result
       end
     end
-    context 'with asteriks footnote' do
-      it 'insert single footnote in proper place' do
-        source = "Here is text line nil\n"\
-                 "Here is text * line one\n"\
-                 "Here is text line two"
-        footnote = "* Here is footnote line 1\n"\
-                 "Here is footnote line 2"
 
-        result = "Here is text line nil\n"\
-                 "Here is text \\footnote*{\n"\
+    context 'with a sample text and bracket' do
+      it 'insert footnote in proper places' do
+        source = "Here is text* line nil\n"\
+                 "Here is text 24) line one\n"\
+                 "Here is text line two\n"\
+                 "\n"\
+                 "24) Here is footnote line 1\n"\
+                 "Here is footnote line 2\n"\
+                 "\n"\
+                 "* ) Here is second footnote"
+
+        result = "Here is text\\footnote*{\nHere is second footnote\n} line nil\n"\
+                 "Here is text\\footnote{\n"\
                  "Here is footnote line 1\n"\
-                 "Here is footnote line 2}\n"\
+                 "Here is footnote line 2\n}"\
                  " line one\n"\
                  "Here is text line two"
-        expect(TexProcessing.insert_footnote(source, footnote)).to eq result
+        expect(TexProcessing.footnotes(source, true)).to eq result
       end
     end
-    # context 'if mistaken footnote was find' do
-    #   it 'doesnt change text' do
-    #     source = "Here is text line nil\n"\
-    #              "20 Here is text line, but look like footnote\n"\
-    #              "Here is text line two"
-    #     footnote = "20 Here is text line, but look like footnote\n"\
-    #                "Here is text line two"
-    #     expect(TexProcessing.insert_footnote(source, footnote)).to eq source
-    #   end
-    # end
   end
 
   describe '.footnote_id' do
@@ -110,7 +88,18 @@ RSpec.describe TexProcessing do
       it 'return number ' do
         footnote = "24 Here is footnote line 1\n"\
                    "Here is footnote line 2"
-        expect(TexProcessing.footnote_id(footnote)).to eq "24"
+        expect(TexProcessing.footnote_id(footnote)).to eq [
+          "24", "Here is footnote line 1\nHere is footnote line 2"
+        ]
+      end
+    end
+    context 'with bracket' do
+      it 'return number ' do
+        footnote = "24 ) Here is footnote line 1\n"\
+                   "Here is footnote line 2"
+        expect(TexProcessing.footnote_id(footnote, true)).to eq [
+          "24", "Here is footnote line 1\nHere is footnote line 2"
+        ]
       end
     end
   end
@@ -177,7 +166,7 @@ RSpec.describe TexProcessing do
       it 'return array of footnote' do
         source = read_file('footnotes.simple.txt')
 
-        first_footnote = "18    У деякому відношенні з людиною справа стоїть так, як із товаром.\n"\
+        first_footnote = "18 У деякому відношенні з людиною справа стоїть так, як із товаром.\n"\
                          "Через те, що вона родиться на світ ані з дзеркалом, ані як фіхтівський\n"\
                          "філософ: «Я є я», то людина спершу видивляється в іншу людину, як у\n"\
                          "дзеркало. Лише через відношення до людини Павла як до подібного до\n"\

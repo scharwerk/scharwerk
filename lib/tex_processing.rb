@@ -1,12 +1,25 @@
 # This is a class for automatic text upgrade
 class TexProcessing
 
-  def self.footnotes(text)
+  def self.footnotes(text, bracket=false)
     text, *notes = TexProcessing.footnotes_array(text)
     notes.each do |footnote|
-      text = TexProcessing.insert_footnote(text, footnote)
+      text = TexProcessing.insert_footnote(text, footnote, bracket)
     end
     text
+  end
+
+  def self.footnotes_bracket(text)
+    self.footnotes(text, bracket=true)
+  end
+
+  def self.wrap100(text)
+    text.gsub(/(.{1,100})(\s|\Z)/, "\\1\n")
+  end
+
+  def self.escape(text)
+    # reserved chars # $ % ^ & _ { } ~ \
+    # \# \$ \% \^{} \& \_ \{ \} \~{} \textbackslash{}
   end
 
   def self.fraction(text)
@@ -14,6 +27,7 @@ class TexProcessing
   end
 
   def self.dots(text)
+    text = text.gsub(/…/, '...')
     text = text.gsub(/\.{5,}/, '\dotfil')
     text.gsub(/\.{3,}/, '\dots')
   end
@@ -46,18 +60,22 @@ class TexProcessing
     '\footnote'
   end
 
-  def self.insert_footnote(text, footnote)
-    f_id = footnote_id(footnote)
-    return text + "\n\n" + footnote unless text.scan(f_id).count == 1
+  def self.insert_footnote(text, footnote, bracket=false)
+    f_id, f_text = footnote_id(footnote, bracket)
+    br = bracket ? '\s*?\)?' : ''
+    placehold = Regexp.new ('([^\d\*])\s*' + Regexp.quote(f_id) + br + '([^\d\*])')
+    return text + "\n\n" + footnote unless text.scan(placehold).count == 1
 
-    text.gsub(f_id) do |mark|
-      note = footnote.gsub(/\A\s*[\d\*]+\s*/, '')
-      footnote_type(f_id) + "{\n#{note}}\n"
+    text.gsub(placehold) do |mark|
+      "#{$1}" + footnote_type(f_id) + "{\n#{f_text}\n}#{$2}"
     end
   end
 
-  def self.footnote_id(footnote)
-    footnote[/[\d\*]+/]
+  def self.footnote_id(footnote, bracket=false)
+    id = footnote[/[\d\*]+/]
+    text = footnote.gsub(/\A\s*[\d\*]+\s*/, '').strip
+    text = text.gsub(/\A\s*\)\s*/, '') if bracket
+    return id, text
   end
 
   def self.first_footnote_index(text)

@@ -1,6 +1,6 @@
 # usage
 #
-# ruby process.rb capitalize_heading ../text/i/*.txt
+# ruby process.rb capitalize_heading .../db/git/text/i/\*.txt
 #
 require_relative '../lib/text_processing'
 
