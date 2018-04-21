@@ -31,7 +31,7 @@
 
     <h3>Спеціальні символи</h3>
     <p>Ви можете вводити символи з екранної клавіатури</p>
-    <keyboard target-id="main-text" value="text"></keyboard>
+    <keyboard insert-fun="insertChar(char)" target-id="main-text" value="text"></keyboard>
     <h3></h3>
    
     <chat></chat>
@@ -69,6 +69,7 @@
     </div>
 
     <div id="middle" class="column row" ng-hide="preview">
+      <a ng-click="insertTex('\\n\\section{#}');" class="button success">Заголовок</a>
       <a ng-click="showPreview();" class="button success">Перегляд</a>
     </div>
     <div id="bottom-short" class="column row" ng-hide="preview">
@@ -76,6 +77,7 @@
         ng-model="tex"
         ui-ace="{
           theme:'iplastic',
+          onLoad: aceLoaded,
           mode: 'latex'
       }"></div>
     </div>

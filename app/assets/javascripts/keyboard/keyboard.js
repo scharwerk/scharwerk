@@ -9,6 +9,11 @@ function KeyboardCtrl(keyboardConfig) {
   }, this.chars);
 
   this.insertText = function(text) {
+    if (ctrl.insertFun) {
+      ctrl.insertFun({char: text});
+      return ;
+    };
+
   	var element = document.getElementById(ctrl.targetId);
 	
     var scrollPos = element.scrollTop;
@@ -29,7 +34,7 @@ function KeyboardCtrl(keyboardConfig) {
 
 angular.module('scharwerk')
 .constant('keyboardConfig', {
-  '«»…VI': "'’„“«»[]×/—ҐґIVXLcvmΔ…",
+  '«»…VI': "'’„“«»[]×/—ҐґIVXLcvmΔ£",
   'Ää…Ùù': 'ÄäÀàÂâÆæÇçÉéÈèÊêËëÎîÏïÖöÔôŒœÜüÙùÛûŸÿß',
   'Α…Ω': 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ',
   'α…ω': 'αβγδεζηθικλμνξοπρσςτυφχψω'
@@ -39,6 +44,7 @@ angular.module('scharwerk')
   controller: ['keyboardConfig', KeyboardCtrl],
   bindings: {
     targetId: '@',
-    value: '='
+    value: '=',
+    insertFun: '&'
   }
 });

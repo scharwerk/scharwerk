@@ -28,6 +28,23 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     });
   }
 
+  var editor = null;
+  $scope.aceLoaded = function(_editor) {
+    _editor.setFontSize(18);
+    editor = _editor;
+  };
+
+  $scope.insertChar = function(char) {
+    editor.insert(char);
+    editor.focus();
+  };
+
+  $scope.insertTex = function(tex) {
+    var s = tex.replace('#', editor.getSelectedText());
+    editor.insert(s);
+    editor.focus();
+  };
+
   $scope.releaseModal = function () {
     $modal.open({templateUrl: 'releaseModal.html'}).result.then(function () {
       tasks.release().success(function () {
@@ -48,8 +65,6 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   var updateTex = function(task) {
     $scope.tex = tasks.current.tex;
     $scope.images = tasks.current.images;
-    // $anchorScroll('text-top');
-    // $anchorScroll('image-top');
   };
 
   updateTex(tasks.current);
@@ -65,6 +80,8 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   $scope.showPreview = function () {
     $scope.preview = true;
     $scope.loading = true;
+    // reset value from editor
+    $scope.tex = editor.getValue();
     tasks.updateTex($scope.tex, true).success(function () {
       $scope.images = tasks.current.images;
       $scope.loading = false;
