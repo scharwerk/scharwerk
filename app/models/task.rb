@@ -24,6 +24,7 @@ class Task < ActiveRecord::Base
                  reproof: 6 }
   enum stage: { test: 0, first_proof: 1, second_proof: 2, markup: 3 }
   enum part: { book_1: 1, book_2: 2, book_3_1: 3, book_3_2: 4, franko: 5 }
+  enum build: { undefined: 0, success: 1, fail: 2 }
 
   def description
     I18n.t(part) + '. ' + I18n.t(stage)
