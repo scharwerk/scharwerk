@@ -113,7 +113,7 @@ RSpec.describe TexProcessing do
 
   it 'fixes dots' do
       source = 'table ....... 1 not table.... \n not table 2...'
-      result = 'table \dotfil 1 not table\dots \n not table 2\dots'
+      result = 'table \dotfil 1 not table\dots{} \n not table 2\dots{}'
 
       expect(TexProcessing.dots(source)).to eq result
   end

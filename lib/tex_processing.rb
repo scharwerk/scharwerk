@@ -29,7 +29,7 @@ class TexProcessing
   def self.dots(text)
     text = text.gsub(/…/, '...')
     text = text.gsub(/\.{5,}/, '\dotfil')
-    text.gsub(/\.{3,}/, '\dots')
+    text.gsub(/\.{3,}/, '\dots{}')
   end
 
   def self.ndash(text)
