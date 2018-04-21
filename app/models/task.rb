@@ -134,7 +134,7 @@ class Task < ActiveRecord::Base
     url = Rails.configuration.x.data.preview_url
     Dir[images_path + '/*'].collect do |image|
       url + path + '/' + File.basename(image)
-    end
+    end.sort
   end
 
   def self.first_free(stage, user)
