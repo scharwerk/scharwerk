@@ -3,12 +3,16 @@ class Joiner
   def self.read_file(path, page, index)
     name = page.delete('*-')
 
-    text = File.read(File.join(path, name))
-    text = text.gsub(/\s+\Z/, '').gsub(/\A\s+/, '')
+    text = File.read(File.join(path, name)).strip
 
-    flags = page.slice(name.length..-1)
     index = name.split('.')[0]
-    return text, flags, index
+    is_break = page.index('-') != nil
+    complex = page.index('*') != nil
+    return text, index, is_break, complex
+  end
+
+  def self.prefix(index, i)
+    "\n\\index{#{index}}{#{i}}\n"
   end
 
   def self.join(path, config, index)
@@ -17,22 +21,22 @@ class Joiner
       name = ''
       complex = false
       part.split("\n").each do |page|
-        t, f, i = self.read_file(path, page, index)
-        text += t
+        t, i, b, c = self.read_file(path, page, index)
+        puts i, b, c 
+        text = join_text(text, prefix(index, i), t, b)
         name += '_' + i
-        complex = (complex or (f.index('*') != nil))
+        complex = complex or c
       end
-      filename =name + (complex ? 'c' : '') + '.tex'
+      filename = name + (complex ? 'c' : '') + '.tex'
       File.write(File.join(path, filename), text)
     end
   end
 
   def self.remove_end(text1, text2)
-    text1 = text1.gsub(/\s+\Z/, '')
     text1 = text1.gsub(/-\z/) do
       word = '-'
-      text2 = text2.gsub(/\A\s*(\S+)\s/) do
-        word = "#{$1}\n"
+      text2 = text2.gsub(/\A(\S+)\s/) do
+        word = "#{$1}"
         ''
       end
       word
@@ -42,6 +46,7 @@ class Joiner
 
   def self.join_text(text1, pref, text2, is_break)
     text1, text2 = self.remove_end(text1, text2) unless is_break
+    text1 += "\n" if is_break
     text1 + pref + text2  
   end
 end
