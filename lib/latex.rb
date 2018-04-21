@@ -1,32 +1,40 @@
 # compile latex
 class Latex
-  def self.check_all(cmd)
+  def self.call(cmd)
     child = Subprocess.popen(cmd, stdout: Subprocess::PIPE,
                                   stderr: Subprocess::PIPE)
     output, err = child.communicate
-    raise err unless child.wait.success?
-    output
+    err + output
   end
 
   def self.pdf_to_png(source, out)
     FileUtils.mkdir_p(out)
     FileUtils.rm_r Dir.glob(out + '/*')
     out = out + '/' + Time.now.to_i.to_s
-    check_all(['pdftoppm', source, out, '-png', '-r', '200'])
+    call(['pdftoppm', source, out, '-png', '-r', '200'])
   end
 
-  def self.compile_tex(path)
+  def self.compile_tex(path, pdf)
     cmd = ['docker', 'exec', '-it', 'latex_daemon',
            'lualatex', '--interaction=nonstopmode', 
            '--output-directory=' + path, 'main.tex']
-    check_all(cmd)
+    out = call(cmd)
+    return :success if File.exist?(pdf)
+    
+    File.write(pdf + '.err', out)
+    return :fail
+  end
+
+  def self.temp_dir(filename)
+    path = File.dirname(filename)
+    File.join(path, File.basename(filename, File.extname(filename)))
   end
 
   def self.prepare_tex(filename)
-    path = File.dirname(filename)
-    dir = File.join(path, File.basename(filename, File.extname(filename)))
+    dir = temp_dir(filename)
     FileUtils.mkdir_p(dir)
-    FileUtils.rm_r Dir.glob(dir + '/*')
+    FileUtils.rm_r Dir.glob(dir + '/*.pdf')
+    FileUtils.rm_r Dir.glob(dir + '/*.png')
 
     content = '\documentclass{kapital} \begin{document} '\
               '\input{../' + File.basename(filename) + '}' +
@@ -37,8 +45,10 @@ class Latex
 
   def self.build(rel_path, images_path, path)
     pdf = self.prepare_tex(path)
-    self.compile_tex(rel_path)
+    status = self.compile_tex(rel_path, pdf)
+    return :fail if status == :fail
     self.pdf_to_png(pdf, images_path)
+    return :success
   end
 
 end

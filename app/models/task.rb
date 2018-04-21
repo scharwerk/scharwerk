@@ -114,6 +114,7 @@ class Task < ActiveRecord::Base
   end
 
   def tex=(tex)
+    update(build: :undefined)
     File.write(tex_file_name, tex)
   end
 
@@ -122,7 +123,7 @@ class Task < ActiveRecord::Base
   end
 
   def update_preview
-    Latex.build(path, images_path, tex_file_name)
+    update(build: Latex.build(path, images_path, tex_file_name))
   end
 
   def tex
