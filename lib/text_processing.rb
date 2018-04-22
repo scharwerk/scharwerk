@@ -18,10 +18,6 @@ class TextProcessing
     @text = @text.gsub(/[„“]/, '„' => '«', '“' => '»')
   end
 
-  def remove_bom
-    @text.delete('\uFEFF')
-  end
-
   def replace_tabs_with_spaces
     @text.gsub(/\t/, '    ')
   end
@@ -143,7 +139,6 @@ class TextProcessing
   end
 
   def fix_white_space
-    @text = remove_bom
     @text = replace_tabs_with_spaces
     @text = remove_trailing_whitespace
     @text = add_empty_line

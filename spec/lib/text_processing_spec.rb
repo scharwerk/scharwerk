@@ -39,6 +39,17 @@ describe TextProcessing do
     end
   end
 
+  describe '#fix_white_space ' do
+    it 'works ' do
+      # Don`t touch trailing whitespace in the spec
+      text1 = "Навпаки,\n\n\tєдино subsection F E   \t "
+      text2 = "Навпаки,\n\n    єдино subsection F E\n"
+      text_proc = TextProcessing.new(text1)
+      expect(text_proc.fix_white_space).to eq text2
+    end
+  end
+
+
   describe '#capitalize_line' do
     it 'replace all laters to capitalize except first' do
       line1 = "КРУГОБІГ ТОВАРОВОГО КАПІТАЛУ\n"
