@@ -38,7 +38,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
           return ;
         };
 
-        updatePage(tasks.current.current_page);
+        updateTex(tasks.current);
       });
     });
   }
@@ -54,32 +54,31 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   $scope.skipModal = function () {
     $modal.open({templateUrl: 'skipModal.html'}).result.then(function () {
       tasks.release(true).success(function () {
-        updatePage(tasks.current.current_page);
+        updateTex(tasks.current);
       });
     });    
   }
 
   var updateTex = function(task) {
-    $scope.tex = tasks.current.tex;
-    $scope.images = tasks.current.images;
-    $scope.pages = tasks.current.pages;
-  };
+    $scope.tex = task.tex;
+    $scope.images = {};
+    $scope.pages = task.pages;
 
-  updateTex(tasks.current);
+    $scope.preview = false;
+    $scope.loading = false;
+  };
 
   $scope.manualModal = function () {
     $modal.open({templateUrl: 'manuals/markup.html', size: 'small'});
   };
-
-  
-  $scope.preview = false;
-  $scope.loading = false;
   
   $scope.showPreview = function () {
     $scope.preview = true;
     $scope.loading = true;
     // reset value from editor
-    $scope.tex = editor.getValue();
+    if (editor) {
+      $scope.tex = editor.getValue();
+    };
     tasks.updateTex($scope.tex, true).success(function () {
       $scope.images = tasks.current.images;
       $scope.loading = false;
@@ -97,12 +96,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
       $timeout(function () { $scope.savedStatus = 'Зберегти'; }, 1000);
     });
   }
-
-  $scope.saveAndContinue = function() {
-    tasks.savePage($scope.id, $scope.text, true).success(function() {
-      updatePage(tasks.current.current_page);
-    });
-  }
-
-  // $scope.manualModal();
+  
+  updateTex(tasks.current);
+  $scope.manualModal();
 }]);
