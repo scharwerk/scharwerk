@@ -32,7 +32,6 @@ class Joiner
       filename = name + (complex ? 'c' : '') + '.tex'
       next_page = parts.fetch(part_i + 1, '\n').lines.first
       break_after = next_page.index('-') != nil
-      puts break_after
 
       text = text.strip
       text = "\\parcont{}\n" + text unless break_before
