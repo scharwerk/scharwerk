@@ -39,11 +39,10 @@
     </p>
     <div ng-show="!task.exists">
       <p>Ви зараз не працюєте над фрагментом. 
-      Отримайте фрагмент з поточного етапу «<strong>Друга коректура</strong>».
+      Отримайте фрагмент з поточного етапу «<strong>Верстка</strong>».
       </p>
-      <div ng-show="graphs.second_proof[0].free">
-        <a ng-click="assign('second_proof');" class="button large success">Oтримати сторінку</a>
-        <a ng-click="assign('markup');" class="button large success">Oтримати верстку</a>
+      <div ng-show="graphs.markup[0].free">
+        <a ng-click="assign('markup');" class="button large success">Oтримати фрагмент</a>
         <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
       </div>
       <div ng-show="!graphs.second_proof[0].free">
@@ -52,7 +51,7 @@
     </div>
     <div ng-show="task.exists">
       <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»:</p>
-      <a href="https://шарварок.маркс.укр/#/proof" class="button large primary expand" target="_blank">перейти до фрагменту</a>
+      <a href="https://шарварок.маркс.укр/#/markup" class="button large primary expand" target="_blank">перейти до фрагменту</a>
       <p>
         <span ng-if="!isFacebook"><a ng-click="logout()">Вийти</a> або </span>
         <a ng-click="release();">Відмовитись від фрагменту</a>
@@ -148,62 +147,41 @@
   </div>
 </div>
 
+<div class="text-row stage-done">
+  <div class="left-column">
+    <div class="chart">
+      <pie-chart data='dataDone' options='optionsSmall'></pie-chart>
+    </div>
+  </div>
+  <div class="right-column">
+    <h3>2. Друга коректура</h3>
+    <p>
+      На другому етапі виправляємо помилки, що залишились після першого етапу. А також уніфікуємо типографіку в книжках. 
+    </p>
+  </div>
+</div>
 
 <div class="stage-active">
   <div class="text-row">
     <div class="left-column">
       <div class="chart">
-        <pie-chart data='graphs.second_proof' options='options'></pie-chart>
+        <pie-chart data='graphs.markup' options='options'></pie-chart>
       </div>
     </div>
     <div class="right-column">
-      <h3>2. Друга коректура</h3>
+      <h3>3. Верстка</h3>
       <p>
-        На другому етапі виправляємо помилки, що залишились після першого етапу. А також уніфікуємо типографіку в книжках. 
+        Верстаємо книги в системі верстки LaTeX.
+        Завдання будуть як для тих, хто має досвід роботи в LaTeX, так і для новачків.
       </p>
       <p>
-        <b>Наразі <ng-pluralize count="graphs.second_proof[0].finished"
-              when="{'one': 'завершена {} сторінка',
-                     'few': 'завершено {} сторінки',
-                     'many': 'завершено {} сторінок'}"></ng-pluralize>
-        з {{ graphs.second_proof[0].total }}</b>.
+        <b>Наразі <ng-pluralize count="graphs.markup[0].finished"
+              when="{'one': 'завершена {} фрагмент',
+                     'few': 'завершено {} фрагменти',
+                     'many': 'завершено {} фрагментів'}"></ng-pluralize>
+        з {{ graphs.markup[0].total }}</b>.
       </p>
-      <div ng-show="!isAuthenticated">
-        <p>Щоб отримати новий фрагмент, увійдіть через facebook</p>
-        <a ng-click="login();" class="button large success expand">увійти через facebook</a>
-        <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
-      </div>
-      <div ng-show="isAuthenticated">
-        <div ng-show="!task.exists">
-          <div ng-show="graphs.second_proof[0].free">
-            <a ng-click="assign('second_proof');" class="button large success">Oтримати сторінку</a>
-          </div>
-          <div ng-show="!graphs.second_proof[0].free">
-            <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
-          </div>
-        </div>
-
-        <div ng-show="task.exists">
-          <p>Ви вже працюєте над «<strong>{{ task.description }}</strong>»</p>
-          <a href="https://шарварок.маркс.укр/#/proof" class="button large large success" target="_blank">перейти до фрагменту</a>
-        </div>
-      </div>
     </div>  
-  </div>
-</div>
-
-<div class="text-row stage-done">
-  <div class="left-column">
-    <div class="chart">
-      <pie-chart data='dataNone' options='optionsSmall'></pie-chart>
-    </div>
-  </div>
-  <div class="right-column">
-    <h3>3. Верстка</h3>
-    <p>
-      Верстаємо книги в системі верстки LaTeX.
-      Завдання будуть як для тих, хто має досвід роботи в LaTeX, так і для новачків.
-    </p>
   </div>
 </div>
 
