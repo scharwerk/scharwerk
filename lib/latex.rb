@@ -15,7 +15,7 @@ class Latex
   end
 
   def self.compile_tex(path, pdf)
-    cmd = ['docker', 'exec', '-it', 'latex_daemon',
+    cmd = ['docker', 'exec', 'latex_daemon',
            'lualatex', '--interaction=nonstopmode', 
            '--output-directory=' + path, 'main.tex']
     out = call(cmd)
