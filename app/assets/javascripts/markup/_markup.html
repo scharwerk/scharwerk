@@ -81,7 +81,56 @@
         <a ng-click="showPreview();" class="button primary">Збеерегти</a>
         <a ng-click="showPreview();" class="button success"><b>Перегляд</b></a>
       </div>
-      <a ng-click="insertTex('\\n\\section{#}');" class="button success">Заголовок</a>
+      <div class="button-group">
+        <a ng-click="insertTex('\\emph{#}');" class="button success split">
+          <i>к</i>
+        </a>
+        <a ng-click="insertTex('\\sfrac{}{#}');" class="button success split">
+          <sup>2</sup>/<sub>3</sub>
+        </a> 
+        <a ng-click="insertTex('\\dots{}');" class="button success split">
+          …
+        </a>
+        <dropdown-toggle close-on-click="true">
+          <toggle>
+            <a class="button success dropdown">Заголовоки</a>
+          </toggle>
+          <pane>
+            <ul class="menu vertical">
+              <li><a ng-click="insertTex('\\chapter{#}');">
+                Відділ перший. Початок ...
+              </a></li>
+              <li><a ng-click="insertTex('\\section{#}');">
+                Розділ перший. Початок ...
+              </a></li>
+              <li><a ng-click="insertTex('\\section*{#}');">
+                Передмова ... (без нумерації) 
+              </a></li>
+              <li><a ng-click="insertTex('\\subsection{#}');">
+                ІІ. Підрозділ ...
+              </a></li>
+            </ul>
+          </pane>
+        </dropdown-toggle>
+        <dropdown-toggle close-on-click="true">
+          <toggle>
+            <a class="button success dropdown">Примітки</a>
+          </toggle>
+          <pane>
+            <ul class="menu vertical">
+              <li><a ng-click="insertTex('\\footnote{#}');">
+                <sup>11</sup> Авторська примітка
+              </a></li>
+              <li><a ng-click="insertTex('\\footnoteA{#}');">
+                <sup>11а</sup> Додаткова примітка
+              </a></li>
+              <li><a ng-click="insertTex('\\footnote*{#}');">
+                <sup>**</sup> Редакторська примітка
+              </a></li>
+            </ul>
+          </pane>
+        </dropdown-toggle>
+      </div>
       
     </div>
     <div id="bottom-short" class="column row" ng-hide="preview">
