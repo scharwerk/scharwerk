@@ -24,7 +24,9 @@
     <div id="top" class="column row">
       <div class="grid-content edit-content">
         <a id="image-top"></a>
-        <img ng-src="{{ image }}">
+        <div ng-repeat="page in pages" class="preview-images">
+          <img src="{{ page.image }}">
+        </div>
       </div>
     </div>
     
@@ -61,8 +63,22 @@
 
     <div id="middle" class="column row toolbar" ng-hide="preview">
       <div class="button-group float-right">
-        <a ng-click="showPreview();" class="button primary dropdown">Відомовиттись</a>
-        <a ng-click="showPreview();" class="button primary">Збеерегти</a>
+        <dropdown-toggle close-on-click="true">
+          <toggle>
+            <a class="button primary dropdown">Відомовитись</a>
+          </toggle>
+          <pane>
+            <ul class="menu vertical">
+              <li><a ng-click="skipModal()">Замінити фрагмент
+              </a></li>
+            </ul>
+            <ul class="menu vertical">
+              <li><a ng-click="releaseModal()">Відмовитись від фрагменту
+              </a></li>
+            </ul>
+          </pane>
+        </dropdown-toggle>
+        <a ng-click="save();" class="button primary">Зберегти</a>
         <a ng-click="showPreview();" class="button success"><b>Перегляд</b></a>
       </div>
       <div class="button-group">
@@ -126,47 +142,6 @@
           mode: 'latex'
       }"></div>
     </div>
-
-    <div id="" class="column row">
-    <div id="bottom" class="column row">
-      <div class="grid-content edit-content">
-        <div class="textarea-page">
-          <div class="row collapse">
-            <div class="small-21 columns">
-                <a class="button secondary hollow" ng-click="skipModal()">Замінити фрагмент</a>
-                <small>
-                  Якщо вам поточний фрагмент видається складним, ви можете відмовитись від нього і отримати інший.
-                </small>
-            </div>
-          </div>
-          <a id="text-top"></a>
-
-          <textarea id="main-text" data-gramm_editor="false" class="msd-elastic: \n;" ng-model="text">
-          </textarea>
-          <div class="row collapse">
-            <div class="small-4 columns">
-              <ul class="pagination" ng-if="task.pages.length > 1">
-                <li 
-                  ng-repeat="page in task.pages" 
-                  ng-class="{done: page.status == 'done', cur: page.id == id}">
-                    <a ng-click="goto(page.id);">{{ $index + 1}}</a>
-                </li>
-              </ul>
-              <a class="button secondary hollow" ng-click="releaseModal()">Відмовитись від фрагменту</a>
-            </div>
-            <div class="small-3 columns">
-              <a class="button secondary hollow" ng-click="save()">Зберегти</a>
-              <p></p>
-              <p><small><b>{{ savedStatus }}</b>Зберегти сторінку, щоби повернутися до неї пізніше.</small></p>
-            </div>
-            <div class="small-4 columns">
-              
-              <p><small>Відмітити поточну сторінку як завершену</small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -175,7 +150,7 @@
   <p>Дякуємо, ви завершили поточний фрагмент і готові відправити його на наступний етап.</p>
 
   <button class="button large hollow" ng-click="$close()">Відправити і завершити</button>
-  <button class="button large success" ng-click="$close(true)">Відправити і отримати наступну сторінку</button>
+  <button class="button large success" ng-click="$close(true)">Відправити і отримати наступний фрагмент</button>
   <button class="close-button" type="button" ng-click="$dismiss()">
     &times;
   </button>
@@ -183,7 +158,7 @@
 
 <script type="text/ng-template" id="releaseModal.html">
   <h3>Ви впевнені?</h3>
-  <p>Відмовитись від сторінки.</p>
+  <p>Відмовитись від фрагменту.</p>
   <a class="button large secondary hollow" ng-click="$dismiss()">Повернутися</a>
   <button class="button large success float-right" ng-click="$close()">Відмовитись</button>
   <button class="close-button" type="button" ng-click="$dismiss()">
@@ -193,7 +168,7 @@
 
 <script type="text/ng-template" id="skipModal.html">
   <h3>Ви впевнені?</h3>
-  <p>Пропустити поточну сторінку і перейти до наступної?</p>
+  <p>Пропустити поточний фрагмент і перейти до наступного?</p>
   <a class="button large secondary hollow" ng-click="$dismiss()">Повернутися</a>
   <button class="button large success float-right" ng-click="$close()">Пропустити</button>
   <button class="close-button" type="button" ng-click="$dismiss()">

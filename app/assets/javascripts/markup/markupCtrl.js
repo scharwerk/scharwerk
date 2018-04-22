@@ -65,6 +65,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   var updateTex = function(task) {
     $scope.tex = tasks.current.tex;
     $scope.images = tasks.current.images;
+    $scope.pages = tasks.current.pages;
   };
 
   updateTex(tasks.current);
@@ -97,10 +98,6 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
       $scope.savedStatus = 'Збережено. ';
       $timeout(function () { $scope.savedStatus = '';}, 1000);
     });
-  }
-
-  $scope.goto = function(id) {
-    tasks.getPage(id).success(function (data) { updatePage(data) });
   }
 
   $scope.saveAndContinue = function() {

@@ -55,6 +55,9 @@ $toolbar-height: 3.5em;
 	padding-bottom: 0;
 	@include scroll;
 }
+.preview-images {
+	padding-bottom: 1em;
+}
 
 .edit-content {
 	padding: 1%;

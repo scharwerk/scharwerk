@@ -92,6 +92,8 @@ Visit http://46.101.228.108/
     RAILS_ENV=production rake scharwerk:generate_tasks['iii.1/*','first_proof','book_3_1',5]
     RAILS_ENV=production rake scharwerk:generate_tasks_2['franko/*','franko']
 
+    RAILS_ENV=production rake scharwerk:generate_tasks_3['franko/*','franko']
+
 * Send fb notifications
 
     . /etc/default/unicorn

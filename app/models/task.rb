@@ -91,7 +91,8 @@ class Task < ActiveRecord::Base
                 %i(description progress current_page)
               end
     super(options.merge(methods: methods,
-                        include: [pages: { only: %i(id image status) }]))
+                        include: [pages: { only: %i(id image status),
+                                           methods:  %i(image) }]))
   end
 
   def duplicate
