@@ -44,8 +44,15 @@
       </div>
     </div>
     
-    <div id="middle-preview" class="column row" ng-show="preview">
-      <a ng-click="hidePreview();" class="button success">Назад</a>
+    <div id="middle-preview" class="row toolbar" ng-show="preview">
+      <div class="columns small-4"> 
+        <a ng-click="hidePreview();" class="button success">Редагувати</a>
+      </div>
+      <div class="columns small-4 text-center"> 
+        <a class="button success" ng-click="saveAndContinue()">Завершити сторінку</a>
+      </div>
+      <div class="columns small-4">&nbsp;</div>
+      
     </div>
     <div id="bottom-preview" class="column row" ng-show="preview">
       <div class="sk-fading-circle" ng-show="loading">
@@ -68,9 +75,14 @@
       </div>
     </div>
 
-    <div id="middle" class="column row" ng-hide="preview">
+    <div id="middle" class="column row toolbar" ng-hide="preview">
+      <div class="button-group float-right">
+        <a ng-click="showPreview();" class="button primary dropdown">Відомовиттись</a>
+        <a ng-click="showPreview();" class="button primary">Збеерегти</a>
+        <a ng-click="showPreview();" class="button success"><b>Перегляд</b></a>
+      </div>
       <a ng-click="insertTex('\\n\\section{#}');" class="button success">Заголовок</a>
-      <a ng-click="showPreview();" class="button success">Перегляд</a>
+      
     </div>
     <div id="bottom-short" class="column row" ng-hide="preview">
       <div 
@@ -115,7 +127,7 @@
               <p><small><b>{{ savedStatus }}</b>Зберегти сторінку, щоби повернутися до неї пізніше.</small></p>
             </div>
             <div class="small-4 columns">
-              <a class="button large expanded success" ng-click="saveAndContinue()">Завершити сторінку</a>
+              
               <p><small>Відмітити поточну сторінку як завершену</small></p>
             </div>
           </div>

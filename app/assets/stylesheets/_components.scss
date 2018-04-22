@@ -35,17 +35,24 @@
 	padding: 1em;
 	@include scroll;
 }
+
+$toolbar-height: 3.5em; 
 #middle,
 #middle-preview {
-	height: 3em;
+	height: $toolbar-height;
+	background-color: #FFFFFF;
+	padding: 0.5em;
+}
+
+.toolbar {
+
 }
 
 #bottom-short,
 #bottom-preview {
-	height: calc(50% - 3em);
-}
-#bottom-preview {
+	height: calc(50% - #{$toolbar-height});
 	padding: 1em;
+	padding-bottom: 0;
 	@include scroll;
 }
 
