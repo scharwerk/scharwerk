@@ -70,7 +70,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   updateTex(tasks.current);
 
   $scope.manualModal = function () {
-    $modal.open({templateUrl: 'manualModal.html', size: 'small'});
+    $modal.open({templateUrl: 'manuals/markup.html', size: 'small'});
   };
 
   
