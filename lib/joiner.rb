@@ -1,4 +1,4 @@
-# This is a class for joining files
+# This looks awfull
 class Joiner
   def self.read_file(path, page, index)
     name = page.delete('*-')
@@ -16,18 +16,29 @@ class Joiner
   end
 
   def self.join(path, config, index)
-    config.split("\n\n").each do |part|
+    parts = config.split("\n\n")
+    parts.each_with_index do |part, part_i|
       text = ''
       name = ''
       complex = false
-      part.split("\n").each do |page|
+      break_before = false
+      part.split("\n").each_with_index do |page, p|
         t, i, b, c = self.read_file(path, page, index)
-        puts i, b, c 
+        break_before = b if p == 0
         text = join_text(text, prefix(index, i), t, b)
         name += '_' + i
         complex = complex or c
       end
       filename = name + (complex ? 'c' : '') + '.tex'
+      next_page = parts.fetch(part_i + 1, '\n').lines.first
+      break_after = next_page.index('-') != nil
+      puts break_after
+
+      text = text.strip
+      text = "\\parcont{}\n" + text unless break_before
+      text += "\n\\parbreak{}" unless break_after
+      text += "\n"
+
       File.write(File.join(path, filename), text)
     end
   end
