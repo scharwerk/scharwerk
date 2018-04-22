@@ -9,6 +9,12 @@ class GitDb
   end
 
   def commit(pathes, message)
+    # fix white space
+    pathes.each do |path|
+      t = TextProcessing.new(File.read(path))
+      File.write(path, t.fix_white_space)
+    end
+
     @git.add(pathes)
     @git.commit(message)
     return :commited

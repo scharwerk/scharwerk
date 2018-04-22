@@ -49,11 +49,15 @@ class Task < ActiveRecord::Base
     stage.to_s + ' T' + id.to_s + ' U' + user.id.to_s
   end
 
+  def any_markup?
+    markup? or markup_complex?
+  end
+
   def commit
     return unless done?
 
-    pages.each(&:fix_white_space)
-    pathes = pages.collect(&:text_file_name)
+    pathes = any_markup? ? [tex_file_name] : pages.collect(&:text_file_name)
+
     status = GitDb.new.commit(pathes, commit_message)
 
     update(status: status)
@@ -64,6 +68,7 @@ class Task < ActiveRecord::Base
   end
 
   def validate
+    return if any_markup?
     return if last_changes_count < 11
     update(status: :reproof)
     duplicate

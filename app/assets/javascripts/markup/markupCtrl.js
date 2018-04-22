@@ -12,21 +12,6 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     $state.go('index');
     return ;
   }
-  
-  var submitModal = function() {
-    $modal.open({templateUrl: 'submitModal.html'}).result.then(function (getNext) {
-      tasks.finish(getNext).success(function () {
-        if (!getNext) {
-          $state.go('index');
-          return ;
-        };
-
-        updatePage(tasks.current.current_page);
-      });
-    }, function () {
-      $scope.goto(tasks.current.pages[0].id);
-    });
-  }
 
   var editor = null;
   $scope.aceLoaded = function(_editor) {
@@ -45,6 +30,19 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     editor.focus();
   };
 
+  $scope.submitModal = function() {
+    $modal.open({templateUrl: 'submitModal.html'}).result.then(function (getNext) {
+      tasks.finish(getNext).success(function () {
+        if (!getNext) {
+          $state.go('index');
+          return ;
+        };
+
+        updatePage(tasks.current.current_page);
+      });
+    });
+  }
+
   $scope.releaseModal = function () {
     $modal.open({templateUrl: 'releaseModal.html'}).result.then(function () {
       tasks.release().success(function () {
@@ -52,7 +50,6 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
       });
     });    
   }
-
 
   $scope.skipModal = function () {
     $modal.open({templateUrl: 'skipModal.html'}).result.then(function () {
@@ -93,10 +90,11 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
     $scope.preview = false;
   };
   
+  $scope.savedStatus = 'Зберегти';
   $scope.save = function() {
-    tasks.savePage($scope.id, $scope.text).success(function () {
-      $scope.savedStatus = 'Збережено. ';
-      $timeout(function () { $scope.savedStatus = '';}, 1000);
+    tasks.updateTex($scope.tex, false).success(function () {
+      $scope.savedStatus = 'Збережено.';
+      $timeout(function () { $scope.savedStatus = 'Зберегти'; }, 1000);
     });
   }
 

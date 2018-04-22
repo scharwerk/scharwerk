@@ -35,7 +35,8 @@
         <a ng-click="hidePreview();" class="button success">Редагувати</a>
       </div>
       <div class="columns small-4 text-center"> 
-        <a class="button success" ng-click="saveAndContinue()">Завершити сторінку</a>
+        <a class="button success" ng-hide="loading" ng-click="submitModal();">
+        Відправити фрагмент</a>
       </div>
       <div class="columns small-4">&nbsp;</div>
       
@@ -78,7 +79,7 @@
             </ul>
           </pane>
         </dropdown-toggle>
-        <a ng-click="save();" class="button primary">Зберегти</a>
+        <a ng-click="save();" class="button primary">{{ savedStatus }}</a>
         <a ng-click="showPreview();" class="button success"><b>Перегляд</b></a>
       </div>
       <div class="button-group">

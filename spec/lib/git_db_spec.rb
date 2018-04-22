@@ -20,7 +20,7 @@ RSpec.describe GitDb do
     g = Git.open(GitDb.path)
     p = write_text('test/1.txt', 'text')
     git = GitDb.new
-    git.commit(p, 'message')
+    git.commit([p], 'message')
 
     expect(git.latest_commit(p)).to eq(g.log[0].to_s)
   end
@@ -28,9 +28,9 @@ RSpec.describe GitDb do
   it 'show number of changes' do
     git = GitDb.new
     p = write_text('test/1.txt', "one two next\nthree")
-    git.commit(p, 'message')
+    git.commit([p], 'message')
     p = write_text('test/1.txt', "onetwo next\nfour")
-    git.commit(p, 'message')
+    git.commit([p], 'message')
     changes = git.last_changes(p)
 
     expect(changes[0]).to eq('-one two')
