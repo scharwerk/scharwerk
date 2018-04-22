@@ -22,7 +22,8 @@ class Task < ActiveRecord::Base
   enum status: { free: 0, active: 1, done: 2,
                  commited: 3, error: 4, unchanged: 5,
                  reproof: 6 }
-  enum stage: { test: 0, first_proof: 1, second_proof: 2, markup: 3 }
+  enum stage: { test: 0, first_proof: 1, second_proof: 2,
+                markup: 3, markup_complex: 4 }
   enum part: { book_1: 1, book_2: 2, book_3_1: 3, book_3_2: 4, franko: 5 }
   enum build: { undefined: 0, success: 1, fail: 2 }
 
