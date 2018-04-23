@@ -124,3 +124,29 @@ keyboard .tabs-panel {
 .ace_editor {
 	height: 100%;
 }
+
+.latex {
+	b {
+		font-weight: bold;
+		color: rgb(51, 51, 252);	
+	}
+}
+
+span.frac {
+  display: inline-block;
+  font-size: 50%;
+  text-align: center;
+}
+span.frac > sup {
+  display: block;
+  border-bottom: 1px solid;
+  font: inherit;
+}
+span.frac > sub {
+  display: block;
+  font: inherit;
+}
+
+.reveal.small {
+	width: 900px;
+}
