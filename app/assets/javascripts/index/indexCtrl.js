@@ -6,7 +6,8 @@ angular.module('scharwerk')
 'authentication',
 'stages',
 'tasks',
-function($sce, $scope, $window, authentication, stages, tasks){
+'$modal',
+function($sce, $scope, $window, authentication, stages, tasks, $modal){
 
   // hack for fb app
   isFacebook = window.location.pathname.includes('/fb');
@@ -54,6 +55,10 @@ function($sce, $scope, $window, authentication, stages, tasks){
     tasks.assign(stage).success(function () {
       tasks.updateCurrent();
     });
+  };
+  
+  $scope.manualModal = function () {
+    $modal.open({templateUrl: 'manuals/markup.html', size: 'small'});
   };
 
   $scope.task = tasks.current;

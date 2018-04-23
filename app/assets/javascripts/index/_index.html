@@ -9,57 +9,18 @@
 
 <div class="hero-row">
   <div class="arrow-column">
-    <div class="arrow-tip">
-    </div>
     <div class="arrow-text">
-      <h1>Марксів шарварок</h1>
-      <p>спільна підготовка видання<br />Марксового «Капіталу»</p>
+      <h1>Марксів «Капітал»</h1>
+      <p>спільна підготовка видання</p>
     </div>
   </div>
-
-  <div class="right-column" ng-show="!isAuthenticated">
-    <h4>Отримати фрагмент</h4>
-    <p>Щоб отримати новий фрагмент або повернутися до поточного, увійдіть через facebook</p>
-    <a ng-click="login();" class="button large primary expand">увійти через facebook</a>
-    <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
-  </div>
-
-  <div class="right-column" ng-show="isAuthenticated">
-    <h4>Вітаємо, {{ user.name }}!</h4>
-    <p>Ви <ng-pluralize count="current"
-              when="{'0': 'поки не завершили жодної сторінки',
-                     'one': 'вже завершили {} сторінку',
-                     'few': 'вже завершили {} сторінки',
-                     'many': 'вже завершили {} сторінок'}"></ng-pluralize>.
-      В середньому кожний, хто долучився, завершив 
-        <b><ng-pluralize count="avg"
-              when="{'one': '{} сторінку',
-                     'few': '{} сторінки',
-                     'many': '{} сторінок'}"></ng-pluralize></b>.
+  <div class="quote-column">
+    <p class="quote-text">
+      Я стидав би ся, — каже він, — сидіти, згорнувши руки,
+         коли всім навколо такі жнива, такий шарварок&hellip;
+         <i>Олесь Гончар</i>
     </p>
-    <div ng-show="!task.exists">
-      <p>Ви зараз не працюєте над фрагментом. 
-      Отримайте фрагмент з поточного етапу «<strong>Верстка</strong>».
-      </p>
-      <div ng-show="graphs.markup[0].free">
-        <a ng-click="assign('markup');" class="button large success">Oтримати фрагмент</a>
-        <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
-      </div>
-      <div ng-show="!graphs.markup[0].free">
-        <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
-      </div>
-    </div>
-    <div ng-show="task.exists">
-      <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»:</p>
-      <a href="https://шарварок.маркс.укр/#/markup" class="button large primary expand" target="_blank">перейти до фрагменту</a>
-      <p>
-        <span ng-if="!isFacebook"><a ng-click="logout()">Вийти</a> або </span>
-        <a ng-click="release();">Відмовитись від фрагменту</a>
-      </p>
-    </div>
-    
   </div>
-
 </div>
 
 <div class="text-row">
@@ -78,31 +39,62 @@
   </div>
   <div class="columns smalĺ-12 large-5 large-offset-1" >
     <h2>Як це працює?</h2>
+    <p>Ми точно відтворюємо оригінальні видання 30-х років. На перших двох етапах було вичитано більшість помилок автоматичного розпізнавання.</p>
+    <p>На поточному етапі ми верстаємо текст у системі LaTeX.
+    <a ng-click="manualModal();">інструкція</a></p>
     <p>Процес організований таким чином, що не потребує від користувача попередньої підготовки.</p>
-    <p>На першому етапі перевіряємо, чи текст правильно розпізнано.</p>
-    <div class="fb-video" data-href="https://www.facebook.com/marx.in.ua/videos/878402982310440/" data-width="400" data-show-text="false"><blockquote cite="https://www.facebook.com/marx.in.ua/videos/878402982310440/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/marx.in.ua/videos/878402982310440/">Як долучитися до Марксового «Капіталу»?</a>Posted by <a href="https://www.facebook.com/marx.in.ua/">Марксів «Капітал» українською</a> on Thursday, July 20, 2017</blockquote></div>
-    <p>Після цього ще три етапи до видання: коректура, верстка і фінальна коректура.</p>
+
+    <div ng-show="!isAuthenticated">
+      <h4>Отримати фрагмент</h4>
+      <p>Щоб отримати новий фрагмент або повернутися до поточного, увійдіть через facebook</p>
+      <a ng-click="login();" class="button large primary expand">увійти через facebook</a>
+      <p><small>* Ми нічого не публікуємо від вашого імені.</small></p>
+    </div>
+
+    <div ng-show="isAuthenticated">
+      <h4>Вітаємо, {{ user.name }}!</h4>
+      <p>Ви <ng-pluralize count="current"
+                when="{'0': 'поки не завершили жодної сторінки',
+                       'one': 'вже завершили {} сторінку',
+                       'few': 'вже завершили {} сторінки',
+                       'many': 'вже завершили {} сторінок'}"></ng-pluralize>.
+        В середньому кожний, хто долучився, завершив 
+          <b><ng-pluralize count="avg"
+                when="{'one': '{} сторінку',
+                       'few': '{} сторінки',
+                       'many': '{} сторінок'}"></ng-pluralize></b>.
+      </p>
+      <div ng-show="!task.exists">
+        <p>Ви зараз не працюєте над фрагментом. 
+        Отримайте фрагмент з поточного етапу «<strong>Верстка</strong>».
+        </p>
+        <div ng-show="graphs.markup[0].free">
+          <a ng-click="assign('markup');" class="button large success">Oтримати фрагмент</a>
+          <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
+        </div>
+        <div ng-show="!graphs.markup[0].free">
+          <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
+        </div>
+      </div>
+      <div ng-show="task.exists">
+        <p>Ви зараз працюєте над «<strong>{{ task.description }}</strong>»:</p>
+        <a href="https://шарварок.маркс.укр/#/markup" class="button large primary expand" target="_blank">перейти до фрагменту</a>
+        <p>
+          <span ng-if="!isFacebook"><a ng-click="logout()">Вийти</a> або </span>
+          <a ng-click="release();">Відмовитись від фрагменту</a>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="hero-row">
-  <div class="left-column">&nbsp;
-    <div class="left-column-text">
+<div class="text-row">
+  <div class="columns smalĺ-12 large-6">
+    <h2 ng-if="!isFacebook">Поточний прогрес</h2>
 
-      <h2 ng-if="!isFacebook">Поточний прогрес</h2>
-
-      <a ng-if="isFacebook" href="https://шарварок.маркс.укр/" class="button large primary expand" target="_blank">
+    <a ng-if="isFacebook" href="https://шарварок.маркс.укр/" class="button large primary expand" target="_blank">
         перейти до Марксового шарварку</a>
 
-    </div>
-  </div>
-
-  <div class="quote-column">
-      <p class="quote-text">
-        Я стидав би ся, — каже він, — сидіти, згорнувши руки,
-           коли всім навколо такі жнива, такий шарварок&hellip;
-           <i>Олесь Гончар</i>
-      </p>
   </div>
 </div>
 
@@ -201,7 +193,7 @@
 
 <div class="footer">
   <div class="row">
-    <div class="small-6 columns small-offset-6">
+    <div class="small-12 columns">
       <p>Шарварок — <a href="https://github.com/scharwerk/scharwerk" target="_blank">вільне програмне забезпечення</a></p>
     </div>
   </div>

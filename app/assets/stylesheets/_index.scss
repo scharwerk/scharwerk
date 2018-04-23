@@ -8,22 +8,17 @@ $index-colum-width: $index-page-width / 12;
 }
 
 .hero-row {
-	padding-top: $index-colum-width;
-
+	@include grid-row($columns: 2, $width: 100%);
+	background: $main-color;
 	p {
 		font-size: rem-calc(18px);
 	}
 
-	@include grid-row($columns: 2, $width: 100%);
-	
 	.arrow-column {
-		$arrow-width: rem-calc(135px);
-
 		@include grid-column(1);
-		background: $main-color;
-		height: $arrow-width * 2;
-		position: relative;
-		padding-right: 0 !important;
+		height: 7em;
+		
+		text-align: center;
 
 		p, h1 {
 			color: $primary-color-text;
@@ -33,23 +28,6 @@ $index-colum-width: $index-page-width / 12;
 			font-size: 2.7rem;
 			white-space: nowrap;
 		}
-
-		.arrow-text {
-			@include grid-column(100%);
-			@include vertical-align;
-
-	  		width: $index-colum-width * 6 - $arrow-width;
-	  		right: $arrow-width;
-		}
-
-		.arrow-tip {
-			height: 0;
-			width: 0;
-			float: right;
-			border-top: $arrow-width solid white;
-			border-left: $arrow-width solid transparent;
-	  		border-bottom: $arrow-width solid white;
-		}
 	}
 
 	.quote-column {
@@ -57,6 +35,7 @@ $index-colum-width: $index-page-width / 12;
 		@include grid-column-end;
 		background-color: $accent-color;
 		color: $primary-color-text;
+		height: 8em;
 
 		.quote-text {
 			width: $index-colum-width * 5;
@@ -64,29 +43,7 @@ $index-colum-width: $index-page-width / 12;
 			margin-top: rem-calc(16px); //magic
 		}
 	}
-
-	.left-column {
-		@include grid-column(1);
-		position: relative;
-		height: rem-calc(120px);
-		
-		.left-column-text {
-			width: $index-colum-width * 5;
-			@include vertical-align;
-
-	  		right: $index-colum-width;
-		}
-	}
-
-	.right-column {
-		@include grid-column(1);
-		@include grid-column-end;
-
-		margin-left: $index-colum-width;
-		width: $index-colum-width * 5;
-	}
 }
-
 
 .text-row {
 	padding-top: $index-colum-width;
