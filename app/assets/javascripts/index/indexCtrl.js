@@ -61,6 +61,10 @@ function($sce, $scope, $window, authentication, stages, tasks, $modal){
     $modal.open({templateUrl: 'manuals/markup.html', size: 'small'});
   };
 
+  $scope.screenModal = function () {
+    $modal.open({templateUrl: 'manuals/screen.markup.html', size: 'small'});
+  };
+
   $scope.task = tasks.current;
   $scope.graphs = stages.graphs;
 
