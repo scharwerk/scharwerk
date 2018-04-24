@@ -6,6 +6,7 @@
 
     <p>
     Майже всі необхідні символи є на панелі інструментів. Аби переглянути результат — натисніть кнопку перегляд. На сторінці перегляду є кнопка завершити фрагмент.
+    Аби <strong>завершити фрагмент і відправити натисніть кнопку «Відправити»</strong>.
     <a ng-click="manualModal()">Подробиці...</a>
     </p>
 
@@ -82,6 +83,7 @@
             </ul>
           </pane>
         </dropdown-toggle>
+        <a ng-click="submitModal();" class="button success split"><b>Відправити</b></a>
         <a ng-click="save();" class="button primary">{{ savedStatus }}</a>
         <a ng-click="showPreview();" class="button success"><b>Перегляд</b></a>
       </div>
@@ -89,12 +91,20 @@
         <a ng-click="insertTex('\\emph{#}');" class="button success split">
           <i>к</i>
         </a>
-        <a ng-click="insertTex('\\sfrac{}{#}');" class="button success split">
+        <a ng-click="insertTex('\\dots{}');" class="button success">…</a>
+        <a ng-click="insertTex('\\%');" class="button success">%</a>
+        <a ng-click="insertTex('--');" class="button success split">--</a>
+        <a ng-click="insertTex('\\sfrac{}{#}');" class="button success">
           <sup>2</sup>/<sub>3</sub>
         </a> 
-        <a ng-click="insertTex('\\dots{}');" class="button success split">
-          …
-        </a>
+        <a ng-click="insertTex('$#$');" title="формула" class="button success"><i>x = </i></a>
+        <a ng-click="insertTex('\\frac{#}{}');" title="дріб" class="button success">
+          <span class="frac">
+          <sup>2</sup>
+          <sub>3</sub>
+        </span></a>
+        <a ng-click="insertTex('\\text{#}');" title="текст у формулі" class="button success split">текст</a>
+
         <dropdown-toggle close-on-click="true">
           <toggle>
             <a class="button success dropdown">Заголвоки</a>
@@ -112,6 +122,9 @@
               </a></li>
               <li><a ng-click="insertTex('\\subsection{#}');">
                 ІІ. Підрозділ ...
+              </a></li>
+              <li><a ng-click="insertTex('\\subsubsection{#}');">
+                a. Підпідрозділ ...
               </a></li>
             </ul>
           </pane>
