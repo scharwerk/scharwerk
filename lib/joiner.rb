@@ -8,6 +8,7 @@ class Joiner
     index = name.split('.')[0]
     is_break = page.index('-') != nil
     complex = page.index('*') != nil
+
     return text, index, is_break, complex
   end
 
@@ -28,8 +29,9 @@ class Joiner
         break_before = b if p == 0
         text = join_text(text, prefix(index, i), t, b)
         name += '_' + i
-        complex = complex or c
+        complex = (complex or c)
       end
+
       filename = name + (complex ? 'c' : '') + '.tex'
       next_page = parts.fetch(part_i + 1, '\n').lines.first
       break_after = next_page.index('-') != nil
