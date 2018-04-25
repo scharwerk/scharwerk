@@ -12,7 +12,8 @@ class Joiner
   end
 
   def self.prefix(index, i)
-    "\n\\index{#{index}}{#{i}}\n"
+    i = i.gsub('!', '*') # ! is reserved in idexes
+    "\n\\index{#{index}}{#{i}}  \%\% посилання на сторінку оригінального видання \n"
   end
 
   def self.join(path, config, index)
@@ -34,8 +35,8 @@ class Joiner
       break_after = next_page.index('-') != nil
 
       text = text.strip
-      text = "\\parcont{}\n" + text unless break_before
-      text += "\n\\parbreak{}" unless break_after
+      text = "\\parcont{}  \%\% абзац починається на попередній сторінці \n" + text unless break_before
+      text += "\n\\parbreak{}  \%\% абзац продовжується на наступній сторінці" unless break_after
       text += "\n"
 
       File.write(File.join(path, filename), text)

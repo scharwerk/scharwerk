@@ -14,6 +14,8 @@ class TexProcessing
   end
   
   def self.footnotes_letter(text)
+    # there is a bug thet prevents to detext 221 note
+    # if 221a is present, but 221a works
     self.footnotes(text, bracket=false, letter=true)
   end
 
@@ -23,6 +25,10 @@ class TexProcessing
 
   def self.percent(text)
     text = text.gsub(/\s*\%/, '\\%')
+  end
+
+  def self.red(text)
+    text = text.gsub('Ред.', '\emph{Ред.}')
   end
 
   def self.fraction(text)
