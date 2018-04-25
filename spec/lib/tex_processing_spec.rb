@@ -105,8 +105,8 @@ RSpec.describe TexProcessing do
   end
 
   it 'makes fracs' do
-      source = 'sample 23/ 24 othe/12'
-      result = 'sample \sfrac{23}{24} othe/12'
+      source = 'sample 23/ 24 num 3 1/2 none /12'
+      result = 'sample \sfrac{23}{24} num 3\sfrac{1}{2} none /12'
 
       expect(TexProcessing.fraction(source)).to eq result
   end
@@ -123,6 +123,13 @@ RSpec.describe TexProcessing do
       result = '1*--2 II--X and — mdash'
 
       expect(TexProcessing.ndash(source)).to eq result
+  end
+
+  it 'escapes percent and removes space' do
+      source = " 4 \% 5\%"
+      result = " 4\\% 5\\%"
+
+      expect(TexProcessing.percent(source)).to eq result
   end
 
   describe '.footnotes_array' do

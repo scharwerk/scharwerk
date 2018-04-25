@@ -17,13 +17,13 @@ class TexProcessing
     text.gsub(/(.{1,100})(\s|\Z)/, "\\1\n")
   end
 
-  def self.escape(text)
-    # reserved chars # $ % ^ & _ { } ~ \
-    # \# \$ \% \^{} \& \_ \{ \} \~{} \textbackslash{}
+  def self.percent(text)
+    text = text.gsub(/\s*\%/, '\\%')
   end
 
   def self.fraction(text)
-    text.gsub(%r{(\d+)\s*/\s*(\d+)}, '\sfrac{\\1}{\\2}')
+    text = text.gsub(%r{(\d+)\s*/\s*(\d+)}, '\sfrac{\\1}{\\2}')
+    text.gsub(/(\d)\s*\\sfrac/, '\\1\sfrac')
   end
 
   def self.dots(text)
