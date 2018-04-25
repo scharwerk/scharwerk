@@ -61,6 +61,27 @@ RSpec.describe TexProcessing do
       end
     end
 
+    context 'with a sample text and letters footnotes' do
+      it 'insert footnote in proper places' do
+        source = "Here is text* line nil\n"\
+                 "Here is text 24a line one\n"\
+                 "Here is text line two\n"\
+                 "\n"\
+                 "24a Here is footnote line 1\n"\
+                 "Here is footnote line 2\n"\
+                 "\n"\
+                 "* Here is second footnote"
+
+        result = "Here is text\\footnote*{\nHere is second footnote\n} line nil\n"\
+                 "Here is text\\footnoteA{\n"\
+                 "Here is footnote line 1\n"\
+                 "Here is footnote line 2\n}"\
+                 " line one\n"\
+                 "Here is text line two"
+        expect(TexProcessing.footnotes(source, bracket=false, letter=true)).to eq result
+      end
+    end
+
     context 'with a sample text and bracket' do
       it 'insert footnote in proper places' do
         source = "Here is text* line nil\n"\
@@ -78,7 +99,7 @@ RSpec.describe TexProcessing do
                  "Here is footnote line 2\n}"\
                  " line one\n"\
                  "Here is text line two"
-        expect(TexProcessing.footnotes(source, true)).to eq result
+        expect(TexProcessing.footnotes(source, bracket=true)).to eq result
       end
     end
   end
@@ -99,6 +120,15 @@ RSpec.describe TexProcessing do
                    "Here is footnote line 2"
         expect(TexProcessing.footnote_id(footnote, true)).to eq [
           "24", "Here is footnote line 1\nHere is footnote line 2"
+        ]
+      end
+    end
+    context 'with letter' do
+      it 'return number ' do
+        footnote = "24г Here is footnote line 1\n"\
+                   "Here is footnote line 2"
+        expect(TexProcessing.footnote_id(footnote, false, true)).to eq [
+          "24г", "Here is footnote line 1\nHere is footnote line 2"
         ]
       end
     end
