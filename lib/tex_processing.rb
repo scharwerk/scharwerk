@@ -1,24 +1,5 @@
 # This is a class for automatic text upgrade
 class TexProcessing
-
-  def self.footnotes(text, bracket=false, letter=false)
-    text, *notes = TexProcessing.footnotes_array(text)
-    notes.each do |footnote|
-      text = TexProcessing.insert_footnote(text, footnote, bracket, letter)
-    end
-    text
-  end
-
-  def self.footnotes_bracket(text)
-    self.footnotes(text, bracket=true, letter=false)
-  end
-  
-  def self.footnotes_letter(text)
-    # there is a bug thet prevents to detext 221 note
-    # if 221a is present, but 221a works
-    self.footnotes(text, bracket=false, letter=true)
-  end
-
   def self.wrap100(text)
     text.gsub(/(.{1,100})(\s|\Z)/, "\\1\n")
   end
@@ -47,21 +28,77 @@ class TexProcessing
     text.gsub(/([IVX\*])—([\*IVX\*])/, '\\1--\\2')
   end
 
+  def self.footnotes(text, bracket = false, letter = false)
+    rest, *note_texts = footnotes_array(text)
+    notes = note_texts.collect do |full|
+      id, t = footnote_id(full, bracket, letter)
+      {full: full, id: id, text: t, 
+       type: footnote_type(id),
+       placehold: placehold(id, bracket)}
+    end
+
+    rest = insert_number_notes(rest, notes)
+    insert_ast_notes(rest, notes)
+    #puts rest
+    #re
+  end
+
+  def self.footnotes_bracket(text)
+    footnotes(text, true, false)
+  end
+
+  def self.footnotes_letter(text)
+    # there is a bug thet prevents to detext 221 note
+    # if 221a is present, but 221a works
+    footnotes(text, false, true)
+  end
+
   def self.footnote_type(id)
     return '\footnote*' if id.include?('*')
     return '\footnoteA' if id =~ /\p{L}/
     '\footnote'
   end
 
-  def self.insert_footnote(text, footnote, bracket=false, letter=false)
-    f_id, f_text = footnote_id(footnote, bracket, letter)
+  def self.placehold(id, bracket)
     br = bracket ? '\s*?\)?' : ''
-    placehold = Regexp.new ('([^\d\*])\s*' + Regexp.quote(f_id) + br + '([^\d\*])')
-    return text + "\n\n" + footnote unless text.scan(placehold).count == 1
+    Regexp.new ('([^\d\*])\s*' + Regexp.quote(id) + br + '(([^\d\*]|\Z))')
+  end
 
-    text.gsub(placehold) do |mark|
-      "#{$1}" + footnote_type(f_id) + "{\n#{f_text}\n}#{$2}"
+  def self.insert_number_notes(text, notes)
+    rest = []
+    notes.each do |note|
+      # only number notes
+      next if note[:type] == '\footnote*'
+      # if can't find
+      if text.scan(note[:placehold]).count != 1
+        text += "\n\n" + note[:full]
+        next
+      end
+      # random id
+      note[:id] = ('a'..'z').to_a.shuffle.join
+      text = text.gsub(note[:placehold], "#{$1}" + note[:id] + "#{$2}")
+      rest << note
     end
+    rest.each do |note|
+      text = text.gsub(note[:id], note[:type] + "{\n" + note[:text] + "\n}")
+    end
+    text
+  end
+
+  def self.insert_ast_notes(text, notes)
+    notes.each do |note|
+      next if note[:type] != '\footnote*'
+      # if can't find
+      if text.scan(note[:placehold]).count != 1
+        text += "\n\n" + note[:full]
+        next
+      end 
+
+      text = text.gsub(note[:placehold]) do 
+        "#{$1}" + note[:type] + "{\n#{note[:text]}\n}#{$2}"
+      end
+    end
+    text
   end
 
   def self.footnote_id(footnote, bracket=false, letter=false)
@@ -72,41 +109,7 @@ class TexProcessing
     return id, text
   end
 
-  def self.first_footnote_index(text)
-    ar_text = text.split(/\n/)
-    ar_text.each do |line|
-      return ar_text.find_index(line) if TexProcessing.footnote_line?(line)
-    end
-  end
-
-  def self.footnote_line?(line)
-    # return true if line is footnote
-    return false if line.match(/^\d\./) || line.match(/^\d\d\./)
-    return true if line.match(/^\d/) || line.match(/^\*/)
-    false
-  end
-
-  def self.grab_footnote_paragraph(text, line_number)
-    ar_text = text.split(/\n/)
-    ar_footnonte_paragraph = [ar_text[line_number]]
-    ar_text[(line_number+1)..-1].each do |line|
-      ar_footnonte_paragraph << line if !TexProcessing.footnote_line?(line)
-    end
-    ar_footnonte_paragraph.join("\n")
-  end
-
-
   def self.footnotes_array(text)
     text.split(/(?=\n\n[\d\*]+)\s*/)
-  end
-
-  def self.all_footnote_line_numbers(text)
-    footnote_text = TexProcessing.footnotes_only(text)
-    ar_footnote_line_numbers = []
-    ar_text = footnote_text.split(/\n/)
-    ar_text.each do |line|
-      ar_footnote_line_numbers << ar_text.find_index(line) if TexProcessing.footnote_line?(line)
-    end
-    ar_footnote_line_numbers
   end
 end

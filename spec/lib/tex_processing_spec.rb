@@ -102,6 +102,15 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.footnotes(source, bracket=true)).to eq result
       end
     end
+    context 'with a footnote in the end text' do
+      it 'insert footnote in proper places' do
+        source = "Text 22\n\n22 footnote"
+
+        result = "Text\\footnote{\nfootnote\n}"
+
+        expect(TexProcessing.footnotes(source)).to eq result
+      end
+    end
   end
 
   describe '.footnote_id' do
@@ -200,60 +209,4 @@ RSpec.describe TexProcessing do
     end
   end
 
-  describe '.footnote_line?' do
-    context 'with footnonte line' do
-      it 'return true' do
-        line = "18    У деякому відношенні ... стоїть так, як із товаром.\n"\
-
-        expect(TexProcessing.footnote_line?(line)).to eq true
-      end
-    end
-  end
-
-  describe '.grab_footnote_paragraph' do
-    context 'with complex text' do
-      it 'return single footnote' do
-        source = read_file('footnotes.simple.txt')
-        result = read_file('footnotes.simple.grab_footnote.txt')
-
-        expect(TexProcessing.grab_footnote_paragraph(source, 46)).to eq result
-      end
-    end
-  #   end
-    context 'with a one single line footnote' do
-      it 'return single footnote paragraph' do
-        source = "Here is text line 0\n"\
-                 "Here is text line 1\n"\
-                 "Here is text line 2\n"\
-                 "24 Here is footnote line 1"
-        result = "24 Here is footnote line 1"
-        expect(TexProcessing.grab_footnote_paragraph(source, 3)).to eq result
-      end
-    end
-    context 'with a one multiline footnote' do
-      it 'return single fotnote' do
-        source = "Here is text line 0\n"\
-                 "Here is text line 1\n"\
-                 "Here is text line 2\n"\
-                 "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2"
-        result = "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2"
-        expect(TexProcessing.grab_footnote_paragraph(source, 3)).to eq result
-      end
-    end
-    context 'with several multiline footnotes' do
-      it 'return single fotnote' do
-        source = "Here is text line 0\n"\
-                 "Here is text line 1\n"\
-                 "Here is text line 2\n"\
-                 "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2\n"\
-                 "* Here is new footnote"
-        result = "24 Here is footnote line 1\n"\
-                 "Here is footnote line 2"
-        expect(TexProcessing.grab_footnote_paragraph(source, 3)).to eq result
-      end
-    end
-  end
 end
