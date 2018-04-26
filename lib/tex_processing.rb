@@ -48,8 +48,6 @@ class TexProcessing
   end
 
   def self.footnotes_letter(text)
-    # there is a bug thet prevents to detext 221 note
-    # if 221a is present, but 221a works
     footnotes(text, false, true)
   end
 
@@ -61,7 +59,7 @@ class TexProcessing
 
   def self.placehold(id, bracket)
     br = bracket ? '\s*?\)?' : ''
-    Regexp.new ('([^\d\*])\s*' + Regexp.quote(id) + br + '(([^\d\*]|\Z))')
+    Regexp.new ('([^\d\*])\s*' + Regexp.quote(id) + br + '(([^\d\*aа]|\Z))')
   end
 
   def self.insert_number_notes(text, notes)

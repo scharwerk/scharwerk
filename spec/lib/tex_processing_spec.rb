@@ -111,6 +111,14 @@ RSpec.describe TexProcessing do
         expect(TexProcessing.footnotes(source)).to eq result
       end
     end
+    context 'with a num note footnote in the end text' do
+      it 'insert footnote in proper places' do
+        source = "one 22 two 22a three\n\n22 footnote\n\n22a footnotea"
+        result = "one\\footnote{\nfootnote\n} two\\footnoteA{\nfootnotea\n} three"
+
+        expect(TexProcessing.footnotes(source, false, true)).to eq result
+      end
+    end
   end
 
   describe '.footnote_id' do
