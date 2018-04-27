@@ -179,16 +179,9 @@ RSpec.describe TexProcessing do
       expect(TexProcessing.percent(source)).to eq result
   end
 
-  it 'wraps letter math' do
-      source = 'About but B or x,y,z and'
-      result = 'About but $B$ or $x$,$y$,$z$ and'
-
-      expect(TexProcessing.math_letter(source)).to eq result
-  end
-
   it 'wraps book 1 math' do
-      source = 'Товар Т\' але Т та Т — Г — Т\' '
-      result = 'Товар $Т\'$ але $Т$ та $Т — Г — Т\'$ '
+      source = 'Товар Т\' але Т — Г. та Т — Г — Т\' '
+      result = 'Товар $Т\'$ але $Т — Г$. $Т — Г — Т\'$ '
 
       expect(TexProcessing.math_1(source)).to eq result
   end

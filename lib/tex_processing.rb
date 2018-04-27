@@ -18,15 +18,17 @@ class TexProcessing
   end
 
   def self.math_letter(text)
-    'xyzwBC'.each_char do |l| 
-      r = Regexp.new '(\W)' + l + '(\W)'
-      text = text.gsub(r, '\\1$' + l + '$\\2')
-    end
+    # we don't use it beacuse 
+    # i make more errors then help
+    # 'xyzwBC'.each_char do |l| 
+    #   r = Regexp.new '(\W)' + l + '(\W)'
+    #   text = text.gsub(r, '\\1$' + l + '$\\2')
+    # end
     text
   end
 
   def self.math_1(text)
-    text.gsub(/(\s)([ТтГг][ТтГг'Δ\s\-\+\=—]*[ТтГг']*)([\s])/, '\\1$\\2$\\3')
+    text.gsub(/(\s)([ТтГг][ТтГг'Δ\s\-\+\=—]*[ТтГг'])([\s\W])/, '\\1$\\2$\\3')
   end
 
   def self.dots(text)
