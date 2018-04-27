@@ -187,8 +187,8 @@ RSpec.describe TexProcessing do
   end
 
   it 'wraps book 1 math' do
-      source = 'Товар але Т та Т — Г — Т\''
-      result = 'Товар але $Т$ та $Т — Г — Т\'$'
+      source = 'Товар Т\' але Т та Т — Г — Т\' '
+      result = 'Товар $Т\'$ але $Т$ та $Т — Г — Т\'$ '
 
       expect(TexProcessing.math_1(source)).to eq result
   end

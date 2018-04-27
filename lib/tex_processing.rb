@@ -26,7 +26,7 @@ class TexProcessing
   end
 
   def self.math_1(text)
-    text
+    text.gsub(/(\s)([ТтГг][ТтГг'Δ\s\-\+\=—]*[ТтГг']*)([\s])/, '\\1$\\2$\\3')
   end
 
   def self.dots(text)
