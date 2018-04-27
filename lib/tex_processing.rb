@@ -37,10 +37,10 @@ class TexProcessing
        placehold: placehold(id, bracket)}
     end
 
-    rest = insert_number_notes(rest, notes)
-    insert_ast_notes(rest, notes)
-    #puts rest
-    #re
+    # insert number notes
+    rest = insert_notes(rest, notes, ['\footnote', '\footnoteA'])
+    # insert asterics notes
+    insert_notes(rest, notes, ['\footnote*'])
   end
 
   def self.footnotes_bracket(text)
@@ -62,11 +62,11 @@ class TexProcessing
     Regexp.new ('([^\d\*])\s*' + Regexp.quote(id) + br + '(([^\d\*aа]|\Z))')
   end
 
-  def self.insert_number_notes(text, notes)
+  def self.insert_notes(text, notes, types)
     rest = []
     notes.each do |note|
       # only number notes
-      next if note[:type] == '\footnote*'
+      next unless types.include? note[:type]
       # if can't find
       if text.scan(note[:placehold]).count != 1
         text += "\n\n" + note[:full]
@@ -79,22 +79,6 @@ class TexProcessing
     end
     rest.each do |note|
       text = text.gsub(note[:id], note[:type] + "{\n" + note[:text] + "\n}")
-    end
-    text
-  end
-
-  def self.insert_ast_notes(text, notes)
-    notes.each do |note|
-      next if note[:type] != '\footnote*'
-      # if can't find
-      if text.scan(note[:placehold]).count != 1
-        text += "\n\n" + note[:full]
-        next
-      end 
-
-      text = text.gsub(note[:placehold]) do 
-        "#{$1}" + note[:type] + "{\n#{note[:text]}\n}#{$2}"
-      end
     end
     text
   end
