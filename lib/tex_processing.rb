@@ -33,7 +33,7 @@ class TexProcessing
 
   def self.dots(text)
     text = text.gsub(/…/, '...')
-    text = text.gsub(/\.{5,}/, '\dotfil')
+    text = text.gsub(/\.{5,}/, '\dotfill')
     text.gsub(/\.{3,}/, '\dots{}')
   end
 
