@@ -179,6 +179,20 @@ RSpec.describe TexProcessing do
       expect(TexProcessing.percent(source)).to eq result
   end
 
+  it 'wraps letter math' do
+      source = 'About but B or x,y,z and'
+      result = 'About but $B$ or $x$,$y$,$z$ and'
+
+      expect(TexProcessing.math_letter(source)).to eq result
+  end
+
+  it 'wraps book 1 math' do
+      source = 'Товар але Т та Т — Г — Т\''
+      result = 'Товар але $Т$ та $Т — Г — Т\'$'
+
+      expect(TexProcessing.math_1(source)).to eq result
+  end
+
   describe '.footnotes_array' do
     context 'with a sample text' do
       it 'return array of footnote' do

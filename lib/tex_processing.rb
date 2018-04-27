@@ -17,6 +17,18 @@ class TexProcessing
     text.gsub(/(\d)\s*\\sfrac/, '\\1\sfrac')
   end
 
+  def self.math_letter(text)
+    'xyzwBC'.each_char do |l| 
+      r = Regexp.new '(\W)' + l + '(\W)'
+      text = text.gsub(r, '\\1$' + l + '$\\2')
+    end
+    text
+  end
+
+  def self.math_1(text)
+    text
+  end
+
   def self.dots(text)
     text = text.gsub(/…/, '...')
     text = text.gsub(/\.{5,}/, '\dotfil')
