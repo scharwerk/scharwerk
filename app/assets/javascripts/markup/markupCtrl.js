@@ -33,7 +33,7 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   $scope.submitModal = function() {
     $modal.open({templateUrl: 'submitModal.html'}).result.then(function (getNext) {
       $scope.tex = editor.getValue();
-      tasks.updateTex($scope.tex, true).success(function () {
+      tasks.updateTex($scope.tex, false).success(function () {
         tasks.finish(getNext).success(function () {
           if (!getNext) {
             $state.go('index');

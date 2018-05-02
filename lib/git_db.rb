@@ -21,6 +21,7 @@ class GitDb
   rescue Git::GitExecuteError => e
     return :unchanged if e.message.include? 'nothing to commit'
     return :unchanged if e.message.include? 'nothing added to commit'
+    return :unchanged if e.message.include? 'no changes added to commit'
 
     raise
   end
