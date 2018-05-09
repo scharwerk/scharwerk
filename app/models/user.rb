@@ -89,7 +89,10 @@ class User < ActiveRecord::Base
   end
 
   def self.stats_users
-     #
-     # User.joins(tasks: :pages).where('tasks.status IN (3, 5, 6)').select('users.*, COUNT(pages.*) AS pages_count').group('users.id').order('pages_count DESC').each { |u| puts u.name, u.pages_count }
+    joins(tasks: :pages)
+      .where('tasks.status IN (3, 5, 6)')
+      .select('users.name as name, COUNT(pages.*) AS done')
+      .group('users.id')
+      .order('done DESC')
   end
 end

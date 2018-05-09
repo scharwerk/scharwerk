@@ -28,13 +28,13 @@
     <h2>Подяка!</h2>
     <p>Цей проект був би неможливий без тих, хто долучився до спільної роботи.
       Наразі до спільної підготовки видання Марксового «Капіталу»  
-        <b><ng-pluralize count="usersCount"
+        <b><ng-pluralize count="top.length"
               when="{'one': 'долучилась вже {} людина',
                      'few': 'долучилось вже {} людини',
-                     'many': 'долучилось вже {} людей'}"></ng-pluralize>.</b>
-      {{ top.length }} — завершили хоча б один фрагмент (за кількістю завершених сторінок):</p>
+                     'many': 'долучилось вже {} людей'}"></ng-pluralize></b>
+      (за кількістю завершених сторінок):</p>
     <p class="top-list">
-      <span ng-repeat="user in top">{{ user.name }}&nbsp;<sup>{{ user.tasks }}</sup></span>
+      <span ng-repeat="user in top">{{ user.name }}&nbsp;<sup>{{ user.done }}</sup></span>
     </p>
   </div>
   <div class="columns smalĺ-12 large-5 large-offset-1" >
