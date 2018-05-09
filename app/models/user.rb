@@ -25,16 +25,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :rememberable, :trackable
   has_many :tasks
 
-  def done_tasks
-    done_statuses = [Task.statuses[:commited],
-                     Task.statuses[:unchanged],
-                     Task.statuses[:reproof]]
-    tasks.where('status IN (?)', done_statuses)
-  end
-
   def total_pages_done
-    tasks_ids = done_tasks.pluck(:id)
-    Page.where(task_id: tasks_ids).count
+    tasks.joins(:pages).where('tasks.status IN (?)', Task.done_statuses).count
   end
 
   def pages_done
@@ -94,5 +86,10 @@ class User < ActiveRecord::Base
     user.update(token: access_token)
 
     [status, user]
+  end
+
+  def self.stats_users
+     #
+     # User.joins(tasks: :pages).where('tasks.status IN (3, 5, 6)').select('users.*, COUNT(pages.*) AS pages_count').group('users.id').order('pages_count DESC').each { |u| puts u.name, u.pages_count }
   end
 end

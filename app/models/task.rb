@@ -137,6 +137,10 @@ class Task < ActiveRecord::Base
     File.read(tex_file_name)
   end
 
+  def self.done_statuses
+    [statuses[:commited], statuses[:unchanged], statuses[:reproof]]
+  end
+
   def images
     url = Rails.configuration.x.data.preview_url
     Dir[images_path + '/*'].collect do |image|
