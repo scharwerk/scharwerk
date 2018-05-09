@@ -88,10 +88,10 @@ class User < ActiveRecord::Base
     [status, user]
   end
 
-  def self.stats_users
-    joins(tasks: :pages)
-      .where('tasks.status IN (3, 5, 6)')
-      .select('users.name as name, COUNT(pages.*) AS done')
+  def self.stats_users(stages=nil)
+    t = joins(tasks: :pages).where('tasks.status IN (?)', Task.done_statuses)
+    t = t.where('tasks.stage IN (?)', stages) if stages
+    t.select('users.name as name, COUNT(pages.*) AS done')
       .group('users.id')
       .order('done DESC')
   end

@@ -34,4 +34,9 @@ class StatsController < ApplicationController
 
     render json: result
   end
+
+  def markup
+    markup = [Task.stages[:markup], Task.stages[:markup_complex]]
+    render json: User.stats_users(markup)
+  end
 end
