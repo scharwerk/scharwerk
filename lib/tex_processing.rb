@@ -31,6 +31,14 @@ class TexProcessing
     text.gsub(/(\s)([ТтГг][ТтГг'Δ\s\-\+\=—]*[ТтГг'])([\s\W])/, '\\1$\\2$\\3')
   end
 
+  def self.math_2(text)
+    text.gsub(/([cvm\d\s\/\+\=]*[cvm])([\s\W])/) do 
+      e = $2
+      $1.gsub(/^(\s*)(.*)/, '\\1$\\2$' + e)
+    end
+  end
+
+
   def self.dots(text)
     text = text.gsub(/…/, '...')
     text = text.gsub(/\.{5,}/, '\dotfill')

@@ -160,7 +160,7 @@ RSpec.describe TexProcessing do
 
   it 'fixes dots' do
       source = 'table ....... 1 not table.... \n not table 2...'
-      result = 'table \dotfil 1 not table\dots{} \n not table 2\dots{}'
+      result = 'table \dotfill 1 not table\dots{} \n not table 2\dots{}'
 
       expect(TexProcessing.dots(source)).to eq result
   end
@@ -181,9 +181,17 @@ RSpec.describe TexProcessing do
 
   it 'wraps book 1 math' do
       source = 'Товар Т\' але Т — Г. та Т — Г — Т\' '
-      result = 'Товар $Т\'$ але $Т — Г$. $Т — Г — Т\'$ '
+      result = 'Товар $Т\'$ але $Т — Г$. та $Т — Г — Т\'$ '
 
       expect(TexProcessing.math_1(source)).to eq result
+  end
+
+  it 'wraps book 2 math' do
+      source = 'в II (v + m) мануфактурі 100 = v + m (де m = зискові капіталіста)'
+      result = 'в II ($v + m$) мануфактурі $100 = v + m$ (де $m$ = зискові капіталіста)'
+
+
+      expect(TexProcessing.math_2(source)).to eq result
   end
 
   describe '.footnotes_array' do
