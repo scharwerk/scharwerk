@@ -74,9 +74,9 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   $scope.manualModal = function () {
     $modal.open({
       templateUrl: 'manuals/markup.html',
-      controller: function ($scope) {
+      controller: ["$scope", function ($scope) {
         $scope.complex = (tasks.current.stage == 'markup_complex');
-      },
+      }],
       size: 'small'});
   };
   
