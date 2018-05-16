@@ -70,9 +70,17 @@
         </p>
         <div ng-show="graphs.markup[0].free">
           <a ng-click="assign('markup');" class="button large success">Oтримати фрагмент</a>
-          <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
         </div>
         <div ng-show="!graphs.markup[0].free">
+          <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
+        </div>
+        <p>Якщо у вас є досвід в LaTeX, або ви зробили декілька звичайних сторінок, ви можете спробувати себе у <strong>верстці складніших сторінок</strong>. В складніших сторінках стрічаються таблиці та формули, для яких в нас немає готових рецептів.
+        </p>
+        <div ng-show="graphs.markup_complex[0].free">
+          <a ng-click="assign('markup_complex');" class="button large success">Oтримати складніший фрагмент</a>
+          <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
+        </div>
+        <div ng-show="!graphs.markup_complex[0].free">
           <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
         </div>
       </div>
