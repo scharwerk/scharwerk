@@ -72,7 +72,12 @@ function($scope, $state, tasks, task, $anchorScroll, $modal, $timeout){
   };
 
   $scope.manualModal = function () {
-    $modal.open({templateUrl: 'manuals/markup.html', size: 'small'});
+    $modal.open({
+      templateUrl: 'manuals/markup.html',
+      controller: function ($scope) {
+        $scope.complex = (tasks.current.stage == 'markup_complex');
+      },
+      size: 'small'});
   };
   
   $scope.showPreview = function () {
