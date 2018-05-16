@@ -90,7 +90,7 @@ class Task < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    methods = if markup?
+    methods = if any_markup?
                 %i(description tex images)
               else
                 %i(description progress current_page)
