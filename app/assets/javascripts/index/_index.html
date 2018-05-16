@@ -168,10 +168,30 @@
       </p>
       <p>
         <b>Наразі <ng-pluralize count="graphs.markup[0].finished"
-              when="{'one': 'завершена {} фрагмент',
+              when="{'one': 'завершено {} фрагмент',
                      'few': 'завершено {} фрагменти',
                      'many': 'завершено {} фрагментів'}"></ng-pluralize>
         з {{ graphs.markup[0].total }}</b>.
+      </p>
+    </div>  
+  </div>
+  <div class="text-row">
+    <div class="left-column">
+      <div class="chart">
+        <pie-chart data='graphs.markup_complex' options='options'></pie-chart>
+      </div>
+    </div>
+    <div class="right-column">
+      <h4>3*. Верстка складних фрагментів</h4>
+      <p>
+        Фрагменти з таблицями та складними формулами.
+      </p>
+      <p>
+        <b>Наразі <ng-pluralize count="graphs.markup_complex[0].finished"
+              when="{'one': 'завершено {} фрагмент',
+                     'few': 'завершено {} фрагменти',
+                     'many': 'завершено {} фрагментів'}"></ng-pluralize>
+        з {{ graphs.markup_complex[0].total }}</b>.
       </p>
     </div>  
   </div>
