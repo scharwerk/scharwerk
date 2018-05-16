@@ -179,16 +179,23 @@ RSpec.describe TexProcessing do
       expect(TexProcessing.percent(source)).to eq result
   end
 
-  it 'wraps book 1 math' do
+  skip it 'wraps book 1 math' do
       source = 'Товар Т\' але Т — Г. та Т — Г — Т\' '
       result = 'Товар $Т\'$ але $Т — Г$. та $Т — Г — Т\'$ '
 
       expect(TexProcessing.math_1(source)).to eq result
   end
 
+  it 'wraps z p ' do
+      source = 'Т < Р Зп$'
+      result = 'Т \splitfrac{Р}{Зп}$'
+
+      expect(TexProcessing.r_zp(source)).to eq result
+  end
+
   it 'wraps book 2 math' do
-      source = 'в II (v + m) мануфактурі 100 = v + m (де m = зискові капіталіста)'
-      result = 'в II ($v + m$) мануфактурі $100 = v + m$ (де $m$ = зискові капіталіста)'
+      source = 'Princ. 1859 в II (v + m) мануфактурі 100 = v + m (де m = зискові капіталіста)'
+      result = 'Princ. 1859 в II ($v + m$) мануфактурі $100 = v + m$ (де m = зискові капіталіста)'
 
 
       expect(TexProcessing.math_2(source)).to eq result

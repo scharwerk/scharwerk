@@ -28,16 +28,18 @@ class TexProcessing
   end
 
   def self.math_1(text)
-    text.gsub(/(\s)([ТтГг][ТтГг'Δ\s\-\+\=—]*[ТтГг'])([\s\W])/, '\\1$\\2$\\3')
+    text.gsub(/(\s)([ТтГгПпР][ТтГгПпРЗ'Δ…\<\.\s\-\+\=—]*[ТтГгПпР'])([\s\W])/, '\\1$\\2$\\3')
   end
-
+  
   def self.math_2(text)
-    text.gsub(/([cvm\d\s\/\+\=]*[cvm])([\s\W])/) do 
-      e = $2
-      $1.gsub(/^(\s*)(.*)/, '\\1$\\2$' + e)
+    text.gsub(/([cvm\d][cvm\d\s\/\+\=]{2,}[cvm])/, '$\\1$') do 
     end
   end
 
+  def self.r_zp(text)
+    text = text.gsub(/\<?\s+[PР]\s+Зп/, '\splitfrac{Р}{Зп}')
+    text.gsub(/\<?\s+Зп\s+[PР]/, '\splitfrac{Р}{Зп}')
+  end
 
   def self.dots(text)
     text = text.gsub(/…/, '...')
