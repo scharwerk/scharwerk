@@ -56,7 +56,7 @@ namespace :scharwerk do
       next if user.notification_message.blank?
 
       params[:ref], msg = user.notification_message
-      params[:template] = format('%s%s', user.facebook_id, msg)
+      params[:template] = format('@[%s], %s', user.facebook_id, msg)
       puts params
 
       # if no key continue
