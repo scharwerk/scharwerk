@@ -15,10 +15,12 @@ RSpec.describe TaskManager do
 
   it 'generate tasks' do
     make_tex('test/_0001_0002c.tex', '\\latex')
+
     task = TaskManager.generate_task3('test/*', 'franko')[0]
     expect(task.path).to eq('test/_0001_0002c')
     expect(task.tex).to eq('\\latex')
     expect(task.part).to eq('franko')
+    expect(task.order).to eq(task.id)
 
     expect(task.pages.count).to eq 2
     expect(task.pages[1].image).to eq '/files/images/test/0002.jpg'
