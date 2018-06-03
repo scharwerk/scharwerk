@@ -19,8 +19,8 @@ class GitDb
     @git.commit(message)
     return :commited, latest_commit(pathes.last)
   rescue Git::GitExecuteError => e
-    return :unchanged if e.message.include? 'nothing to commit'
-    return :unchanged if e.message.include? 'nothing added to commit'
+    return :unchanged, nil if e.message.include? 'nothing to commit'
+    return :unchanged, nil if e.message.include? 'nothing added to commit'
 
     raise
   end
