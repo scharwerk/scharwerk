@@ -36,4 +36,14 @@ RSpec.describe GitDb do
     expect(changes[0]).to eq('-one two')
     expect(changes.count).to eq(4)
   end
+  describe '#commit' do
+    it 'return string with commit id, as 2 element' do
+      g = Git.open(GitDb.path)
+      p = write_text('test/1.txt', 'text')
+      git = GitDb.new
+      ar = git.commit([p], 'message')
+
+      expect(ar[1].class).to eq(String)
+    end
+  end
 end

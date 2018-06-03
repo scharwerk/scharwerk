@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421151556) do
+ActiveRecord::Schema.define(version: 20180517043006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180421151556) do
     t.integer  "order"
     t.string   "path"
     t.integer  "build",      default: 0, null: false
+    t.string   "commit_id"
   end
 
   add_index "tasks", ["order"], name: "index_tasks_on_order", using: :btree
