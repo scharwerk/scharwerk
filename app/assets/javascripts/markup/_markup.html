@@ -88,9 +88,10 @@
         <a ng-click="showPreview();" class="button success"><b>Перегляд</b></a>
       </div>
       <div class="button-group">
-        <a ng-click="insertTex('\\emph{#}');" class="button success split">
+        <a ng-click="insertTex('\\emph{#}');" title="курсив" class="button success">
           <i>к</i>
         </a>
+        <a ng-click="insertTex('\\so{#}');" title="р о з р я д к а" class="button success split">р</a>
         <a ng-click="insertTex('\\dots{}');" class="button success">…</a>
         <a ng-click="insertTex('\\%');" class="button success">%</a>
         <a ng-click="insertTex('--');" class="button success split">--</a>
@@ -100,9 +101,17 @@
         <a ng-click="insertTex('$#$');" title="формула" class="button success"><i>x = </i></a>
         <a ng-click="insertTex('\\frac{#}{}');" title="дріб" class="button success">
           <span class="frac">
-          <sup>2</sup>
-          <sub>3</sub>
+          <span class="topfrac">2</span>
+          <span class="bottomfrac">3</span>
         </span></a>
+        <a ng-click="insertTex('\\splitfrac{#}{}');" title="дріб" class="button success">
+          &lt;
+          <span class="frac">
+            <span class="topfrac_no_border">Р</span>
+            <span class="bottomfrac">Зп</span>
+          </span>
+        </span></a>
+
         <a ng-click="insertTex('\\text{#}');" title="текст у формулі" class="button success split">текст</a>
 
         <dropdown-toggle close-on-click="true">
@@ -126,6 +135,9 @@
               <li><a ng-click="insertTex('\\subsubsection{#}');">
                 a. Підпідрозділ ...
               </a></li>
+              <li><a ng-click="insertTex('\\subsubsection{#}');">
+                1) Підпідрозділ у томі ІІ
+              </a></li>
             </ul>
           </pane>
         </dropdown-toggle>
@@ -143,6 +155,13 @@
               </a></li>
               <li><a ng-click="insertTex('\\footnote*{#}');">
                 <sup>**</sup> Редакторська примітка
+              </a></li>
+              <li>Примітки у заголовках:</li>
+              <li><a ng-click="insertTex('\\footnotemark{} % ця мітка у заголовку \n\\footnotetext{#} % текст примітки прямо під заголовком\n');">
+                <sup>11</sup> Авторська примітка
+              </a></li>
+              <li><a ng-click="insertTex('\\footnotemarkZ{} % ця мітка у заголовку \n\\footnotetextZ{#} % текст примітки прямо під заголовком\n');">
+                <sup>*</sup> Редакторська примітка
               </a></li>
             </ul>
           </pane>

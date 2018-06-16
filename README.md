@@ -94,6 +94,7 @@ Visit http://46.101.228.108/
 
     RAILS_ENV=production rake scharwerk:generate_tasks_3['franko/_*','franko']
     RAILS_ENV=production rake scharwerk:generate_tasks_3['i/_*','book_1']
+    RAILS_ENV=production rake scharwerk:generate_tasks_3['ii/_*','book_2']
 
 * Send fb notifications
 
