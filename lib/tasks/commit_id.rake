@@ -12,14 +12,13 @@ namespace :commit_id do
       end
     rescue StandardError => exc
       logger.error("Message for the log file #{exc.message}")
-      puts "Probably no such path in git log"
+      puts 'Probably no such path in git log'
     end
   end
 
   desc 'remove all commit_id from DB'
   task :remove_from_db => :environment do
     Task.all.where.not(commit_id: nil).each do |task|
-
       task.commit_id = nil
       task.save
     end
