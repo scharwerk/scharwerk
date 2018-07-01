@@ -8,7 +8,8 @@ angular.module('scharwerk')
     return $http.get('/stats/tasks.json').success(function(data){
       angular.forEach(data, function(stage, key) {
         // temporary fix
-         stage.total = stage.total + 500;
+        // add 254 to markup and 35 to markup complex
+        stage.total = stage.total + ((key == 'markup') ? 254 : 35);
         // check if undefined and summ
         finished = (stage.commited || 0) + (stage.unchanged || 0) + (stage.reproof || 0);
         console.log(finished);

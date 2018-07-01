@@ -137,12 +137,16 @@ span.frac {
   font-size: 50%;
   text-align: center;
 }
-span.frac > sup {
+span.frac > .topfrac {
   display: block;
   border-bottom: 1px solid;
   font: inherit;
 }
-span.frac > sub {
+span.frac > .topfrac_no_border {
+  display: block;
+  font: inherit;
+}
+span.frac > .bottomfrac {
   display: block;
   font: inherit;
 }

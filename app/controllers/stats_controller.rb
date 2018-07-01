@@ -22,21 +22,21 @@ class StatsController < ApplicationController
   end
 
   def users
-    result = { top: [] }
-
-    User.all.each do |user|
-      if user.done_tasks.count > 0
-        result[:top] << { name: user.name, tasks: user.total_pages_done }
-      end
-    end
-    result[:top].sort_by! { |k| -k[:tasks] }
-    result[:users] = User.all.count
+    result = { 
+      top: User.stats_users,
+      users: User.all.count
+    }
 
     result[:current] = current_user.total_pages_done if current_user
 
     # calculate total number of finished pages
-    result[:total] = result[:top].inject(0) { |a, e| a + e[:tasks] }
+    result[:total] = result[:top].inject(0) { |a, e| a + e[:done] }
 
     render json: result
+  end
+
+  def markup
+    markup = [Task.stages[:markup], Task.stages[:markup_complex]]
+    render json: User.stats_users(markup)
   end
 end

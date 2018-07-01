@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'login' => 'users#login'
   get 'stats/tasks'
   get 'stats/users'
+  get 'stats/markup'
 
   post 'fb' => 'application#fb'
   get 'fb' => 'application#fb'

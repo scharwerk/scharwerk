@@ -28,13 +28,13 @@
     <h2>Подяка!</h2>
     <p>Цей проект був би неможливий без тих, хто долучився до спільної роботи.
       Наразі до спільної підготовки видання Марксового «Капіталу»  
-        <b><ng-pluralize count="usersCount"
+        <b><ng-pluralize count="top.length"
               when="{'one': 'долучилась вже {} людина',
                      'few': 'долучилось вже {} людини',
-                     'many': 'долучилось вже {} людей'}"></ng-pluralize>.</b>
-      {{ top.length }} — завершили хоча б один фрагмент (за кількістю завершених сторінок):</p>
+                     'many': 'долучилось вже {} людей'}"></ng-pluralize></b>
+      (за кількістю завершених сторінок):</p>
     <p class="top-list">
-      <span ng-repeat="user in top">{{ user.name }}&nbsp;<sup>{{ user.tasks }}</sup></span>
+      <span ng-repeat="user in top">{{ user.name }}&nbsp;<sup>{{ user.done }}</sup></span>
     </p>
   </div>
   <div class="columns smalĺ-12 large-5 large-offset-1" >
@@ -70,9 +70,17 @@
         </p>
         <div ng-show="graphs.markup[0].free">
           <a ng-click="assign('markup');" class="button large success">Oтримати фрагмент</a>
-          <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
         </div>
         <div ng-show="!graphs.markup[0].free">
+          <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
+        </div>
+        <p>Якщо у вас є досвід в LaTeX, або ви зробили декілька звичайних сторінок, ви можете спробувати себе у <strong>верстці складніших сторінок</strong>. В складніших сторінках стрічаються таблиці та формули, для яких в нас немає готових рецептів.
+        </p>
+        <div ng-show="graphs.markup_complex[0].free">
+          <a ng-click="assign('markup_complex');" class="button large success">Oтримати складніший фрагмент</a>
+          <p><a ng-click="logout()" ng-if="!isFacebook">Вийти</a></p>
+        </div>
+        <div ng-show="!graphs.markup_complex[0].free">
           <p>На щастя, всі фрагменти поточного етапу вже в роботі!</p>
         </div>
       </div>
@@ -168,10 +176,30 @@
       </p>
       <p>
         <b>Наразі <ng-pluralize count="graphs.markup[0].finished"
-              when="{'one': 'завершена {} фрагмент',
+              when="{'one': 'завершено {} фрагмент',
                      'few': 'завершено {} фрагменти',
                      'many': 'завершено {} фрагментів'}"></ng-pluralize>
         з {{ graphs.markup[0].total }}</b>.
+      </p>
+    </div>  
+  </div>
+  <div class="text-row">
+    <div class="left-column">
+      <div class="chart">
+        <pie-chart data='graphs.markup_complex' options='options'></pie-chart>
+      </div>
+    </div>
+    <div class="right-column">
+      <h4>3*. Верстка складних фрагментів</h4>
+      <p>
+        Фрагменти з таблицями та складними формулами.
+      </p>
+      <p>
+        <b>Наразі <ng-pluralize count="graphs.markup_complex[0].finished"
+              when="{'one': 'завершено {} фрагмент',
+                     'few': 'завершено {} фрагменти',
+                     'many': 'завершено {} фрагментів'}"></ng-pluralize>
+        з {{ graphs.markup_complex[0].total }}</b>.
       </p>
     </div>  
   </div>
