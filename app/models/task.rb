@@ -58,9 +58,9 @@ class Task < ActiveRecord::Base
 
     pathes = any_markup? ? [tex_file_name] : pages.collect(&:text_file_name)
 
-    status = GitDb.new.commit(pathes, commit_message)
+    status, commit_id = GitDb.new.commit(pathes, commit_message)
 
-    update(status: status)
+    update(status: status, commit_id: commit_id)
     validate
   rescue Git::GitExecuteError
     update(status: :error)

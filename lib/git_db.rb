@@ -17,11 +17,13 @@ class GitDb
 
     @git.add(pathes)
     @git.commit(message)
-    return :commited
+    return :commited, latest_commit(pathes.last)
   rescue Git::GitExecuteError => e
+
     return :unchanged if e.message.include? 'nothing to commit'
     return :unchanged if e.message.include? 'nothing added to commit'
     return :unchanged if e.message.include? 'no changes added to commit'
+
 
     raise
   end
