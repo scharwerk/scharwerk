@@ -5,13 +5,12 @@ namespace :commit_id do
   task :save_to_db => :environment do
     begin
       Task.all.where(commit_id: nil).each do |task|
-        path = task.pages.first.text_file_name if task.pages
+        path = task.pages.first.text_file_name if task.pages.first
 
         task.commit_id = GitDb.new.latest_commit(path) if path
         task.save
       end
-    rescue StandardError => exc
-      logger.error("Message for the log file #{exc.message}")
+    rescue Git::GitExecuteError => exc
       puts 'Probably no such path in git log'
     end
   end
