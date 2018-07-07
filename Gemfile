@@ -61,4 +61,6 @@ group :development do
   gem 'spring'
 
   gem 'annotate'
+  # for cup db:pull (recreate your local db from server)
+  gem "capistrano-db-tasks", require: false
 end
