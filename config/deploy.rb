@@ -2,6 +2,11 @@ require 'capistrano-db-tasks'
 
 # if you haven't already specified
 set :rails_env, "production"
+set :application, 'scharwerk'
+set :rails_env,     "production"
+
+set :deploy_to, "/home/rails/scharwerk"
+
 
 # if you want to remove the local dump file after loading
 set :db_local_clean, true
