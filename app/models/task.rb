@@ -106,7 +106,7 @@ class Task < ActiveRecord::Base
   end
 
   def duplicate
-    task = Task.create(stage: stage, part: part, order: order)
+    task = Task.create(stage: stage, part: part, order: order, path: path)
     pages.each { |p| task.pages.create(path: p.path) }
     restrictions.each { |r| task.restrictions.create(user: r.user) }
     task.restrictions.create(user: user)

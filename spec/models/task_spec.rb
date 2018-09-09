@@ -133,6 +133,7 @@ RSpec.describe Task, type: :model do
 
     expect(task.status).to eq 'reproof'
     expect(task2.status).to eq 'free'
+    expect(task2.path).to eq 'test/1'
     expect(task2.order).to eq 100
     expect(task2.user).to eq nil
   end
