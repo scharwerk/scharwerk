@@ -32,9 +32,15 @@ class GitDb
     @git.log(1).object(path).first.to_s
   end
 
-  def last_changes(path)
-    commit = latest_commit(path)
+  def word_diff(commit)
     lines = @git.lib.diff_full(commit + '^!', '--word-diff=porcelain')
     lines.split(/\n+/).grep(/^[\+\-][^\+\-]/)
+  end
+
+  def line_diff_count(commit)
+    diff = @git.lib.diff_full(commit + '^!', '--shortstat')
+    changes = diff.split(',')
+    print(changes)
+    changes[1].split()[0].to_i + changes[2].split()[0].to_i
   end
 end

@@ -31,11 +31,23 @@ RSpec.describe GitDb do
     git.commit([p], 'message')
     p = write_text('test/1.txt', "onetwo next\nfour")
     git.commit([p], 'message')
-    changes = git.last_changes(p)
+    changes = git.word_diff(git.latest_commit(p))
 
     expect(changes[0]).to eq('-one two')
     expect(changes.count).to eq(4)
   end
+  
+  it 'show number of line changed' do
+    git = GitDb.new
+    p = write_text('test/1.txt', "one two next\nthree")
+    git.commit([p], 'message')
+    p = write_text('test/1.txt', "onetwo next\nfour")
+    git.commit([p], 'message')
+    changes = git.line_diff_count(git.latest_commit(p))
+
+    expect(changes).to eq(4)
+  end
+
   describe '#commit' do
     it 'return commit id, with correct length' do
       g = Git.open(GitDb.path)
