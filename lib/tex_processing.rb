@@ -75,6 +75,10 @@ class TexProcessing
     footnotes(text, false, true)
   end
 
+  def self.footnotes_simple(text)
+    footnotes(text, false, false)
+  end
+
   def self.footnote_type(id)
     return '\footnote*' if id.include?('*')
     return '\footnoteA' if id =~ /\p{L}/
