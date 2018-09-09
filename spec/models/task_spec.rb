@@ -58,7 +58,18 @@ RSpec.describe Task, type: :model do
     task.commit
 
     expect(g.log[0].message).to start_with('test ')
+    expect(task.commit_id.length).to eq(40)
   end
+
+  it 'commits tex files' do
+    g = Git.init(Rails.configuration.x.data.git_path.to_s)
+
+    task = Task.create(status: :done, user: User.create, stage: :markup, path: 'test/4', tex: '\\latex')
+    task.commit
+
+    expect(task.commit_id.length).to eq(40)
+  end
+
 
   it 'commit only done' do
     Git.init(Rails.configuration.x.data.git_path.to_s)
@@ -102,6 +113,28 @@ RSpec.describe Task, type: :model do
     expect(task2.order).to eq task.order
     expect(task2.restrictions.count).to eq 2
     expect(task2.pages.first.path).to eq 'test/1'
+  end
+
+  it 'creates reproof markup task' do
+    task = Task.create(status: :done,
+                       user: User.create,
+                       path: 'test/1',
+                       part: :book_1,
+                       stage: :markup,
+                       order: 100)
+    task.tex = 'tex1'
+    task.commit
+    
+    allow_any_instance_of(GitDb).to receive(:line_diff_count).and_return(26)
+
+    task.update(status: :done)
+    task.tex = 'tex2'
+    task2 = task.commit
+
+    expect(task.status).to eq 'reproof'
+    expect(task2.status).to eq 'free'
+    expect(task2.order).to eq 100
+    expect(task2.user).to eq nil
   end
 
   it 'creates reproof task' do

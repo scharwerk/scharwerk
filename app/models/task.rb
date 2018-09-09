@@ -68,8 +68,8 @@ class Task < ActiveRecord::Base
   end
 
   def validate
-    return if any_markup?
-    return if word_diff_count < 11
+    return if (markup? && line_diff_count < 25) ||
+              ((not any_markup?) && word_diff_count < 11)
     update(status: :reproof)
     duplicate
   end
