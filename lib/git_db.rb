@@ -40,7 +40,6 @@ class GitDb
   def line_diff_count(commit)
     diff = @git.lib.diff_full(commit + '^!', '--shortstat')
     changes = diff.split(',')
-    print(changes)
     changes[1].split()[0].to_i + changes[2].split()[0].to_i
   end
 end

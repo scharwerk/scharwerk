@@ -69,7 +69,7 @@ class Task < ActiveRecord::Base
 
   def validate
     return if any_markup?
-    return if last_changes_count < 11
+    return if word_diff_count < 11
     update(status: :reproof)
     duplicate
   end
@@ -79,10 +79,14 @@ class Task < ActiveRecord::Base
     total ? BigDecimal.new(pages.done.size) / total : 1
   end
 
-  def last_changes_count
+  def word_diff_count
     return 0 unless commited?
-    path = pages.first.text_file_name
-    GitDb.new.last_changes(path).count
+    GitDb.new.word_diff(commit_id).count
+  end
+
+  def line_diff_count
+    return 0 unless commited?
+    GitDb.new.line_diff_count(commit_id)
   end
 
   def current_page
