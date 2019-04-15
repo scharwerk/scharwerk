@@ -4,6 +4,23 @@ class TexProcessing
     text.gsub(/(.{1,100})(\s|\Z)/, "\\1\n")
   end
 
+  def self.gsub(text, r, &block)
+    r = Regexp.new r
+    left, right = '', text
+    while m = r.match(right) do
+      left += right[0..m.begin(0) - 1]
+      center = yield(m)
+      right = right[m.end(0)..-1]
+      # print preview
+      left_p = left[-10..-1] || left
+      puts('-' + (left_p + m[0] + right[0..10]).gsub(/\n/, '\n'))
+      puts('+' + (left_p + center + right[0..10]).gsub(/\n/, '\n'))
+
+      left += center
+    end
+    left + right
+  end
+
   def self.percent(text)
     text = text.gsub(/\s*\%/, '\\%')
   end
@@ -11,6 +28,7 @@ class TexProcessing
   def self.red(text)
     text = text.gsub('Ред.', '\emph{Ред.}')
   end
+
 
   def self.fraction(text)
     text = text.gsub(%r{(\d+)\s*/\s*(\d+)}, '\sfrac{\\1}{\\2}')

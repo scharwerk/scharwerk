@@ -201,6 +201,13 @@ RSpec.describe TexProcessing do
       expect(TexProcessing.math_2(source)).to eq result
   end
 
+  it 'gsubs text' do
+      source = "text 1\nother 2"
+      result = "text (1)\nother (2)"
+      t = TexProcessing.gsub(source, '\d') {|m| '(' + m[0] + ')'}
+      expect(t).to eq result
+  end
+
   describe '.footnotes_array' do
     context 'with a sample text' do
       it 'return array of footnote' do
