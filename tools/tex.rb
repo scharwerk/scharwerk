@@ -7,6 +7,7 @@ require_relative '../lib/tex_processing'
 method, path = ARGV
 
 Dir[path].each do |file|
+  puts(file)
   tex = TexProcessing.method(method).call(File.read(file))
   File.write(file, tex)
 end

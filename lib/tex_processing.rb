@@ -4,21 +4,27 @@ class TexProcessing
     text.gsub(/(.{1,100})(\s|\Z)/, "\\1\n")
   end
 
-  def self.gsub(text, r, &block)
+  def self.gsub(text, r, preview = 20)
     r = Regexp.new r
     left, right = '', text
     while m = r.match(right) do
-      left += right[0..m.begin(0) - 1]
+      left += right[0..m.begin(0) - 1] if m.begin(0) > 0
       center = yield(m)
       right = right[m.end(0)..-1]
       # print preview
-      left_p = left[-10..-1] || left
-      puts('-' + (left_p + m[0] + right[0..10]).gsub(/\n/, '\n'))
-      puts('+' + (left_p + center + right[0..10]).gsub(/\n/, '\n'))
+      left_p = left[-preview..-1] || left
+      puts('-' + (left_p + m[0] + right[0..preview]).gsub(/\n/, ' '))
+      puts('+' + (left_p + center + right[0..preview]).gsub(/\n/, ' '))
 
       left += center
     end
     left + right
+  end
+
+  def self.pounds(text)
+    gsub(text, '(\d)\s*(фунт[[:word:]]*\s+стер[[:word:]]*)') do |m|
+      '%s\pound{ %s}' % [m[1], m[2]]
+    end
   end
 
   def self.percent(text)

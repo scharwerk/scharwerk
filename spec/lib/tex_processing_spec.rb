@@ -202,9 +202,16 @@ RSpec.describe TexProcessing do
   end
 
   it 'gsubs text' do
-      source = "text 1\nother 2"
-      result = "text (1)\nother (2)"
+      source = "0 text 1\nother 2"
+      result = "(0) text (1)\nother (2)"
       t = TexProcessing.gsub(source, '\d') {|m| '(' + m[0] + ')'}
+      expect(t).to eq result
+  end
+
+  it 'pounds text' do
+      source = "3 фунти стерлінґів сто фунти стерлінґів"
+      result = "3\\pound{ фунти стерлінґів} сто фунти стерлінґів"
+      t = TexProcessing.pounds(source)
       expect(t).to eq result
   end
 
