@@ -48,6 +48,8 @@ in file. Start by:
     start sidekiq index=0
     sudo service sidekiq restart index=0
 
+Run Latex docker from root!
+
 Logs in /var/log/upstart/sidekiq-0.log
 
 Get new version:
