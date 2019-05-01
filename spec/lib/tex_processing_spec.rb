@@ -215,6 +215,13 @@ RSpec.describe TexProcessing do
       expect(t).to eq result
   end
 
+  it 'nums wrap text' do
+      source = "3.123 2.000.000 1895"
+      result = "\\num{3.123} \\num{2.000.000} 1895"
+      t = TexProcessing.numbers(source)
+      expect(t).to eq result
+  end
+
   describe '.footnotes_array' do
     context 'with a sample text' do
       it 'return array of footnote' do

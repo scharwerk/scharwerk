@@ -27,6 +27,12 @@ class TexProcessing
     end
   end
 
+  def self.numbers(text)
+    gsub(text, '[\d\.]*\d\.\d\d\d') do |m|
+      '\num{%s}' % [m[0]]
+    end
+  end
+
   def self.percent(text)
     text = text.gsub(/\s*\%/, '\\%')
   end
