@@ -36,6 +36,13 @@ class TexProcessing
     end
   end
 
+  def self.abbrs(text)
+    text = gsub(text, '(\d)\s*(рр?\.)') { |m| '%s~\abbr{%s}' % [m[1], m[2]] }
+    text = gsub(text, '\s*(т\.\s+д\.)') { |m| '~\abbr{%s}' % [m[1]] }
+    text = gsub(text, '\s*(т\.\s+ін\.)') { |m| '~\abbr{%s}' % [m[1]] }
+    text = gsub(text, '\!\.\.') { '\elli{!..}' }
+  end
+
   def self.numbers(text)
     gsub(text, '[\d\.]*\d\.\d\d\d') do |m|
       '\num{%s}' % [m[0]]

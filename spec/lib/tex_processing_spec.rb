@@ -222,6 +222,18 @@ RSpec.describe TexProcessing do
       expect(t).to eq result
   end
 
+  it 'abbrs text' do
+      source = "в 1823 р. ввесь Протягом 1855, 1856 і 1857 рр. "
+      result = "в 1823~\\abbr{р.} ввесь Протягом 1855, 1856 і 1857~\\abbr{рр.} "
+      t = TexProcessing.abbrs(source)
+      expect(t).to eq result
+      
+      source = "унції й т. ін., грошей і т. д. Addio!.. 7 "
+      result = "унції й~\\abbr{т. ін.}, грошей і~\\abbr{т. д.} Addio\\elli{!..} 7 "
+      t = TexProcessing.abbrs(source)
+      expect(t).to eq result  
+  end
+
   it 'nums wrap text' do
       source = "3.123 2.000.000 1895"
       result = "\\num{3.123} \\num{2.000.000} 1895"
