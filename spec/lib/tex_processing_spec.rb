@@ -215,6 +215,13 @@ RSpec.describe TexProcessing do
       expect(t).to eq result
   end
 
+  it 'shil pence text' do
+      source = "1 шилінґ 5 пенсів. 1\\sfrac{1}{2} шилінґи "
+      result = "1\\shil{ шилінґ} 5\\pens{ пенсів.} 1\\sfrac{1}{2}\\shil{ шилінґи} "
+      t = TexProcessing.shilling(source)
+      expect(t).to eq result
+  end
+
   it 'nums wrap text' do
       source = "3.123 2.000.000 1895"
       result = "\\num{3.123} \\num{2.000.000} 1895"

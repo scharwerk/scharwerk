@@ -27,6 +27,15 @@ class TexProcessing
     end
   end
 
+  def self.shilling(text)
+    text = gsub(text, '(\d\}?)\s*(шилін[[:word:]]*\.?)') do |m|
+      '%s\shil{ %s}' % [m[1], m[2]]
+    end
+    gsub(text, '(\d\}?)\s*(пенс[[:word:]]*\.?)') do |m|
+      '%s\pens{ %s}' % [m[1], m[2]]
+    end
+  end
+
   def self.numbers(text)
     gsub(text, '[\d\.]*\d\.\d\d\d') do |m|
       '\num{%s}' % [m[0]]
