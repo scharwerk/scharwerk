@@ -215,6 +215,13 @@ RSpec.describe TexProcessing do
       expect(t).to eq result
   end
 
+  it 'shoprt names ~' do
+      source = "Mr. J. H. Otway Дж. Елліс"
+      result = "Mr.~J.~H.~Otway Дж.~Елліс"
+      t = TexProcessing.short_names(source)
+      expect(t).to eq result
+  end
+
   it 'shil pence text' do
       source = "1 шилінґ 5 пенсів. 1\\sfrac{1}{2} шилінґи "
       result = "1\\shil{ шилінґ} 5\\pens{ пенсів.} 1\\sfrac{1}{2}\\shil{ шилінґи} "
@@ -240,6 +247,21 @@ RSpec.describe TexProcessing do
       t = TexProcessing.numbers(source)
       expect(t).to eq result
   end
+
+  it 'nums split_brackets' do
+      source = "\\fisrt{texx {inside}} rest"
+      t = TexProcessing.split_brackets(source)
+      expect(t[0]).to eq "\\fisrt{texx {inside}}"
+      expect(t[1]).to eq " rest"
+  end
+
+  it 'move_notes' do
+      source = "text, \\footnote{\\emph{К. Marx} test} rest"
+      result = "text\\footnote{\\emph{К. Marx} test}, rest"
+      t = TexProcessing.move_notes(source)
+      expect(t).to eq result
+  end
+
 
   describe '.footnotes_array' do
     context 'with a sample text' do

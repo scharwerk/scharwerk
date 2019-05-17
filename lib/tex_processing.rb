@@ -4,6 +4,36 @@ class TexProcessing
     text.gsub(/(.{1,100})(\s|\Z)/, "\\1\n")
   end
 
+  def self.split_brackets(text)
+    c = 1
+    (text.index('{') + 1 .. text.length ).each do |i|
+      c = c + 1 if text[i] == '{'
+      c = c - 1 if text[i] == '}'
+      return text[0..i], text[i + 1 .. -1] if c == 0
+    end
+  end
+
+  def self.move_notes(text)
+    count = text.scan(/footnote/).length
+    count.times do 
+      text = gsub(text, /([\.\,])\s*(\\footnote.*)/m) do |m|
+        r = split_brackets(m[2])
+        r[0] + m[1] + r[1]
+      end
+    end
+    text
+  end
+
+  def self.short_names(text)
+    # do it twice
+    text = gsub(text, '([[:upper:]][[:lower:]]?\.)\s([[:upper:]])') do |m|
+      '%s~%s' % [m[1], m[2]]
+    end
+    gsub(text, '([[:upper:]][[:lower:]]?\.)\s([[:upper:]])') do |m|
+      '%s~%s' % [m[1], m[2]]
+    end 
+  end
+
   def self.gsub(text, r, preview = 20)
     r = Regexp.new r
     left, right = '', text
