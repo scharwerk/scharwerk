@@ -222,6 +222,13 @@ RSpec.describe TexProcessing do
       expect(t).to eq result
   end
 
+  it 'signs' do
+      source = "1 + 2 = 3"
+      result = "1 \\dplus{} 2 \\deq{} 3"
+      t = TexProcessing.signs(source)
+      expect(t).to eq result
+  end
+
   it 'shil pence text' do
       source = "1 шилінґ 5 пенсів. 1\\sfrac{1}{2} шилінґи "
       result = "1\\shil{ шилінґ} 5\\pens{ пенсів.} 1\\sfrac{1}{2}\\shil{ шилінґи} "

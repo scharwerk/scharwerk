@@ -34,6 +34,11 @@ class TexProcessing
     end 
   end
 
+  def self.signs(text)
+    text = gsub(text, '(\s)\=') { |m| m[1] + '\deq{}' }
+    text = gsub(text, '(\s)\+') { |m| m[1] + '\dplus{}' }
+  end
+
   def self.gsub(text, r, preview = 20)
     r = Regexp.new r
     left, right = '', text
