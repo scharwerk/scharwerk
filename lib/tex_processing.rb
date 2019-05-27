@@ -39,6 +39,11 @@ class TexProcessing
     text = gsub(text, '(\s)\+') { |m| m[1] + '\dplus{}' }
   end
 
+  def self.parcont_fix(text)
+    gsub(text, '\\A\\\\[^p].*?$') { |m| m[0] + "\n" }
+  end
+  
+
   def self.gsub(text, r, preview = 20)
     r = Regexp.new r
     left, right = '', text
