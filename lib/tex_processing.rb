@@ -42,7 +42,10 @@ class TexProcessing
   def self.parcont_fix(text)
     gsub(text, '\\A\\\\[^p].*?$') { |m| m[0] + "\n" }
   end
-  
+
+  def self.index_n_fix(text)
+    gsub(text, '(\\\\index.*?$\\n)\\n') { |m| "\n" + m[1] }
+  end  
 
   def self.gsub(text, r, preview = 20)
     r = Regexp.new r
