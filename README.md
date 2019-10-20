@@ -4,18 +4,18 @@
 
 Das Scharwerk is distributed publishing system.
 
-Book digitalization workflow:
+Book digitization workflow::
 
-1. Admin load book screenshots and raw scanned text.
-2. Proof reading. On the stage users compare text in editor with scans.
-3. Latex markap. The text editor contain basic latex commands, for more specific tasks like tables use pure latex.
+1. Set up. Admin load book screenshots and raw scanned text.
+2. Proof reading. On this stage, users compare text in editor with scans.
+3. Latex markup. The text editor contain basic latex commands, for more specific tasks like tables use pure latex.
 
 ## Technical background of the project
 
-* We use Rails for backend and Angular 1 for frontend
+* Rails for backend and Angular 1 for frontend
 * We use github as text storage, and version control system
-* Authorization via Facebook only
-* For background processing we use Sidekiq(it commits texts to github assyncroniusly)
+* Login via Facebook only
+* For background processing we use Sidekiq(it commits texts to github asynchronously)
 
 ## How to start local
 
