@@ -22,25 +22,4 @@ RSpec.describe User, type: :model do
     t2.pages.create
     expect(user.total_pages_done).to eq 2
   end
-
-  describe 'user notification' do
-    user = User.create
-
-    it 'shows users with no task' do
-      status, _text = user.notification_message
-      expect(status).to eq(:none)
-    end
-
-    it 'shows users with active task' do
-      Task.create(status: :active, user: user)
-      status, _text = user.notification_message
-      expect(status).to eq(:active)
-    end
-
-    it 'shows users with recent task' do
-      Task.create(status: :commited, user: user)
-      status, _text = user.notification_message
-      expect(status).to eq(:recent)
-    end
-  end
 end
