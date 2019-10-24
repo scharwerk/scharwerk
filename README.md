@@ -1,6 +1,21 @@
 # Das Scharwerk
 
+## About the project
+
 Das Scharwerk is distributed publishing system.
+
+Book digitization workflow::
+
+1. Set up. Admin load book screenshots and raw scanned text.
+2. Proof reading. On this stage, users compare text in editor with scans.
+3. Latex markup. The text editor contain basic latex commands, for more specific tasks like tables use pure latex.
+
+## Technical background of the project
+
+* Rails for backend and Angular 1 for frontend
+* We use github as text storage, and version control system
+* Login via Facebook only
+* For background processing we use Sidekiq(it commits texts to github asynchronously)
 
 ## How to start local
 
@@ -20,7 +35,7 @@ Please, before push to github run in console, in your project folder:
     rubocop
 
 ## test
-    
+
     bundle exec rspec
 
 ## migration
