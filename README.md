@@ -1,5 +1,7 @@
 # Das Scharwerk
 
+![latex editor](documentation/editor.jpg)
+
 ## About the project
 
 Das Scharwerk is distributed publishing system.
@@ -9,6 +11,8 @@ Book digitization workflow::
 1. Set up. Admin load book screenshots and raw scanned text.
 2. Proof reading. On this stage, users compare text in editor with scans.
 3. Latex markup. The text editor contain basic latex commands, for more specific tasks like tables use pure latex.
+
+![final preview](documentation/compiled.jpg)
 
 ## Technical background of the project
 
@@ -112,12 +116,6 @@ Visit http://46.101.228.108/
     RAILS_ENV=production rake scharwerk:generate_tasks_3['franko/_*','franko']
     RAILS_ENV=production rake scharwerk:generate_tasks_3['i/_*','book_1']
     RAILS_ENV=production rake scharwerk:generate_tasks_3['ii/_*','book_2']
-
-* Send fb notifications
-
-    . /etc/default/unicorn
-    RAILS_ENV=production bundle exec rake scharwerk:notify_fb['APP_ID','SECRET','']
-
 
 * Unassigne abandoned tasks(without changes for 20 days)
 
