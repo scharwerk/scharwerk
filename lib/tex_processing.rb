@@ -70,6 +70,14 @@ class TexProcessing
     end
   end
 
+  def self.pounds2(text)
+    gsub(text, '([\d\}\$])\s*(ф\.\s*сте?р?л?)\.(\s*)(\S?)') do |m|
+      pat = '%s\pound{ %s.}%s%s'
+      pat = '%s\pound{ %s}.%s%s' if (m[3].include? "\n\n") | (!!m[4].match(/\p{Upper}/))
+      pat % [m[1], m[2], m[3], m[4]]
+    end
+  end
+
   def self.shilling(text)
     text = gsub(text, '(\d\}?)\s*(шилін[[:word:]]*\.?)') do |m|
       '%s\shil{ %s}' % [m[1], m[2]]
