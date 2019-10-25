@@ -215,6 +215,18 @@ RSpec.describe TexProcessing do
       expect(t).to eq result
   end
 
+  it 'pounds text in book 2' do
+    expect(TexProcessing.pounds2(
+      '2000 ф. стерл. і складається 422 ф. стерл. Отже,')
+    ).to eq '2000\pound{ ф. стерл.} і складається 422\pound{ ф. стерл}. Отже,'
+    expect(TexProcessing.pounds2(
+      '78$ ф. стерл. + ЗЗЗ \sfrac{1}{3} ф. стерл.')
+    ).to eq '78$\pound{ ф. стерл.} + ЗЗЗ \sfrac{1}{3}\pound{ ф. стерл.}'
+    expect(TexProcessing.pounds2(
+      "78 ф. ст.\n\nдалі")
+    ).to eq "78\\pound{ ф. ст}.\n\nдалі"
+  end
+
   it 'shoprt names ~' do
       source = "Mr. J. H. Otway Дж. Елліс"
       result = "Mr.~J.~H.~Otway Дж.~Елліс"
