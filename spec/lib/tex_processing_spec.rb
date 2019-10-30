@@ -284,17 +284,24 @@ RSpec.describe TexProcessing do
   it 'fixes parcont' do
       source = "\\index{i}{0006}\nТому величина"
       result = "\\index{i}{0006}\n\nТому величина"
-      t = TexProcessing.parcont_fix(source)
+      t = TexProcessing._parcont_fix(source)
       expect(t).to eq result
   end
 
-  it 'fixes parcont' do
+  it 'fixes index' do
       source = "\\index{i}{0006}\n\nТому величина"
       result = "\n\\index{i}{0006}\nТому величина"
-      t = TexProcessing.index_n_fix(source)
+      t = TexProcessing._index_n_fix(source)
       expect(t).to eq result
   end
-  
+
+  it 'fixes index at the beginning' do
+      source = "\\index{i}{0006}\nТому величина"
+      result = "\n\\index{i}{0006}\nТому величина"
+      t = TexProcessing.start_index(source)
+      expect(t).to eq result
+  end
+
   describe '.footnotes_array' do
     context 'with a sample text' do
       it 'return array of footnote' do
