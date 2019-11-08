@@ -39,13 +39,20 @@ class TexProcessing
     text = gsub(text, '(\s)\+') { |m| m[1] + '\dplus{}' }
   end
 
-  def self.parcont_fix(text)
+  def self._parcont_fix(text)
     gsub(text, '\\A\\\\[^p].*?$') { |m| m[0] + "\n" }
   end
 
-  def self.index_n_fix(text)
+  def self._index_n_fix(text)
     gsub(text, '(\\\\index.*?$\\n)\\n') { |m| "\n" + m[1] }
-  end  
+  end
+
+  def self.start_index(text)
+    # fixes issue with index and parcont
+    # in the beginning if file
+    text = _parcont_fix(text)
+    text = _index_n_fix(text)
+  end
 
   def self.gsub(text, r, preview = 20)
     r = Regexp.new r
@@ -67,6 +74,14 @@ class TexProcessing
   def self.pounds(text)
     gsub(text, '(\d)\s*(фунт[[:word:]]*\s+стер[[:word:]]*)') do |m|
       '%s\pound{ %s}' % [m[1], m[2]]
+    end
+  end
+
+  def self.pounds2(text)
+    gsub(text, '([\d\}\$])\s*(ф\.\s*сте?р?л?)\.(\s*)(\S?)') do |m|
+      pat = '%s\pound{ %s.}%s%s'
+      pat = '%s\pound{ %s}.%s%s' if (m[3].include? "\n\n") | (!!m[4].match(/\p{Upper}/))
+      pat % [m[1], m[2], m[3], m[4]]
     end
   end
 

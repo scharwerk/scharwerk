@@ -215,6 +215,18 @@ RSpec.describe TexProcessing do
       expect(t).to eq result
   end
 
+  it 'pounds text in book 2' do
+    expect(TexProcessing.pounds2(
+      '2000 ф. стерл. і складається 422 ф. стерл. Отже,')
+    ).to eq '2000\pound{ ф. стерл.} і складається 422\pound{ ф. стерл}. Отже,'
+    expect(TexProcessing.pounds2(
+      '78$ ф. стерл. + ЗЗЗ \sfrac{1}{3} ф. стерл.')
+    ).to eq '78$\pound{ ф. стерл.} + ЗЗЗ \sfrac{1}{3}\pound{ ф. стерл.}'
+    expect(TexProcessing.pounds2(
+      "78 ф. ст.\n\nдалі")
+    ).to eq "78\\pound{ ф. ст}.\n\nдалі"
+  end
+
   it 'shoprt names ~' do
       source = "Mr. J. H. Otway Дж. Елліс"
       result = "Mr.~J.~H.~Otway Дж.~Елліс"
@@ -272,17 +284,24 @@ RSpec.describe TexProcessing do
   it 'fixes parcont' do
       source = "\\index{i}{0006}\nТому величина"
       result = "\\index{i}{0006}\n\nТому величина"
-      t = TexProcessing.parcont_fix(source)
+      t = TexProcessing._parcont_fix(source)
       expect(t).to eq result
   end
 
-  it 'fixes parcont' do
+  it 'fixes index' do
       source = "\\index{i}{0006}\n\nТому величина"
       result = "\n\\index{i}{0006}\nТому величина"
-      t = TexProcessing.index_n_fix(source)
+      t = TexProcessing._index_n_fix(source)
       expect(t).to eq result
   end
-  
+
+  it 'fixes index at the beginning' do
+      source = "\\index{i}{0006}\nТому величина"
+      result = "\n\\index{i}{0006}\nТому величина"
+      t = TexProcessing.start_index(source)
+      expect(t).to eq result
+  end
+
   describe '.footnotes_array' do
     context 'with a sample text' do
       it 'return array of footnote' do
