@@ -94,9 +94,10 @@ How to use tex processing tools.
 1. Add method into lib/tasks/tex_processing.rb, it is plain old ruby not a rake task
 
 2. Run the task from console, you should be in specific folder /tools
+```
 ruby tex.rb <your_method_name> <path_plus_files_to_proceed>
 ruby tex.rb fix_smith ~/projects/das-kapital/tex/ii/_\*.tex
-
+```
 
 # Loadind data
 
