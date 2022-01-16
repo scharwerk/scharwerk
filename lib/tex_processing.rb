@@ -226,4 +226,8 @@ class TexProcessing
   def self.footnotes_array(text)
     text.split(/(?=\n\n[\d\*]+)\s*/)
   end
+
+  def self.fix_smith(text)
+    text = text.gsub(/Сміс/, 'Сміт')
+  end
 end
